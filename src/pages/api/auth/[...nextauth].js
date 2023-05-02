@@ -21,7 +21,7 @@ export const authOptions = {
   callbacks: {
     async session({ session, user }) {
       session.user.id = user.id;
-      const dbUser = await prisma.user.findFirst({
+      const dbUser = await client.user.findFirst({
         where: {
           id: user.id,
         },
@@ -45,7 +45,7 @@ export const authOptions = {
         })
         .then(async (customer) => {
           // Use the Prisma Client to update the user in the database with their new Stripe customer ID
-          return prisma.user.update({
+          return client.user.update({
             where: { id: user.id },
             data: {
               stripeCustomerId: customer.id,

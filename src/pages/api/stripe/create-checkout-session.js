@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import Stripe from "stripe";
 import { authOptions } from "../auth/[...nextauth]";
+import client from "../../../../prisma/client";
 
 export default async (req, res) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -20,10 +21,18 @@ export default async (req, res) => {
     });
   }
 
+  // console.log(session.user);
+  const dbUser = await client.user.findFirst({
+    where: {
+      id: session.user.id,
+    },
+  });
+  // console.log(dbUser);
+
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "subscription",
     /* This is where the magic happens - this line will automatically link this Checkout page to the existing customer we created when the user signed-up, so that when the webhook is called our database can automatically be updated correctly.*/
-    customer: session.user.stripeCustomerId,
+    customer: dbUser.stripeCustomerId,
     line_items: [
       {
         price: "price_1N3KkSSI8yYgzwHV4eZtFpmh", // THE PRICE ID YOU CREATED EARLIER,

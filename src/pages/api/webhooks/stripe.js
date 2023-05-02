@@ -37,19 +37,26 @@ export default async (req, res) => {
       // Handle successful subscription creation
       case "customer.subscription.created": {
         const subscription = event.data.object;
-        await client.user.update({
-          // Find the customer in our database with the Stripe customer ID linked to this purchase
+        console.log("subscription customer", subscription.customer);
+        const subscriptionUser = await client.user.findFirst({
           where: {
             stripeCustomerId: subscription.customer,
+          },
+        });
+        // console.log(subscriptionUser);
+        const stripeUser = await client.user.update({
+          // Find the customer in our database with the Stripe customer ID linked to this purchase
+          where: {
+            id: subscriptionUser.id,
           },
           // Update that customer so their status is now active
           data: {
             isActive: true,
           },
         });
+        console.log(stripeUser);
         break;
       }
-      // ... handle other event types
       default:
         console.log(`Unhandled event type ${event.type}`);
     }
