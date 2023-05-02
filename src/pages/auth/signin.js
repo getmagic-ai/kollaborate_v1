@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       providers,
-      csrfToken: JSON.parse(JSON.stringify(csrfToken)),
+      csrfToken,
     },
   };
 }
