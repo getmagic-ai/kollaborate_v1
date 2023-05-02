@@ -44,6 +44,10 @@ model User {
   accounts      Account[]
   sessions      Session[]
   hearts        Heart[]
+
+  // Stripe
+  stripeCustomerId        String?
+  isActive                Boolean            @default(false)
 }
 
 model VerificationToken {

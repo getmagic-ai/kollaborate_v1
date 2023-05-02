@@ -35,7 +35,9 @@ export default function Home() {
   });
   if (isBlogsLoading || isBrandsLoading) return <Loader />;
   if (brandsError || blogsError)
-    return "An error has occurred: " + error.message;
+    return (
+      "An error has occurred: " + brandsError.message || blogsError.message
+    );
 
   // if (brands) console.log(brands);
   return (

@@ -49,6 +49,7 @@ function classNames(...classes) {
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { data: session, status } = useSession();
+  // console.log(session.user);
   const router = useRouter();
 
   const pathname = router.pathname;
