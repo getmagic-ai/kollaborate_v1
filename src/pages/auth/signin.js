@@ -1,6 +1,6 @@
 import { signIn, getCsrfToken, getProviders } from "next-auth/react";
 
-export default function SignIn({ csrfToken, providers }) {
+export default function SignIn({ providers }) {
   return (
     <div className='flex h-screen w-full'>
       <div className='flex flex-1 flex-col justify-center items-center'>
@@ -26,11 +26,11 @@ export default function SignIn({ csrfToken, providers }) {
 
 export async function getServerSideProps(context) {
   const providers = await getProviders();
-  const csrfToken = await getCsrfToken(context);
+  // const csrfToken = await getCsrfToken(context);
   return {
     props: {
       providers,
-      csrfToken: csrfToken || null,
+      // csrfToken: csrfToken || null,
     },
   };
 }
