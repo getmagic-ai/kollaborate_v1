@@ -13,7 +13,8 @@ const poppins = Poppins({
 });
 
 const queryClient = new QueryClient();
-
+//these are for pages that don't need authentication and can be accessed by anyone in an unauthenticated state
+// @PrathmeshSadake can you please add the blog endpoints to this list as well, as we want the blogs to be accessed by anyone
 const nonLayoutPaths = ["/auth/signin", "/auth/signup"];
 
 export default function App({
@@ -23,8 +24,8 @@ export default function App({
   const router = useRouter();
 
   return (
-    <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
+    <SessionProvider session={session} /*makes auth session data available to all pages*/>
+      <QueryClientProvider client={queryClient} /*makes database data available to all pages*/>
         <main className={poppins.className}>
           {nonLayoutPaths.includes(router.pathname) ? (
             <Component {...pageProps} />
