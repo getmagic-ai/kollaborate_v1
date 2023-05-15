@@ -21,20 +21,20 @@ export default function Blogs() {
     <div className='relative pt-16 pb-20 lg:px-8'>
       <div className='relative mx-auto max-w-7xl'>
         <div className='text-center'>
-          <h2 className='text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>
+          <h2 className='text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl'>
             From the blog
           </h2>
-          <p className='mx-auto mt-3 max-w-2xl text-xl text-gray-500 sm:mt-4'>
+          <p className='mx-auto mt-3 max-w-2xl text-xl text-gray-300 sm:mt-4'>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa
             libero labore natus atque, ducimus sed.
           </p>
         </div>
-        <div className='mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3'>
+        <div className='mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-2'>
           {data.data.map((post) => (
             <Link
               key={post.attributes.Slug}
               href={`/blogs/${post.id}`}
-              className='flex flex-col overflow-hidden rounded-lg shadow-lg'
+              className='flex flex-col overflow-hidden rounded-lg shadow-lg shadow-gray-800 border-white border-2'
             >
               <div className='flex-shrink-0 bg-black'>
                 <img
@@ -43,15 +43,15 @@ export default function Blogs() {
                   alt=''
                 />
               </div>
-              <div className='flex flex-1 flex-col justify-between bg-white p-6'>
+              <div className='flex flex-1 flex-col justify-between bg-gray-800 p-6'>
                 <div className='flex-1'>
                   <p className='text-sm font-medium text-indigo-600'>
                     <a className='hover:underline'>Article</a>
                   </p>
-                  <p className='text-xl font-semibold text-gray-900'>
+                  <p className='text-xl font-semibold text-gray-100'>
                     {post.attributes.Title}
                   </p>
-                  <p className='mt-3 text-base text-gray-500'>
+                  <p className='mt-3 text-base text-gray-300'>
                     {post.attributes.Excerpt}
                   </p>
                 </div>
@@ -67,7 +67,7 @@ export default function Blogs() {
                     </a>
                   </div>
                   <div className='ml-3'>
-                    <p className='text-sm font-medium text-gray-900'>
+                    <p className='text-sm font-medium text-gray-300'>
                       <a className='hover:underline'>Kollaborate Team</a>
                     </p>
                     <div className='flex space-x-1 text-sm text-gray-500'>

@@ -24,7 +24,7 @@ const Brands = () => {
   // if (brands) console.log(brands);
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6 divide-y divide-gray-100'>
+    <div className='grid grid-cols-1 gap-2 md:gap-6'>
       {brands.map((brand) => (
         <BrandCard key={brand.id} brand={brand} />
       ))}

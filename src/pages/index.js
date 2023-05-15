@@ -41,13 +41,13 @@ export default function Home() {
 
   // if (brands) console.log(brands);
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 divide-y divide-gray-100'>
-      <div className='space-y-4 divide-y divide-gray-100'>
-        {brands.map((brand) => (
-          <BrandCard key={brand.id} brand={brand} />
-        ))}
-      </div>
-      <div className='flex flex-col space-y-4'>
+    <div className='grid grid-cols-1 gap-2 md:gap-6'>
+      {/* <div className='space-y-4 divide-y divide-gray-100'> */}
+      {brands.map((brand) => (
+        <BrandCard key={brand.id} brand={brand} />
+      ))}
+      {/* </div> */}
+      {/* <div className='flex flex-col space-y-4'>
         {[...data.data, ...data.data].map((post) => (
           <Link
             key={post.attributes.Slug}
@@ -101,7 +101,7 @@ export default function Home() {
             </div>
           </Link>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import "moment-timezone";
 import Layout from "@/components/Layout";
 import "@/styles/globals.css";
 import { useRouter } from "next/router";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function App({
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <main className={poppins.className}>
+          <Toaster />
           {nonLayoutPaths.includes(router.pathname) ? (
             <Component {...pageProps} />
           ) : (
