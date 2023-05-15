@@ -25,10 +25,14 @@ export default function App({
   const router = useRouter();
 
   return (
-    <SessionProvider session={session} /*makes auth session data available to all pages*/>
-      <QueryClientProvider client={queryClient} /*makes database data available to all pages*/>
+    <SessionProvider
+      session={session} /*makes auth session data available to all pages*/
+    >
+      <QueryClientProvider
+        client={queryClient} /*makes database data available to all pages*/
+      >
         <main className={poppins.className}>
-          <Toaster />
+          <Toaster position='top-right' />
           {nonLayoutPaths.includes(router.pathname) ? (
             <Component {...pageProps} />
           ) : (

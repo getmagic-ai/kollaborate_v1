@@ -22,7 +22,7 @@ export default function Article() {
   if (isLoading) return <Loader />;
   if (error) return "An error has occurred: " + error.message;
   return (
-    <div className='relative overflow-hidden bg-white py-16'>
+    <div className='relative overflow-hidden bg-gray-900 py-16'>
       <div className='hidden lg:absolute lg:inset-y-0 lg:block lg:h-full lg:w-full lg:[overflow-anchor:none]'>
         <div
           className='relative mx-auto h-full max-w-prose text-lg'
@@ -129,10 +129,10 @@ export default function Article() {
       <div className='max-w-4xl mx-auto relative px-6 lg:px-8'>
         <div className='mx-auto max-w-prose text-lg'>
           <h1>
-            <span className='block text-center text-lg font-semibold text-indigo-600'>
+            <span className='block text-center text-lg font-semibold text-indigo-100'>
               Introducing
             </span>
-            <span className='mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl'>
+            <span className='mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-gray-100 sm:text-4xl'>
               {data.data.attributes.Title}
             </span>
           </h1>
@@ -149,7 +149,7 @@ export default function Article() {
             </a>
           </div>
           <div className='ml-3'>
-            <p className='text-sm font-medium text-gray-900'>
+            <p className='text-sm font-medium text-gray-100'>
               <a className='hover:underline'>Kollaborate Team</a>
             </p>
             <div className='flex space-x-1 text-sm text-gray-500'>
@@ -175,7 +175,7 @@ export default function Article() {
           />
         </figure>
         <div
-          className={`${styles.content} mx-auto mt-6 text-gray-700 sm:text-lg`}
+          className={`${styles.content} mx-auto mt-6 text-gray-300 sm:text-lg`}
         >
           <ReactMarkdown>{data.data.attributes.Content}</ReactMarkdown>
         </div>

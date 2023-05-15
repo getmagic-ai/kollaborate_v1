@@ -2,7 +2,7 @@ import { signIn, getCsrfToken, getProviders } from "next-auth/react";
 
 export default function SignIn({ providers }) {
   return (
-    <div className='flex h-screen w-full'>
+    <div className='flex h-screen w-full bg-black'>
       <div className='flex flex-1 flex-col justify-center items-center'>
         {providers &&
           Object.values(providers).map((provider) => (

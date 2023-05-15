@@ -3,6 +3,7 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 const BrandCard = ({ brand }) => {
   const { data: session } = useSession();
@@ -52,12 +53,20 @@ const BrandCard = ({ brand }) => {
       <div className='flex items-center justify-end'>
         {hasHeart.length === 0 ? (
           <HeartIcon
-            onClick={() => mutate({ brandId: brand.id })}
+            onClick={
+              session?.user
+                ? () => mutate({ brandId: brand.id })
+                : () => toast.error("You need to login first")
+            }
             className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
           />
         ) : (
           <HeartIconSolid
-            onClick={() => mutate({ brandId: brand.id })}
+            onClick={
+              session?.user
+                ? () => mutate({ brandId: brand.id })
+                : () => toast.error("You need to login first")
+            }
             className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
           />
         )}
