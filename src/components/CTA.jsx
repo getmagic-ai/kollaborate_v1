@@ -16,7 +16,7 @@ export default function CTA() {
   return (
     <div className='relative sm:py-16 mt-12'>
       <div aria-hidden='true' className='hidden sm:block'>
-        <div className='absolute inset-y-0 left-0 w-1/2 rounded-r-3xl bg-white' />
+        <div className='absolute inset-y-0 left-0 w-1/2 rounded-r-3xl bg-gray-900' />
         <svg
           className='absolute top-8 left-1/2 -ml-3'
           width={404}
