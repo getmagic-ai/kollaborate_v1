@@ -30,7 +30,10 @@ const BrandCard = ({ brand }) => {
     (heart) => heart.userEmail === session?.user.email
   );
   return (
-    <div key={brand.id} className='bg-white flex justify-between gap-x-6 p-2'>
+    <div
+      key={brand.id}
+      className='bg-gray-800 flex justify-between gap-x-6 p-2'
+    >
       <div className='flex gap-x-4'>
         <img
           className='h-12 w-12 flex-none bg-gray-50'
@@ -38,10 +41,10 @@ const BrandCard = ({ brand }) => {
           alt=''
         />
         <div className=''>
-          <p className='text-sm font-semibold leading-6 text-gray-900'>
+          <p className='text-sm font-semibold leading-6 text-white'>
             {brand.name}
           </p>
-          <p className='mt-0.5 text-xs leading-5 text-gray-500'>
+          <p className='mt-0.5 text-xs leading-5 text-gray-300'>
             {brand.description}
           </p>
         </div>
@@ -50,7 +53,7 @@ const BrandCard = ({ brand }) => {
         {hasHeart.length === 0 ? (
           <HeartIcon
             onClick={() => mutate({ brandId: brand.id })}
-            className='cursor-pointer text-gray-600 group-hover:text-gray-700 mx-2 flex-shrink-0 h-6 w-6"'
+            className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
           />
         ) : (
           <HeartIconSolid
