@@ -13,6 +13,7 @@ const ProVersion = () => {
         "Content-Type": "application/json",
       },
     });
+
     const { redirectUrl } = await res.json();
     if (redirectUrl) {
       window.location.assign(redirectUrl);
@@ -23,7 +24,7 @@ const ProVersion = () => {
   };
 
   return (
-    <main>
+    <main className="bg-white">
       {status === "loading" && <p>Loading...</p>}
       {status === "unauthenticated" && (
         <button onClick={() => signIn()}>Sign In</button>
@@ -33,7 +34,7 @@ const ProVersion = () => {
       )}
       {data && (
         <div>
-          <p>{JSON.stringify(data)}</p>
+          <p>{JSON.stringify(data) /*@PrathmeshSadake why did you render the data to UI*/}</p>
           <p>Add a payment method to start using this service!</p>
           <button
             onClick={() => {

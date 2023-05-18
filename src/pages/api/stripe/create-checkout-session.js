@@ -21,13 +21,13 @@ export default async (req, res) => {
     });
   }
 
-  // console.log(session.user);
+
   const dbUser = await client.user.findFirst({
     where: {
       id: session.user.id,
     },
   });
-  // console.log(dbUser);
+  console.log(dbUser.stripeCustomerId);
 
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "subscription",
