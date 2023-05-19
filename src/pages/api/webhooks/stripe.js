@@ -2,8 +2,8 @@ import { buffer } from "micro";
 import Stripe from "stripe";
 import client from "../../../../prisma/client";
 
-const endpointSecret =
-  "whsec_c30e699e0198a38a73fc0d0ae23a1aaeac9b507d19f762d3789ddb4df8b85ef5"; // YOUR ENDPOINT SECRET copied from the Stripe CLI start-up earlier, should look like 'whsec_xyz123...'
+const endpointSecretr =
+  "whsec_afe47d74890d8a282a706a70a40f2b1ff58b57c34713c8bab445f3259c6afc2a"; // YOUR ENDPOINT SECRET copied from the Stripe CLI start-up earlier, should look like 'whsec_xyz123...'
 
 export const config = {
   api: {
