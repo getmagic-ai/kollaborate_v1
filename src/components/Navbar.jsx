@@ -53,6 +53,7 @@ export function Navbar() {
       callback: (e) => {
         e.preventDefault();
         signOut();
+        router.push("/");
       },
       icon: KeyIcon,
     },
