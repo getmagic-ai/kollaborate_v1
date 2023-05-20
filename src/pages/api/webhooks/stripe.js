@@ -2,9 +2,7 @@ import { buffer } from "micro";
 import Stripe from "stripe";
 import client from "../../../../prisma/client";
 
-const endpointSecretr =
-  "whsec_afe47d74890d8a282a706a70a40f2b1ff58b57c34713c8bab445f3259c6afc2a"; // YOUR ENDPOINT SECRET copied from the Stripe CLI start-up earlier, should look like 'whsec_xyz123...'
-
+const endpointSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
 export const config = {
   api: {
     bodyParser: false, // don't parse body of incoming requests because we need it raw to verify signature

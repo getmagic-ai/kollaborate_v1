@@ -21,7 +21,6 @@ export default async (req, res) => {
     });
   }
 
-
   const dbUser = await client.user.findFirst({
     where: {
       id: session.user.id,
@@ -36,7 +35,7 @@ export default async (req, res) => {
     line_items: [
       {
         //@PrathmeshSadake can we add this variable to the .env file and treat it as a secret, and make it configurable?
-        price: "price_0M9vRDgJmzQDibAWB0hul1jP", // THE PRICE ID YOU CREATED EARLIER,
+        price: process.env.STRIPE_PRICING_ID, // THE PRICE ID YOU CREATED EARLIER,
         quantity: 1,
       },
     ],
