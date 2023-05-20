@@ -21,6 +21,7 @@ const ProVersion = () => {
         "Content-Type": "application/json",
       },
     });
+
     const { redirectUrl } = await res.json();
     if (redirectUrl) {
       window.location.assign(redirectUrl);
@@ -31,7 +32,7 @@ const ProVersion = () => {
   };
 
   return (
-    <main>
+    <main className='bg-white'>
       {status === "loading" && <p>Loading...</p>}
       {status === "unauthenticated" && (
         <button onClick={() => signIn()}>Sign In</button>

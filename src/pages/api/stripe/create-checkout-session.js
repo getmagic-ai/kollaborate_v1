@@ -21,13 +21,13 @@ export default async (req, res) => {
     });
   }
 
-  // console.log(session.user);
+
   const dbUser = await client.user.findFirst({
     where: {
       id: session.user.id,
     },
   });
-  // console.log(dbUser);
+  console.log(dbUser.stripeCustomerId);
 
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "subscription",
@@ -36,7 +36,7 @@ export default async (req, res) => {
     line_items: [
       {
         //@PrathmeshSadake can we add this variable to the .env file and treat it as a secret, and make it configurable?
-        price: "price_1N3KkSSI8yYgzwHV4eZtFpmh", // THE PRICE ID YOU CREATED EARLIER,
+        price: "price_0M9vRDgJmzQDibAWB0hul1jP", // THE PRICE ID YOU CREATED EARLIER,
         quantity: 1,
       },
     ],
