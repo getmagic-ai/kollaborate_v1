@@ -34,12 +34,12 @@ const ProVersion = () => {
   return (
     <main className='bg-white'>
       {status === "loading" && <p>Loading...</p>}
-      {status === "unauthenticated" && (
+      {/* {status === "unauthenticated" && (
         <button onClick={() => signIn()}>Sign In</button>
-      )}
-      {status === "authenticated" && (
+      )} */}
+      {/* {status === "authenticated" && (
         <button onClick={() => signOut()}>Sign Out</button>
-      )}
+      )} */}
       {data && (
         <div className='bg-gray-900 py-12'>
           <div className='mx-auto max-w-7xl px-6 lg:px-8'>
