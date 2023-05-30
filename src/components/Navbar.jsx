@@ -29,11 +29,6 @@ export function Navbar() {
       icon: UserIcon,
     },
     {
-      name: "Liked Songs",
-      callback: () => router.push("/user/my-likes"),
-      icon: HeartIcon,
-    },
-    {
       name: "Invite a Friend",
       callback: () => router.push("/user/invite-a-friend"),
       icon: LinkIcon,
@@ -42,11 +37,6 @@ export function Navbar() {
       name: "Settings",
       callback: () => router.push("/user/settings"),
       icon: Cog8ToothIcon,
-    },
-    {
-      name: "Latest from Us",
-      callback: () => router.push("/blogs"),
-      icon: DocumentIcon,
     },
     {
       name: "Sign out",
