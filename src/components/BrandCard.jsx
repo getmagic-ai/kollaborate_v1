@@ -1,5 +1,5 @@
-import { HeartIcon } from "@heroicons/react/24/outline";
-import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
+import { BookmarkIcon } from "@heroicons/react/24/outline";
+import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -42,17 +42,17 @@ const BrandCard = ({ brand }) => {
           alt=''
         />
         <div className=''>
-          <p className='text-sm font-semibold leading-6 text-white'>
+          <p className='text-base font-semibold leading-6 text-white'>
             {brand.name}
           </p>
-          <p className='mt-0.5 text-xs leading-5 text-gray-300'>
+          {/* <p className='mt-0.5 text-xs leading-5 text-gray-300'>
             {brand.description}
-          </p>
+          </p> */}
         </div>
       </div>
       <div className='flex items-center justify-end'>
         {hasHeart.length === 0 ? (
-          <HeartIcon
+          <BookmarkIcon
             onClick={
               session?.user
                 ? () => mutate({ brandId: brand.id })
@@ -61,7 +61,7 @@ const BrandCard = ({ brand }) => {
             className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
           />
         ) : (
-          <HeartIconSolid
+          <BookmarkIconSolid
             onClick={
               session?.user
                 ? () => mutate({ brandId: brand.id })
