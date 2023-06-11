@@ -22,7 +22,7 @@ const Brands = () => {
 
   const { data, error, isLoading } = useQuery({
     queryFn: likedBrands,
-    queryKey: ["liked-brands"],
+    queryKey: ["saved-brands"],
   });
 
   if (isLoading) return <Loader />;

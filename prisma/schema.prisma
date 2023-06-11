@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String  @id
   userId            String
   type              String
   provider          String
@@ -21,32 +21,27 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String    @id
   name          String
   email         String    @unique
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
-  hearts        Heart[]
-
-  // Stripe
-  stripeCustomerId        String?
-  isActive                Boolean            @default(false)
+  Account       Account[]
+  Session       Session[]
 }
 
 model VerificationToken {
@@ -63,34 +58,6 @@ model creators {
   created_at DateTime? @default(now()) @db.Timestamp(6)
   updated_at DateTime? @default(now()) @db.Timestamp(6)
 }
-
-model Brand {
-  id                Int       @id @default(autoincrement())
-  brand_id          String?   @db.VarChar
-  created_at        DateTime? @default(now()) @db.Timestamp(6)
-  updated_at        DateTime? @default(now()) @db.Timestamp(6)
-  name              String?   @db.VarChar
-  url               String?   @db.VarChar
-  recent_ads        Json?
-  brand_description String?
-  brand_size        String?   @db.VarChar
-  category_main     String?   @db.VarChar
-  category_sublevel Json?
-  data_source_url   String?   @db.VarChar
-  metadata          Json?
-  source_id         String?   @db.VarChar
-  hearts    Heart[]
-}
-
-model Heart {
-  id     String @id @default(cuid())
-  brandId Int
-  userId String
-  userEmail String
-  brand   Brand   @relation(fields: [brandId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 
 model leadlist_nov2022_csv {
   Name           String?   @db.VarChar
@@ -124,6 +91,7 @@ model nc_1o1g___brand_master_dev {
   data_source_url   String?   @db.VarChar
   metadata          Json?
   source_id         String?   @db.VarChar
+  saved_leads       String[]
 }
 
 model nc_1o1g___brand_user_relationship {
@@ -1569,4 +1537,3 @@ model xc_knex_migrationsv2_lock {
   index     Int  @id @default(autoincrement())
   is_locked Int?
 }
-

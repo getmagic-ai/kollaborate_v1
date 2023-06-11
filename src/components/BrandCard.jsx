@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { toast } from "react-hot-toast";
 
 const BrandCard = ({ brand }) => {
+  console.log(brand);
   const { data: session } = useSession();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
@@ -15,7 +16,7 @@ const BrandCard = ({ brand }) => {
     {
       onSuccess: (data) => {
         queryClient.invalidateQueries(["brands"]);
-        queryClient.invalidateQueries(["liked-brands"]);
+        queryClient.invalidateQueries(["saved-brands"]);
         // console.log(data);
       },
       onError: (error) => {
@@ -27,9 +28,10 @@ const BrandCard = ({ brand }) => {
       },
     }
   );
-  const hasHeart = brand.hearts.filter(
-    (heart) => heart.userEmail === session?.user.email
-  );
+  const hasHeart = true;
+  // const hasHeart = brand.saved_leads.filter(
+  //   (item) => item.userEmail === session?.user.email
+  // );
   return (
     <div
       key={brand.id}
