@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import client from "../../../../prisma/client";
 import Stripe from "stripe";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
 const adapter = PrismaAdapter(client);
 export const authOptions = {
@@ -54,7 +54,6 @@ export const authOptions = {
           });
         });
     },
-    
   },
 };
 
