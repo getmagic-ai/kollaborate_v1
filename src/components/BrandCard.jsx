@@ -6,7 +6,6 @@ import { useSession } from "next-auth/react";
 import { toast } from "react-hot-toast";
 
 const BrandCard = ({ brand }) => {
-  console.log(brand);
   const { data: session } = useSession();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
@@ -28,10 +27,10 @@ const BrandCard = ({ brand }) => {
       },
     }
   );
-  const hasHeart = true;
-  // const hasHeart = brand.saved_leads.filter(
-  //   (item) => item.userEmail === session?.user.email
-  // );
+  const isSaved = brand.saved_leads.filter(
+    (saved) => saved.userEmail === session?.user.email
+  );
+
   return (
     <div
       key={brand.id}
@@ -53,7 +52,7 @@ const BrandCard = ({ brand }) => {
         </div>
       </div>
       <div className='flex items-center justify-end'>
-        {hasHeart.length === 0 ? (
+        {isSaved.length === 0 ? (
           <BookmarkIcon
             onClick={
               session?.user

@@ -8,7 +8,7 @@ import BrandCard from "@/components/BrandCard";
 import { useRouter } from "next/router";
 
 const likedBrands = async () => {
-  const response = await axios.get("/api/user/getLikedBrands");
+  const response = await axios.get("/api/user/getSavedBrands");
   return response.data;
 };
 

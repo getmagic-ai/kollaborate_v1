@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     where: { email: session.user.email },
   });
   //check to see if post was liked by user
-  const saved_lead = await client.saved_leads.findFirst({
+  const saved = await client.saved.findFirst({
     where: {
       brandId: req.body.brandId,
       userId: prismaUser.id,
@@ -22,8 +22,8 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     //Add Like
     try {
-      if (!saved_lead) {
-        const result = await client.saved_leads.create({
+      if (!saved) {
+        const result = await client.saved.create({
           data: {
             brandId: req.body.brandId,
             userId: prismaUser.id,
@@ -32,9 +32,9 @@ export default async function handler(req, res) {
         });
         res.status(201).json({ ...result, user: prismaUser });
       } else {
-        const result = await client.saved_leads.delete({
+        const result = await client.saved.delete({
           where: {
-            id: saved_lead.id,
+            id: saved.id,
           },
         });
         res.status(200).json({ ...result, user: prismaUser });

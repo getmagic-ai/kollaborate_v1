@@ -11,27 +11,27 @@ export default async function handler(req, res) {
   const prismaUser = await client.user.findUnique({
     where: { email: session.user.email },
     include: {
-      hearts: true,
+      saved: true,
     },
   });
 
   const brandIds = [];
-  prismaUser.hearts.forEach((element) => {
+  prismaUser.saved.forEach((element) => {
     brandIds.push(element.brandId);
   });
-  const likedBrands = await client.brand.findMany({
+  const savedBrands = await client.nc_1o1g___brand_master_dev.findMany({
     where: {
       id: { in: brandIds },
     },
     include: {
-      hearts: true,
+      saved_leads: true,
     },
   });
 
   if (req.method === "GET") {
     try {
       return res.status(200).json({
-        data: likedBrands,
+        data: savedBrands,
       });
     } catch (err) {
       res.status(403).json({ err: "Error" });
