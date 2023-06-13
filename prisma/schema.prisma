@@ -43,6 +43,10 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  saved        Saved[]
+  // Stripe
+  stripeCustomerId        String?
+  isActive                Boolean            @default(false)
 }
 
 model VerificationToken {
@@ -51,6 +55,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Saved {
+  id     String @id @default(cuid())
+  brandId Int
+  userId String
+  userEmail String
+  brand   nc_1o1g___brand_master_dev   @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model creators {
@@ -92,7 +105,7 @@ model nc_1o1g___brand_master_dev {
   data_source_url   String?   @db.VarChar
   metadata          Json?
   source_id         String?   @db.VarChar
-  saved_leads       String[]
+  saved_leads       Saved[]
 }
 
 model nc_1o1g___brand_user_relationship {
