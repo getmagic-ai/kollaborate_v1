@@ -13,7 +13,7 @@ export default function SignIn({ providers }) {
                     callbackUrl: `${window.location.origin}`,
                   })
                 }
-                class=' text-white w-full  bg-[#4285F4] hover:bg-[#4285F4]/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+                className=' text-white w-full  bg-[#4285F4] hover:bg-[#4285F4]/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
               >
                 Sign in with {provider.name}
               </button>
