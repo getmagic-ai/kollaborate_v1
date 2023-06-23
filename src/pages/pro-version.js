@@ -34,19 +34,6 @@ const plans = [
       { id: 6, value: "Free bank transfers" },
     ],
   },
-  {
-    title: "Growth",
-    featured: false,
-    description: "Convenient features to take your business to the next level.",
-    priceMonthly: 12,
-    priceYearly: 140,
-    mainFeatures: [
-      { id: 1, value: "Basic invoicing" },
-      { id: 2, value: "Easy to use accounting" },
-      { id: 3, value: "Mutli-accounts" },
-      { id: 4, value: "Tax planning toolkit" },
-    ],
-  },
 ];
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -109,16 +96,16 @@ const ProVersion = () => {
               {/* Decorative background */}
               <div
                 aria-hidden='true'
-                className='absolute inset-0 top-4 bottom-6 left-8 right-8 hidden rounded-tl-lg rounded-tr-lg bg-indigo-700 lg:block'
+                className='absolute inset-0 top-4 bottom-6 left-8 right-8 hidden rounded-tl-lg rounded-tr-lg bg-gray-800 lg:block'
               />
 
-              <div className='relative space-y-6 lg:grid lg:grid-cols-3 lg:space-y-0'>
+              <div className='relative space-y-6 lg:grid lg:grid-cols-2 lg:space-y-0'>
                 {plans.map((plan) => (
                   <div
                     key={plan.title}
                     className={classNames(
                       plan.featured
-                        ? "bg-white ring-2 ring-indigo-700 shadow-md"
+                        ? "bg-gray-900 ring-2 ring-indigo-700 shadow-md"
                         : "bg-indigo-700 lg:bg-transparent",
                       "pt-6 px-6 pb-3 rounded-lg lg:px-8 lg:pt-12"
                     )}
@@ -126,7 +113,7 @@ const ProVersion = () => {
                     <div>
                       <h3
                         className={classNames(
-                          plan.featured ? "text-indigo-600" : "text-white",
+                          "text-white",
                           "text-base font-semibold"
                         )}
                       >
@@ -136,7 +123,7 @@ const ProVersion = () => {
                         <div className='mt-3 flex items-center'>
                           <p
                             className={classNames(
-                              plan.featured ? "text-indigo-600" : "text-white",
+                              "text-white",
                               "text-4xl font-bold tracking-tight"
                             )}
                           >

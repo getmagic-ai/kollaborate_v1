@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import DiscordProvider from "next-auth/providers/discord";
 import client from "../../../../prisma/client";
 import Stripe from "stripe";
 // import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -11,6 +12,10 @@ export const authOptions = {
   adapter: adapter,
   secret: process.env.AUTH_SECRET,
   providers: [
+    DiscordProvider({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
