@@ -5,3 +5,10 @@
 ::-webkit-scrollbar {
   width: 0px;
 }
+
+:root {
+  border-radius: 0px !important;
+}
+.card {
+  border-radius: 0px !important;
+}

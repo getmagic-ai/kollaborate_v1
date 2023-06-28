@@ -81,7 +81,7 @@ export function Navbar() {
                     </Menu.Button>
                   ) : (
                     <button
-                      onClick={() => router.push("/auth/signin")}
+                      onClick={() => router.push("/api/auth/signin")}
                       className='px-4 py-2 text-sm font-medium rounded-full shadow-lg ring-1 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20'
                     >
                       <ArrowRightOnRectangleIcon className='h-5 w-5 text-white' />
