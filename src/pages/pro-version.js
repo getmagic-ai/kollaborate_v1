@@ -10,7 +10,8 @@ import Loader from "@/components/Loader";
 const tiers = [
   {
     name: "Free",
-    priceMonthly: 0,
+    priceMonthly: 0,//dhalwani1_gmail_com:C8xmRB29SUxnUCk3decfXg@conversations-2674.g95.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full
+
     description: "Unleash the power of automation",
     includedFeatures: ["5 leads per day", "Discord Community"],
   },
