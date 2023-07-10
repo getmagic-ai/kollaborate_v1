@@ -12,40 +12,40 @@ const allBrands = async () => {
 };
 
 export default function Home() {
-  const {
-    isLoading: isBlogsLoading,
-    error: blogsError,
-    data,
-  } = useQuery({
-    queryKey: ["articles"],
-    queryFn: async () => {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/articles?populate=*`
-      );
-      return res.data;
-    },
-  });
-  const {
-    data: brands,
-    error: brandsError,
-    isLoading: isBrandsLoading,
-  } = useQuery({
-    queryFn: allBrands,
-    queryKey: ["brands"],
-  });
-  if (isBlogsLoading || isBrandsLoading) return <Loader />;
-  if (brandsError || blogsError)
-    return (
-      "An error has occurred: " + brandsError.message || blogsError.message
-    );
+  // const {
+  //   isLoading: isBlogsLoading,
+  //   error: blogsError,
+  //   data,
+  // } = useQuery({
+  //   queryKey: ["articles"],
+  //   queryFn: async () => {
+  //     const res = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/articles?populate=*`
+  //     );
+  //     return res.data;
+  //   },
+  // });
+  // const {
+  //   data: brands,
+  //   error: brandsError,
+  //   isLoading: isBrandsLoading,
+  // } = useQuery({
+  //   queryFn: allBrands,
+  //   queryKey: ["brands"],
+  // });
+  // if (isBlogsLoading || isBrandsLoading) return <Loader />;
+  // if (brandsError || blogsError)
+  //   return (
+  //     "An error has occurred: " + brandsError.message || blogsError.message
+  //   );
 
   // if (brands) console.log(brands);
   return (
     <div className='grid grid-cols-1 gap-2 md:gap-6'>
       {/* <div className='space-y-4 divide-y divide-gray-100'> */}
-      {brands.map((brand) => (
+      {/* {brands.map((brand) => (
         <BrandCard key={brand.id} brand={brand} />
-      ))}
+      ))} */}
       {/* </div> */}
       {/* <div className='flex flex-col space-y-4'>
         {[...data.data, ...data.data].map((post) => (

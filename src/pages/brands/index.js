@@ -21,8 +21,6 @@ const Brands = () => {
   if (isLoading) return <Loader />;
   if (error) return "An error has occurred: " + error.message;
 
-  // if (brands) console.log(brands);
-
   return (
     <div className='grid grid-cols-1 gap-2 md:gap-6'>
       {brands.map((brand) => (
