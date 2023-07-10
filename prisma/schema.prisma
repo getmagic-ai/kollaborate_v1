@@ -9,20 +9,19 @@ datasource db {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -36,17 +35,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  saved        Saved[]
-  // Stripe
-  stripeCustomerId        String?
-  isActive                Boolean            @default(false)
+  id               String    @id @default(cuid())
+  name             String?
+  email            String?   @unique
+  emailVerified    DateTime?
+  image            String?
+  isActive         Boolean   @default(false)
+  stripeCustomerId String?
+  accounts         Account[]
+  saved            Saved[]
+  sessions         Session[]
 }
 
 model VerificationToken {
@@ -58,12 +56,12 @@ model VerificationToken {
 }
 
 model Saved {
-  id     String @id @default(cuid())
-  brandId Int
-  userId String
+  id        String                     @id @default(cuid())
+  brandId   Int
+  userId    String
   userEmail String
-  brand   nc_1o1g___brand_master_dev   @relation(fields: [brandId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  brand     nc_1o1g___brand_master_dev @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  user      User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model creators {
@@ -1147,7 +1145,7 @@ model nc_orgs_v2 {
   title            String?            @db.VarChar(255)
   created_at       DateTime           @default(now()) @db.Timestamptz(6)
   updated_at       DateTime           @default(now()) @db.Timestamptz(6)
-  nc_team_users_v2 nc_team_users_v2[] @ignore
+  nc_team_users_v2 nc_team_users_v2[]
   nc_teams_v2      nc_teams_v2[]
 }
 
@@ -1262,7 +1260,7 @@ model nc_projects_v2 {
   nc_audit_v2         nc_audit_v2[]
   nc_bases_v2         nc_bases_v2[]
   nc_models_v2        nc_models_v2[]
-  nc_project_users_v2 nc_project_users_v2[] @ignore
+  nc_project_users_v2 nc_project_users_v2[]
   nc_sync_source_v2   nc_sync_source_v2[]
 }
 
@@ -1496,8 +1494,8 @@ model nc_users_v2 {
   updated_at               DateTime              @default(now()) @db.Timestamptz(6)
   token_version            String?               @db.VarChar(255)
   nc_api_tokens            nc_api_tokens[]
-  nc_project_users_v2      nc_project_users_v2[] @ignore
-  nc_team_users_v2         nc_team_users_v2[]    @ignore
+  nc_project_users_v2      nc_project_users_v2[]
+  nc_team_users_v2         nc_team_users_v2[]
 }
 
 model nc_views_v2 {
