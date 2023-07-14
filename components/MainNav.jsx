@@ -2,10 +2,11 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
+import DesktopNavigation from "./DesktopNavigation";
+import MobileNavigation from "./MobileNavigation";
 
-export function MainNav({ className, ...props }) {
+function MainNav({ className, ...props }) {
   const pathname = usePathname();
-  const params = useParams();
   const routes = [
     {
       href: `/brands`,
@@ -25,18 +26,12 @@ export function MainNav({ className, ...props }) {
   ];
   return (
     <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)}>
-      {routes.map((route) => (
-        <Link
-          key={route.href}
-          href={route.href}
-          className={cn(
-            "text-sm font-medium transition-colors text-gray-200 hover:text-gray-500",
-            route.active ? "text-white" : "text-gray-300"
-          )}
-        >
-          {route.label}
-        </Link>
-      ))}
+      <DesktopNavigation
+        routes={routes}
+        classNames='pointer-events-auto hidden md:block'
+      />
+      <MobileNavigation className='pointer-events-auto md:hidden' />
     </nav>
   );
 }
+export default MainNav;

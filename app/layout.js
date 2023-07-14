@@ -1,7 +1,10 @@
 import "./globals.css";
+import { dark } from "@clerk/themes";
 import { Poppins } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
+
+import TanStackQueryClientProvider from "@/providers/tanstack-query-client-provider";
+import { ToastProvider } from "@/providers/toast-provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,7 +24,12 @@ export default function RootLayout({ children }) {
       }}
     >
       <html lang='en'>
-        <body className={`${poppins.className} bg-gray-950`}>{children}</body>
+        <TanStackQueryClientProvider>
+          <body className={`${poppins.className} bg-gray-950`}>
+            <ToastProvider />
+            {children}
+          </body>
+        </TanStackQueryClientProvider>
       </html>
     </ClerkProvider>
   );

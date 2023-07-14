@@ -1,22 +1,33 @@
 "use client";
+import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
-import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const BrandCard = ({ brand }) => {
   const { userId } = useAuth();
-  const addToBookmarks = async () => {
-    const bookmark = await axios.post("/api/brands", {
-      userId: userId,
-      brandId: brand.id,
-    });
-  };
 
-  const isSaved = brand.saved.find(
-    (item) => item.userId === userId && item.brandId === brand.id
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(
+    async () => {
+      return await axios.post("/api/brands", {
+        brandId: brand.id,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["brands"]);
+        queryClient.invalidateQueries(["bookmarks"]);
+      },
+      onError: (error) => {
+        console.log(error);
+        if (error) {
+          console.log(error);
+        }
+      },
+    }
   );
-
   return (
     <div
       key={brand.id}
@@ -30,14 +41,16 @@ const BrandCard = ({ brand }) => {
         </div>
       </div>
       <div className='flex items-center justify-end'>
-        {isSaved.length === 0 ? (
+        {brand.saved.find(
+          (item) => item.userId === userId && item.brandId === brand.id
+        ) ? (
           <BookmarkIcon
-            onClick={addToBookmarks}
+            onClick={mutate}
             className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
           />
         ) : (
           <BookmarkIconSolid
-            onClick={addToBookmarks}
+            onClick={mutate}
             className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
           />
         )}

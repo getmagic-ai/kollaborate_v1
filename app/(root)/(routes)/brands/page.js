@@ -1,14 +1,20 @@
+"use client";
 import BrandCard from "@/components/BrandCard";
-import prismadb from "@/lib/prismadb";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-export default async function Brands() {
-  const brands = await prismadb.brand.findMany({
-    include: {
-      saved: true,
-    },
+export default function Brands() {
+  const { data, error, isLoading } = useQuery({
+    queryFn: async () => await axios.get("/api/brands"),
+    queryKey: ["brands"],
   });
+  isLoading && <div>Loading...</div>;
+  error && <div>Error...</div>;
 
   return (
-    <div>{brands && brands.map((brand) => <BrandCard brand={brand} />)}</div>
+    <div>
+      {data &&
+        data.data.map((brand) => <BrandCard key={brand.id} brand={brand} />)}
+    </div>
   );
 }
