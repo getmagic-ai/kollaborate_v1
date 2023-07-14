@@ -13,6 +13,7 @@
     "@clerk/themes": "^1.7.5",
     "@prisma/client": "^5.0.0",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
     "lucide-react": "^0.259.0",

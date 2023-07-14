@@ -1,9 +1,9 @@
-import Navbar from "@/components/Navbar";
+import GetData from "@/components/GetData";
 
 export default function Home() {
   return (
     <div>
-      <Navbar />
+      <GetData />
     </div>
   );
 }
