@@ -1,16 +1,16 @@
 "use client";
-import axios from "axios";
-import Loader from "@/components/Loader";
-import BrandCard from "@/components/BrandCard";
-import { useQuery } from "@tanstack/react-query";
+// import axios from "axios";
+// import Loader from "@/components/Loader";
+// import BrandCard from "@/components/BrandCard";
+// import { useQuery } from "@tanstack/react-query";
 
 export default function Bookmarks() {
-  const { data, error, isLoading } = useQuery({
-    queryFn: async () => await axios.get("/api/bookmarks"),
-    queryKey: ["bookmarks"],
-  });
-  isLoading && <Loader />;
-  error && <div>Error...</div>;
+  // const { data, error, isLoading } = useQuery({
+  //   queryFn: async () => await axios.get("/api/bookmarks"),
+  //   queryKey: ["bookmarks"],
+  // });
+  // isLoading && <Loader />;
+  // error && <div>Error...</div>;
 
   return (
     <div className='py-6'>
@@ -21,12 +21,12 @@ export default function Bookmarks() {
           </h2>
         </div>
 
-        <div className='flex flex-col space-y-4 mt-10 border-t border-gray-200 py-6'>
+        {/* <div className='flex flex-col space-y-4 mt-10 border-t border-gray-200 py-6'>
           {data &&
             data.data.map((brand) => (
               <BrandCard key={brand.id} brand={brand} />
             ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
