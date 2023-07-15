@@ -2,6 +2,8 @@
 // import { auth } from "@clerk/nextjs";
 // import { NextResponse } from "next/server";
 
+import { NextResponse } from "next/server";
+
 export async function GET(req, res) {
   // try {
   //   // Process a GET request
