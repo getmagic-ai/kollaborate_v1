@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function Bookmarks() {
   const { data, error, isLoading } = useQuery({
-    queryFn: async () => await axios.get("/api/brands"),
+    queryFn: async () => await axios.get("/api/bookmarks"),
     queryKey: ["bookmarks"],
   });
   isLoading && <Loader />;
