@@ -24,6 +24,7 @@ export async function GET(req, res) {
     });
     return NextResponse.json(bookmarkedBrands);
   } catch (error) {
+    console.log(error);
     NextResponse.json({ error: "Request method not allowed" });
   }
 }
