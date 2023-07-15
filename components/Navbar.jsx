@@ -1,4 +1,5 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import MainNav from "@/components/MainNav";
 import { dark } from "@clerk/themes";
 
@@ -23,8 +24,9 @@ const Navbar = async () => {
           <SignedOut>
             {/* Signed out users get sign in button */}
             <SignInButton afterSignInUrl='/' mode='modal'>
-              <button className='text-gray-200 text-xm font-medium bg-indigo-600 rounded-lg py-1.5 px-3'>
-                Sign in
+              <button className='group flex items-center rounded-full bg-gray-700 px-4 py-2 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 backdrop-blur bg-zinc-800/90 text-zinc-200 ring-white/10 hover:ring-white/20'>
+                {/* <span className='hidden md:flex'>Sign In</span> */}
+                <ArrowRightOnRectangleIcon className='h-4 stroke-zinc-200 group-hover:stroke-zinc-400' />
               </button>
             </SignInButton>
           </SignedOut>

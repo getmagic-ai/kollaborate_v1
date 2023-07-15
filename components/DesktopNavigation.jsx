@@ -12,13 +12,13 @@ export default function DesktopNavigation({ routes, classNames }) {
             key={route.href}
             href={route.href}
             className={cn(
-              "relative text-sm font-normal transition-colors text-gray-200 hover:text-gray-500",
-              route.active ? "text-white" : "text-gray-300"
+              "relative text-sm font-normal transition-colors text-gray-400 hover:text-gray-500",
+              route.active ? "text-white" : "text-gray-400"
             )}
           >
             {route.label}
             {route.active && (
-              <span className='absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-indigo-500/0 via-indigo-500/40 to-indigo-500/0 dark:from-indigo-400/0 dark:via-indigo-400/40 dark:to-indigo-400/0' />
+              <span className='absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-indigo-100/10 via-indigo-400/40 to-indigo-400/10' />
             )}
           </Link>
         ))}

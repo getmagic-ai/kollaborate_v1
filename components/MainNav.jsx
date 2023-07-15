@@ -9,9 +9,9 @@ function MainNav({ className, ...props }) {
   const pathname = usePathname();
   const routes = [
     {
-      href: `/brands`,
+      href: `/`,
       label: "Brands",
-      active: pathname === `/brands`,
+      active: pathname === `/`,
     },
     {
       href: `/bookmarks`,

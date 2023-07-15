@@ -44,14 +44,14 @@ const BrandCard = ({ brand }) => {
         {brand.saved.find(
           (item) => item.userId === userId && item.brandId === brand.id
         ) ? (
-          <BookmarkIcon
-            onClick={mutate}
-            className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
-          />
-        ) : (
           <BookmarkIconSolid
             onClick={mutate}
             className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
+          />
+        ) : (
+          <BookmarkIcon
+            onClick={mutate}
+            className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
           />
         )}
       </div>
