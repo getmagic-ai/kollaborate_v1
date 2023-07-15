@@ -4,9 +4,9 @@ import Loader from "@/components/Loader";
 import BrandCard from "@/components/BrandCard";
 import { useQuery } from "@tanstack/react-query";
 
-export default function Home() {
+export default function Bookmarks() {
   const { data, error, isLoading } = useQuery({
-    queryFn: async () => await axios.get("/api/brands/bookmarks"),
+    queryFn: async () => await axios.get("/api/bookmarks"),
     queryKey: ["bookmarks"],
   });
   isLoading && <Loader />;
