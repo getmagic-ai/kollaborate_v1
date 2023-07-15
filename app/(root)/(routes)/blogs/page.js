@@ -51,7 +51,7 @@ export default function Blogs() {
           {posts.map((post) => (
             <article
               key={post.id}
-              className='flex flex-col items-start justify-between bg-gray-950 px-3 py-5 w-full'
+              className='flex flex-col items-start justify-between bg-gray-950 p-5 w-full'
             >
               <div className='flex items-center gap-x-4 text-xs'>
                 <time dateTime={post.datetime} className='text-gray-500'>

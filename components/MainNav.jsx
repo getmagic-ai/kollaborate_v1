@@ -23,6 +23,11 @@ function MainNav({ className, ...props }) {
       label: "Blogs",
       active: pathname === `/blogs`,
     },
+    {
+      href: `/pro-version`,
+      label: "Pro",
+      active: pathname === `/pro-version`,
+    },
   ];
   return (
     <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)}>
