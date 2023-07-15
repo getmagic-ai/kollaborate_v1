@@ -17,6 +17,14 @@ const Navbar = async () => {
             <UserButton
               appearance={{
                 baseTheme: dark,
+                elements: {
+                  scrollBox: {
+                    width: "1px",
+                  },
+                  pageScrollBox: {
+                    width: 0,
+                  },
+                },
               }}
               afterSignOutUrl='/'
             />

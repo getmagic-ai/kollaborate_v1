@@ -9,8 +9,6 @@ export default function Bookmarks() {
     queryFn: async () => await axios.get("/api/bookmarks"),
     queryKey: ["bookmarks"],
   });
-  isLoading && <Loader />;
-  error && <div>Error...</div>;
 
   return (
     <div className='py-6'>
@@ -22,6 +20,8 @@ export default function Bookmarks() {
         </div>
 
         <div className='flex flex-col space-y-4 mt-10 border-t border-gray-200 py-6'>
+          {isLoading && <Loader />}
+          {error && <div>Error...</div>}
           {data &&
             data.data.map((brand) => (
               <BrandCard key={brand.id} brand={brand} />

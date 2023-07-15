@@ -6,6 +6,9 @@
   width: 0px;
 }
 
+body {
+  background: #000;
+}
 
 @layer base {
   :root {
