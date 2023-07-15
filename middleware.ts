@@ -7,7 +7,6 @@ export default authMiddleware({
     "/sign-up",
     "/blogs",
     "/api/brands",
-    "/api/bookmarks",
   ],
 });
 
