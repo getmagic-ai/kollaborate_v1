@@ -1,3 +1,4 @@
+"use client";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import MainNav from "@/components/MainNav";
@@ -15,6 +16,12 @@ const Navbar = async () => {
           <SignedIn>
             {/* Mount the UserButton component */}
             <UserButton
+              userProfileMode='navigation'
+              userProfileUrl={
+                typeof window !== "undefined"
+                  ? `${window.location.origin}/profile`
+                  : undefined
+              }
               appearance={{
                 baseTheme: dark,
                 elements: {

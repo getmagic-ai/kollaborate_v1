@@ -1,16 +1,23 @@
 "use client";
 import BrandCard from "@/components/BrandCard";
 import Loader from "@/components/Loader";
+import { useDiscordConnectModal } from "@/hooks/useDiscordConnectModal";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { isOpen, onClose, onOpen } = useDiscordConnectModal();
   const { data, error, isLoading } = useQuery({
     queryFn: async () => await axios.get("/api/brands"),
     queryKey: ["brands"],
   });
   isLoading && <Loader />;
   error && <div>Error...</div>;
+
+  useEffect(() => {
+    onOpen();
+  }, []);
 
   return (
     <div className='py-6'>
