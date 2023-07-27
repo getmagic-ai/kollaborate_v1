@@ -36,30 +36,25 @@ const tiers = [
   },
 ];
 
-export default function App() {
-  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
-  const goToCheckout = async () => {
-    setIsCheckoutLoading(true);
-    const res = await axios.post(`/api/stripe/create-checkout-session`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+export default function Profile() {
+  const [loading, setLoading] = useState(false);
 
-    const { redirectUrl } = res.data;
-    console.log(redirectUrl);
-    if (redirectUrl) {
-      window.location.assign(redirectUrl);
-    } else {
-      setIsCheckoutLoading(false);
-      console.log("Error creating checkout session");
+  const onClick = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("/api/stripe");
+      window.location.href = response.data.url;
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
       <SignedIn>
-        {isCheckoutLoading ? (
+        {loading ? (
           <Loader />
         ) : (
           <div className='bg-gray-900'>
@@ -115,8 +110,8 @@ export default function App() {
 
                       <button
                         onClick={
-                          tier.name == "Professional" && !isCheckoutLoading
-                            ? goToCheckout
+                          tier.name == "Professional" && !loading
+                            ? onClick
                             : () => {}
                         }
                         className='cursor-pointer mt-8 block w-full rounded-md border border-gray-800 bg-indigo-700 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-900'

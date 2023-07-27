@@ -9,17 +9,15 @@ const SettingsPage = async () => {
     <div>
       <div className='px-4 lg:px-8 flex items-center gap-x-3 mb-8'>
         <div className={"p-2 rounded-md w-fit"}>
-          <Settings className={"w-10 h-10 text-gray-700"} />
+          <Settings className={"w-10 h-10 text-gray-100"} />
         </div>
         <div>
-          <h1 className='text-3xl font-bold'>Settings</h1>
-          <p className='text-sm text-muted-foreground'>
-            Manage account settings.
-          </p>
+          <h1 className='text-3xl font-bold text-gray-100'>Settings</h1>
+          <p className='text-sm text-gray-200'>Manage account settings.</p>
         </div>
       </div>
       <div className='px-4 lg:px-8 space-y-4'>
-        <div className='text-muted-foreground text-sm'>
+        <div className='text-gray-200 text-sm'>
           {isPro
             ? "You are currently on a Pro plan."
             : "You are currently on a free plan."}

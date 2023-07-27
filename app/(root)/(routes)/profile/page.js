@@ -9,8 +9,6 @@ function Profile() {
   return (
     <div className='px-14'>
       <SignedIn>
-        {/* Signed in users will see their user profile */}
-
         <UserProfile />
       </SignedIn>
       <SignedOut>

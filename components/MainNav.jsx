@@ -1,11 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import DesktopNavigation from "./DesktopNavigation";
 import MobileNavigation from "./MobileNavigation";
 
-function MainNav({ className, ...props }) {
+function MainNav({ className, isPro = false, ...props }) {
   const pathname = usePathname();
   const routes = [
     {
@@ -24,9 +23,9 @@ function MainNav({ className, ...props }) {
       active: pathname === `/blogs`,
     },
     {
-      href: `/pro-version`,
-      label: "Pro",
-      active: pathname === `/pro-version`,
+      href: isPro ? `/settings` : `/pro-version`,
+      label: isPro ? "Settings" : "Pro",
+      active: isPro ? pathname === `/settings` : pathname === `/pro-version`,
     },
   ];
   return (

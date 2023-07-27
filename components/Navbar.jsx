@@ -1,15 +1,16 @@
-// "use client";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import MainNav from "@/components/MainNav";
 import { dark } from "@clerk/themes";
+import { checkSubscription } from "@/lib/subscription";
 
 const Navbar = async () => {
+  const isPro = await checkSubscription();
   return (
     <div className=''>
       <div className='flex space-x-4 h-16 items-center px-4'>
         <div className='flex flex-1 justify-end'>
-          <MainNav />
+          <MainNav isPro={isPro} />
         </div>
 
         <div className='ml-auto flex items-center space-x-4'>
@@ -20,7 +21,7 @@ const Navbar = async () => {
               userProfileUrl={
                 typeof window !== "undefined"
                   ? `${window.location.origin}/profile`
-                  : undefined
+                  : "/profile"
               }
               appearance={{
                 baseTheme: dark,

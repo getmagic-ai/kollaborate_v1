@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { EnvelopeOpenIcon } from "@heroicons/react/24/outline";
-import { useSignIn, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 export const DiscordConnectModal = ({ isOpen, onClose, onOpen }) => {

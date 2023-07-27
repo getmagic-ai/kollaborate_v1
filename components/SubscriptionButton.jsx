@@ -25,7 +25,7 @@ export const SubscriptionButton = ({ isPro = false }) => {
 
   return (
     <Button
-      variant={isPro ? "default" : "premium"}
+      variant={isPro ? "outline" : "premium"}
       disabled={loading}
       onClick={onClick}
     >
