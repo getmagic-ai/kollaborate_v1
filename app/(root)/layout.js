@@ -12,7 +12,7 @@ export default async function AppLayout({ children }) {
       <Navbar />
       <div className='p-2 lg:p-4 overflow-y-auto'>
         <ModalProvider
-          isDiscordConnected={user.externalAccounts.filter(
+          isDiscordConnected={user?.externalAccounts.filter(
             (acc) => acc.verification.strategy === "oauth_discord"
           )}
         />
