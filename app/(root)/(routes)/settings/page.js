@@ -1,6 +1,8 @@
 import { Settings } from "lucide-react";
 import { checkSubscription } from "@/lib/subscription";
 import { SubscriptionButton } from "@/components/SubscriptionButton";
+import { Button } from "@/components/ui/button";
+import JoinChannelButton from "@/components/JoinChannelButton";
 
 const SettingsPage = async () => {
   const isPro = await checkSubscription();
@@ -23,6 +25,8 @@ const SettingsPage = async () => {
             : "You are currently on a free plan."}
         </div>
         <SubscriptionButton isPro={isPro} />
+        <JoinChannelButton className='ml-3' />
+        
       </div>
     </div>
   );
