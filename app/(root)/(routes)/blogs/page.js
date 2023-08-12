@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const posts = [
   {
     id: 1,
@@ -49,8 +51,9 @@ export default function Blogs() {
         </div>
         <div className='mx-auto mt-10 grid grid-cols-1 gap-6 border-t border-gray-200 py-6'>
           {posts.map((post) => (
-            <article
+            <Link
               key={post.id}
+              href={`/blogs/${post.id}`}
               className='flex flex-col items-start justify-between bg-gray-950 p-5 w-full'
             >
               <div className='flex items-center gap-x-4 text-xs'>
@@ -91,7 +94,7 @@ export default function Blogs() {
                   <p className='text-gray-200'>{post.author.role}</p>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </div>

@@ -3,6 +3,7 @@ import { checkSubscription } from "@/lib/subscription";
 import { SubscriptionButton } from "@/components/SubscriptionButton";
 import { Button } from "@/components/ui/button";
 import JoinChannelButton from "@/components/JoinChannelButton";
+import CTA from "@/components/CTA";
 
 const SettingsPage = async () => {
   const isPro = await checkSubscription();
@@ -26,7 +27,7 @@ const SettingsPage = async () => {
         </div>
         <SubscriptionButton isPro={isPro} />
         <JoinChannelButton className='ml-3' />
-        
+        <CTA />
       </div>
     </div>
   );
