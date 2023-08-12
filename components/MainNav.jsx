@@ -27,6 +27,11 @@ function MainNav({ className, isPro = false, ...props }) {
       label: isPro ? "Settings" : "Pro",
       active: isPro ? pathname === `/settings` : pathname === `/pro-version`,
     },
+    {
+      href: `/invite-a-friend`,
+      label: "Invite a friend",
+      active: pathname === `/invite-a-friend`,
+    },
   ];
   return (
     <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)}>

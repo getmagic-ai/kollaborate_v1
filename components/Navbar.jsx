@@ -3,6 +3,8 @@ import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import MainNav from "@/components/MainNav";
 import { dark } from "@clerk/themes";
 import { checkSubscription } from "@/lib/subscription";
+import { Search } from "lucide-react";
+import Link from "next/link";
 
 const Navbar = async () => {
   const isPro = await checkSubscription();
@@ -12,7 +14,12 @@ const Navbar = async () => {
         <div className='flex flex-1 justify-end'>
           <MainNav isPro={isPro} />
         </div>
-
+        <Link
+          href='/search'
+          className='rounded-full p-1.5 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 backdrop-blur bg-zinc-800/90 text-zinc-200 ring-white/10'
+        >
+          <Search className='w-5 h-5' />
+        </Link>
         <div className='ml-auto flex items-center space-x-4'>
           <SignedIn>
             {/* Mount the UserButton component */}
