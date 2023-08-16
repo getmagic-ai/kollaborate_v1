@@ -38,10 +38,10 @@ export async function GET() {
       line_items: [
         {
           price_data: {
-            currency: "INR",
+            currency: "USD",
             product_data: {
-              name: "Genius Pro",
-              description: "Unlimited AI Generations",
+              name: "Pro Plan",
+              description: "10 Daily Leads",
             },
             unit_amount: 19900,
             recurring: {
