@@ -37,17 +37,7 @@ export async function GET() {
       customer_email: user.emailAddresses[0].emailAddress,
       line_items: [
         {
-          price_data: {
-            currency: "INR",
-            product_data: {
-              name: "Genius Pro",
-              description: "Unlimited AI Generations",
-            },
-            unit_amount: 19900,
-            recurring: {
-              interval: "month",
-            },
-          },
+          price: process.env.STRIPE_PRICE_ID,
           quantity: 1,
         },
       ],
