@@ -6,7 +6,11 @@ import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 
-export const SubscriptionButton = ({ isPro = false }) => {
+export const SubscriptionButton = ({
+  isPro = false,
+  className,
+  free = false,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const onClick = async () => {
@@ -26,11 +30,15 @@ export const SubscriptionButton = ({ isPro = false }) => {
   return (
     <Button
       variant={isPro ? "outline" : "premium"}
-      disabled={loading}
+      disabled={loading || free}
       onClick={onClick}
+      className={className}
     >
-      {isPro ? "Manage Subscription" : "Upgrade"}
-      {!isPro && <Zap className='w-4 h-4 ml-2 fill-white' />}
+      {free
+        ? "Currently on free plan"
+        : isPro
+        ? "Manage Subscription"
+        : "Upgrade"}
     </Button>
   );
 };

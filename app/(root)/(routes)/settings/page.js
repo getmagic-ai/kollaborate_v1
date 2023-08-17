@@ -25,7 +25,11 @@ const SettingsPage = async () => {
             ? "You are currently on a Pro plan."
             : "You are currently on a free plan."}
         </div>
-        <SubscriptionButton isPro={isPro} />
+        {isPro ? (
+          <SubscriptionButton className='mt-8' />
+        ) : (
+          <SubscriptionButton className='mt-8' free={false} />
+        )}
         <JoinChannelButton className='ml-3' />
         <CTA />
       </div>
