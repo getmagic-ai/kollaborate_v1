@@ -1,6 +1,8 @@
+"use client";
 import CTA from "@/components/CTA";
 import sgMail from "@sendgrid/mail";
 import toast from "react-hot-toast";
+import React, { useState } from "react";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const InviteAFriend = () => {
@@ -47,6 +49,7 @@ const InviteAFriend = () => {
             id='email'
             className='py-2.5 px-2 block bg-gray-700 w-full rounded-md border-gray-300 shadow-sm sm:text-sm'
             placeholder='you@example.com'
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
       </div>
