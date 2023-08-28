@@ -1,6 +1,9 @@
+"use client";
 import { Share } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
+import toast from "react-hot-toast";
+import copy from "copy-to-clipboard";
 
 const CTA = () => {
   return (
@@ -34,6 +37,10 @@ const CTA = () => {
             <Button
               variant='outline'
               className='flex items-center text-sm font-semibold leading-6 text-black'
+              onClick={() => {
+                copy(process.env.NEXT_PUBLIC_APP_URL);
+                toast.success("Copied to clipboard");
+              }}
             >
               Share{" "}
               <span>
