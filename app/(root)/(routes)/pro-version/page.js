@@ -1,14 +1,9 @@
-// "use client";
-import axios from "axios";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import {
-  RedirectToSignIn,
-  SignedIn,
-  SignedOut,
-  currentUser,
-} from "@clerk/nextjs";
+import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 import { stripe } from "@/lib/stripe";
 import { SubscriptionButton } from "@/components/SubscriptionButton";
+import { Button } from "@/components/ui/button";
+import { checkSubscription } from "@/lib/subscription";
 
 const getPrice = async () => {
   const { data } = await stripe.prices.list();
@@ -20,7 +15,7 @@ const getPrice = async () => {
 
 export default async function ProVersion() {
   const price = await getPrice();
-  console.log(price);
+  const isPro = await checkSubscription();
 
   const tiers = [
     {
@@ -44,35 +39,34 @@ export default async function ProVersion() {
         "Discord Community",
       ],
     },
-    // {
-    //   name: "Enterprise",
-    //   priceMonthly: "Contact us",
-    //   description: "Automation plus enterprise grade features",
-    //   includedFeatures: [
-    //     "20 leads per day",
-    //     "Manually curated dossiers",
-    //     "10 Contracts reviewed per week",
-    //     "Pro Discord channel access",
-    //   ],
-    // },
   ];
 
   return (
     <div>
       <SignedIn>
-        {/* {loading ? (
-          <Loader />
-        ) : ( */}
         <div className='bg-gray-900'>
           <div className='mx-auto max-w-7xl py-24 px-6 lg:px-8'>
             <div className='sm:align-center sm:flex sm:flex-col'>
               <h1 className='text-5xl font-bold tracking-tight text-gray-200 sm:text-center'>
                 Pricing Plans
               </h1>
-              <p className='mt-5 text-xl text-gray-500 sm:text-center'>
+              <p className='mt-5 text-xl text-gray-300 sm:text-center'>
                 Whether your time-saving automation needs are large or small,
                 we’re here to help you scale.
               </p>
+              {isPro && (
+                <div>
+                  <p className='mt-2 text-md text-gray-400 max-w-4xl sm:text-center'>
+                    You already have a premium subscription. Manage your
+                    subscription by clicking button below.
+                  </p>
+                  <SubscriptionButton
+                    className='mt-4 block mx-auto max-w-2xl'
+                    isPro={isPro}
+                  />
+                </div>
+              )}
+
               <div className='relative mt-6 flex self-center rounded-lg bg-gray-800 p-0.5 sm:mt-8'>
                 <button
                   type='button'
@@ -113,14 +107,21 @@ export default async function ProVersion() {
                         </span>
                       </p>
                     )}
-                    {tier.name === "Professional" ? (
-                      <SubscriptionButton
-                        className='mt-8 block w-full'
-                        free={false}
-                      />
-                    ) : (
-                      <SubscriptionButton className='mt-8 block w-full' free />
-                    )}
+                    {!isPro &&
+                      (tier.name === "Professional" ? (
+                        <SubscriptionButton
+                          className='mt-8 block w-full'
+                          isPro={isPro}
+                        />
+                      ) : (
+                        <Button
+                          variant={"outline"}
+                          className='mt-8 block w-full'
+                          disabled
+                        >
+                          Currently on Free Plan
+                        </Button>
+                      ))}
                   </div>
                   <div className='px-6 pt-6 pb-8'>
                     <h3 className='text-sm font-medium text-gray-100'>
@@ -145,7 +146,6 @@ export default async function ProVersion() {
             </div>
           </div>
         </div>
-        {/* )} */}
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />
