@@ -8,8 +8,7 @@ import useSetBrandStore from "@/hooks/useSetBrand";
 
 const BrandCard = ({ brand }) => {
   const { userId } = useAuth();
-  const { select, brand: selectedBrand } = useSetBrandStore();
-  console.log(selectedBrand);
+  const { select, onOpen } = useSetBrandStore();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
     async () => {
@@ -34,7 +33,10 @@ const BrandCard = ({ brand }) => {
     <div
       key={brand.id}
       className='bg-gray-800 flex justify-between gap-x-6 py-3 px-4 cursor-pointer'
-      onClick={() => select(brand)}
+      onClick={() => {
+        select(brand);
+        onOpen();
+      }}
     >
       <div className='flex gap-x-4'>
         <div className=''>
