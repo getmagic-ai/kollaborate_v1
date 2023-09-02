@@ -76,7 +76,7 @@ model nc_1o1g___brand_master_dev {
   data_source_url   String?   @db.VarChar
   metadata          Json?
   source_id         String?   @db.VarChar
-  Saved             Saved[]
+  saved             Saved[]
 }
 
 model nc_1o1g___brand_user_relationship {

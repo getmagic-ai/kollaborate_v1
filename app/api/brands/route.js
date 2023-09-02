@@ -5,14 +5,16 @@ import { NextResponse } from "next/server";
 export async function GET(req, res) {
   try {
     // Process a GET request
-    const brands = await prismadb.brand.findMany({
+    const brands = await prismadb.nc_1o1g___brand_master_dev.findMany({
       include: {
         saved: true,
       },
+      take: 4,
     });
     return NextResponse.json(brands);
   } catch (error) {
-    res.status(500).send({ error: "Request method not allowed" });
+    console.log(error);
+    // res.status(500).send({ error: "Request method not allowed" });
   }
 }
 
