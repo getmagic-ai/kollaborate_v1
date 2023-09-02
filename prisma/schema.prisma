@@ -8,33 +8,33 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model Brand{
-  id     String @id @default(uuid())
-  name   String
-  saved Saved[]
+model Brand {
+  id    String  @id
+  name  String
+  Saved Saved[]
 }
 
 model Saved {
-  id      String @id @default(uuid())
+  id      String @id
   brandId String
   userId  String
-  saved   Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  Brand   Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id                      String @id @default(uuid())
-  userId                  String
-  stripeCustomerId        String?
-  isActive                Boolean @default(false)
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
+  id               String   @id
+  userId           String
+  stripeCustomerId String?
+  isActive         Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime
 }
 
 model UserSubscription {
-  id        String      @id @default(cuid())
-  userId    String   @unique
-  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?   @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  id                        String    @id
+  userId                    String    @unique
+  stripe_customer_id        String?   @unique
+  stripe_subscription_id    String?   @unique
+  stripe_price_id           String?
+  stripe_current_period_end DateTime?
 }
