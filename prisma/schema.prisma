@@ -10,14 +10,14 @@ datasource db {
 
 
 model Saved {
-  id      String @id
+  id      String @id @default(uuid())
   brandId Int
   userId  String
   Brand   nc_1o1g___brand_master_dev  @relation(fields: [brandId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id               String   @id
+  id               String   @id @default(uuid())
   userId           String
   stripeCustomerId String?
   isActive         Boolean  @default(false)
@@ -26,7 +26,7 @@ model User {
 }
 
 model UserSubscription {
-  id                        String    @id
+  id                        String    @id @default(uuid())
   userId                    String    @unique
   stripe_customer_id        String?   @unique
   stripe_subscription_id    String?   @unique
