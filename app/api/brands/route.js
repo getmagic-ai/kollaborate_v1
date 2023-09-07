@@ -1,5 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
+
 import { NextResponse } from "next/server";
 
 export async function GET(req, res) {
@@ -9,12 +10,12 @@ export async function GET(req, res) {
       include: {
         saved: true,
       },
-      take: 4,
+      take: 10,
     });
     return NextResponse.json(brands);
   } catch (error) {
     console.log(error);
-    // res.status(500).send({ error: "Request method not allowed" });
+    NextResponse.send({ error: "Request method not allowed", status: 500 });
   }
 }
 

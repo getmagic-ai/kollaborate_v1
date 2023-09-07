@@ -5,10 +5,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import BrandCard from "@/components/BrandCard";
 import Loader from "@/components/Loader";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
+  const [pageIndex, setPageIndex] = useState(0);
   const { data, error, isLoading } = useQuery({
-    queryFn: async () => await axios.get("/api/brands"),
+    queryFn: async () => await axios.get(`/api/brands`),
     queryKey: ["brands"],
   });
   isLoading && <Loader />;
@@ -62,6 +65,8 @@ export default function Home() {
             </div>
           </TabsContent>
         </Tabs>
+        <Button onClick={() => setPageIndex(pageIndex - 1)}>Previous</Button>
+        <Button onClick={() => setPageIndex(pageIndex + 1)}>Next</Button>
       </div>
     </div>
   );
