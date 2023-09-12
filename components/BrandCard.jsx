@@ -8,7 +8,8 @@ import useSetBrandStore from "@/hooks/useSetBrand";
 
 const BrandCard = ({ brand }) => {
   const { userId } = useAuth();
-  const { select, onOpen } = useSetBrandStore();
+  const { select, brand: selectedBrand } = useSetBrandStore();
+  console.log(selectedBrand);
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
     async () => {
@@ -33,6 +34,10 @@ const BrandCard = ({ brand }) => {
     <div
       key={brand.id}
       className='bg-gray-800 flex justify-between gap-x-6 py-3 px-4 cursor-pointer'
+<<<<<<< HEAD
+=======
+      onClick={() => select(brand)}
+>>>>>>> parent of 71098e2 (Added brand details modal)
     >
       <div className='flex gap-x-4'>
         <div
