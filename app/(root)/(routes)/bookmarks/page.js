@@ -23,7 +23,9 @@ export default function Bookmarks() {
           {isLoading && <Loader />}
           {error && <div>Error...</div>}
           {data &&
-            data.data.map((brand) => <BrandCard key={brand.id} brand={brand} />)}
+            data.data.map((brand) => (
+              <BrandCard key={brand.id} brand={brand} />
+            ))}
         </div>
       </div>
     </div>

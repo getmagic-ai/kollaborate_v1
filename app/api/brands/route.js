@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req, res) {
   try {
     // Process a GET request
-    const brands = await prismadb.nc_1o1g___brand_master_dev.findMany({
+    const brands = await prismadb.brand.findMany({
       include: {
         saved: true,
       },
