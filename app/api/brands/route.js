@@ -1,14 +1,16 @@
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
+
 import { NextResponse } from "next/server";
 
 export async function GET(req, res) {
   try {
     // Process a GET request
-    const brands = await prismadb.brand.findMany({
+    const brands = await prismadb.nc_1o1g___brand_master_dev.findMany({
       include: {
         saved: true,
       },
+      take: 10,
     });
     console.log(brands);
     return NextResponse.json(brands);
