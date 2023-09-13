@@ -10,9 +10,11 @@ export async function GET(req, res) {
         saved: true,
       },
     });
+    console.log(brands);
     return NextResponse.json(brands);
   } catch (error) {
-    res.status(500).send({ error: "Request method not allowed" });
+    console.log(error);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }
 
