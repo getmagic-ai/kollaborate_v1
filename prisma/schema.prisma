@@ -8,33 +8,277 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model Brand{
-  id     String @id @default(uuid())
-  name   String
-  saved Saved[]
-}
-
 model Saved {
-  id      String @id @default(uuid())
-  brandId String
+  id      String                     @id @default(uuid())
+  brandId Int
   userId  String
-  saved   Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  saved   nc_1o1g___brand_master_dev @relation(fields: [brandId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id                      String @id @default(uuid())
-  userId                  String
-  stripeCustomerId        String?
-  isActive                Boolean @default(false)
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
+  id               String   @id @default(uuid())
+  userId           String
+  stripeCustomerId String?
+  isActive         Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model UserSubscription {
-  id        String      @id @default(cuid())
-  userId    String   @unique
-  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?   @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  id                     String    @id @default(cuid())
+  userId                 String    @unique
+  stripeCustomerId       String?   @unique @map("stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map("stripe_subscription_id")
+  stripePriceId          String?   @map("stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map("stripe_current_period_end")
+}
+
+model nc_1o1g___brand_master_dev {
+  id                Int       @id @default(autoincrement())
+  brand_id          String?   @db.VarChar
+  created_at        DateTime? @default(now()) @db.Timestamp(6)
+  updated_at        DateTime? @default(now()) @db.Timestamp(6)
+  name              String?   @db.VarChar
+  url               String?   @db.VarChar
+  recent_ads        Json?
+  brand_description String?
+  brand_size        String?   @db.VarChar
+  category_main     String?   @db.VarChar
+  category_sublevel Json?
+  data_source_url   String?   @db.VarChar
+  metadata          Json?
+  source_id         String?   @db.VarChar
+  saved             Saved[]
+}
+
+model nc_roles {
+  id          Int       @id @default(autoincrement())
+  project_id  String?   @db.VarChar(255)
+  db_alias    String?   @default("db") @db.VarChar(255)
+  title       String?   @db.VarChar(255)
+  type        String?   @default("CUSTOM") @db.VarChar(255)
+  description String?   @db.VarChar(255)
+  created_at  DateTime? @db.Timestamptz(6)
+  updated_at  DateTime? @db.Timestamptz(6)
+}
+
+model nc_routes {
+  id            Int       @id @default(autoincrement())
+  project_id    String?   @db.VarChar(255)
+  db_alias      String?   @default("db") @db.VarChar(255)
+  title         String?   @db.VarChar(255)
+  tn            String?   @db.VarChar(255)
+  tnp           String?   @db.VarChar(255)
+  tnc           String?   @db.VarChar(255)
+  relation_type String?   @db.VarChar(255)
+  path          String?
+  type          String?   @db.VarChar(255)
+  handler       String?
+  acl           String?
+  order         Int?
+  functions     String?
+  handler_type  Int?      @default(1)
+  is_custom     Boolean?
+  created_at    DateTime? @db.Timestamptz(6)
+  updated_at    DateTime? @db.Timestamptz(6)
+
+  @@index([db_alias, title, tn], map: "nc_routes_db_alias_title_tn_index")
+}
+
+model nc_rpc {
+  id            Int       @id @default(autoincrement())
+  project_id    String?   @db.VarChar(255)
+  db_alias      String?   @default("db") @db.VarChar(255)
+  title         String?   @db.VarChar(255)
+  tn            String?   @db.VarChar(255)
+  service       String?
+  tnp           String?   @db.VarChar(255)
+  tnc           String?   @db.VarChar(255)
+  relation_type String?   @db.VarChar(255)
+  order         Int?
+  type          String?   @db.VarChar(255)
+  acl           String?
+  functions     String?
+  handler_type  Int?      @default(1)
+  created_at    DateTime? @db.Timestamptz(6)
+  updated_at    DateTime? @db.Timestamptz(6)
+}
+
+model nc_shared_bases {
+  id             Int      @id @default(autoincrement())
+  project_id     String?  @db.VarChar(255)
+  db_alias       String?  @db.VarChar(255)
+  roles          String?  @default("viewer") @db.VarChar(255)
+  shared_base_id String?  @db.VarChar(255)
+  enabled        Boolean? @default(true)
+  password       String?  @db.VarChar(255)
+  created_at     DateTime @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model nc_shared_views {
+  id              Int       @id @default(autoincrement())
+  project_id      String?   @db.VarChar(255)
+  db_alias        String?   @db.VarChar(255)
+  model_name      String?   @db.VarChar(255)
+  meta            String?
+  query_params    String?
+  view_id         String?   @db.VarChar(255)
+  show_all_fields Boolean?
+  allow_copy      Boolean?
+  password        String?   @db.VarChar(255)
+  created_at      DateTime? @db.Timestamptz(6)
+  updated_at      DateTime? @db.Timestamptz(6)
+  view_type       String?   @db.VarChar(255)
+  view_name       String?   @db.VarChar(255)
+}
+
+model nc_shared_views_v2 {
+  id              String   @id @db.VarChar(20)
+  fk_view_id      String?  @db.VarChar(20)
+  meta            String?
+  query_params    String?
+  view_id         String?  @db.VarChar(255)
+  show_all_fields Boolean?
+  allow_copy      Boolean?
+  password        String?  @db.VarChar(255)
+  deleted         Boolean?
+  order           Float?   @db.Real
+  created_at      DateTime @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model nc_sort_v2 {
+  id           String   @id @db.VarChar(20)
+  base_id      String?  @db.VarChar(20)
+  project_id   String?  @db.VarChar(128)
+  fk_view_id   String?  @db.VarChar(20)
+  fk_column_id String?  @db.VarChar(20)
+  direction    String?  @default("false") @db.VarChar(255)
+  order        Float?   @db.Real
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model nc_store {
+  id         Int       @id @default(autoincrement())
+  project_id String?   @db.VarChar(255)
+  db_alias   String?   @default("db") @db.VarChar(255)
+  key        String?   @db.VarChar(255)
+  value      String?
+  type       String?   @db.VarChar(255)
+  env        String?   @db.VarChar(255)
+  tag        String?   @db.VarChar(255)
+  created_at DateTime? @db.Timestamptz(6)
+  updated_at DateTime? @db.Timestamptz(6)
+
+  @@index([key], map: "nc_store_key_index")
+}
+
+model nc_sync_logs_v2 {
+  id                String   @id @db.VarChar(20)
+  project_id        String?  @db.VarChar(128)
+  fk_sync_source_id String?  @db.VarChar(20)
+  time_taken        Int?
+  status            String?  @db.VarChar(255)
+  status_details    String?
+  created_at        DateTime @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model nc_sync_source_v2 {
+  id         String   @id @db.VarChar(20)
+  title      String?  @db.VarChar(255)
+  type       String?  @db.VarChar(255)
+  details    String?
+  deleted    Boolean?
+  enabled    Boolean? @default(true)
+  order      Float?   @db.Real
+  project_id String?  @db.VarChar(128)
+  fk_user_id String?  @db.VarChar(20)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  base_id    String?  @db.VarChar(20)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model nc_team_users_v2 {
+  org_id     String?  @db.VarChar(20)
+  user_id    String?  @db.VarChar(20)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@ignore
+}
+
+model nc_teams_v2 {
+  id         String   @id @db.VarChar(20)
+  title      String?  @db.VarChar(255)
+  org_id     String?  @db.VarChar(20)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model nc_users_v2 {
+  id                       String    @id @db.VarChar(20)
+  email                    String?   @db.VarChar(255)
+  password                 String?   @db.VarChar(255)
+  salt                     String?   @db.VarChar(255)
+  firstname                String?   @db.VarChar(255)
+  lastname                 String?   @db.VarChar(255)
+  username                 String?   @db.VarChar(255)
+  refresh_token            String?   @db.VarChar(255)
+  invite_token             String?   @db.VarChar(255)
+  invite_token_expires     String?   @db.VarChar(255)
+  reset_password_expires   DateTime? @db.Timestamptz(6)
+  reset_password_token     String?   @db.VarChar(255)
+  email_verification_token String?   @db.VarChar(255)
+  email_verified           Boolean?
+  roles                    String?   @default("editor") @db.VarChar(255)
+  created_at               DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime  @default(now()) @db.Timestamptz(6)
+  token_version            String?   @db.VarChar(255)
+}
+
+model nc_views_v2 {
+  id                 String   @id @db.VarChar(20)
+  base_id            String?  @db.VarChar(20)
+  project_id         String?  @db.VarChar(128)
+  fk_model_id        String?  @db.VarChar(20)
+  title              String?  @db.VarChar(255)
+  type               Int?
+  is_default         Boolean?
+  show_system_fields Boolean?
+  lock_type          String?  @default("collaborative") @db.VarChar(255)
+  uuid               String?  @db.VarChar(255)
+  password           String?  @db.VarChar(255)
+  show               Boolean?
+  order              Float?   @db.Real
+  created_at         DateTime @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime @default(now()) @db.Timestamptz(6)
+  meta               String?
+}
+
+model xc_knex_migrations {
+  id             Int       @id @default(autoincrement())
+  name           String?   @db.VarChar(255)
+  batch          Int?
+  migration_time DateTime? @db.Timestamptz(6)
+}
+
+model xc_knex_migrations_lock {
+  index     Int  @id @default(autoincrement())
+  is_locked Int?
+}
+
+model xc_knex_migrationsv2 {
+  id             Int       @id @default(autoincrement())
+  name           String?   @db.VarChar(255)
+  batch          Int?
+  migration_time DateTime? @db.Timestamptz(6)
+}
+
+model xc_knex_migrationsv2_lock {
+  index     Int  @id @default(autoincrement())
+  is_locked Int?
 }

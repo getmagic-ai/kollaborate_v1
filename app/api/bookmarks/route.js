@@ -14,7 +14,7 @@ export async function GET(req, res) {
       },
     });
     const brandIds = savedBrands.map((bookmark) => bookmark.brandId);
-    const bookmarkedBrands = await prismadb.brand.findMany({
+    const bookmarkedBrands = await prismadb.nc_1o1g___brand_master_dev.findMany({
       where: {
         id: { in: brandIds },
       },
