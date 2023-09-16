@@ -7,9 +7,13 @@ import BrandCard from "@/components/BrandCard";
 import Loader from "@/components/Loader";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Home() {
-  const [pageIndex, setPageIndex] = useState(0);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page");
+  console.log(page);
   const { data, error, isLoading } = useQuery({
     queryFn: async () => await axios.get(`/api/brands`),
     queryKey: ["brands"],
@@ -65,8 +69,29 @@ export default function Home() {
             </div>
           </TabsContent>
         </Tabs>
-        <Button onClick={() => setPageIndex(pageIndex - 1)}>Previous</Button>
-        <Button onClick={() => setPageIndex(pageIndex + 1)}>Next</Button>
+        <Button
+          onClick={() =>
+            router.push(
+              `/?page=${
+                parseInt(page) && parseInt(page) > 0 ? parseInt(page) - 1 : 0
+              }`,
+              {
+                scroll: false,
+              }
+            )
+          }
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={() =>
+            router.push(`/?page=${page ? parseInt(page) + 1 : 0 + 1}`, {
+              scroll: false,
+            })
+          }
+        >
+          Next
+        </Button>
       </div>
     </div>
   );

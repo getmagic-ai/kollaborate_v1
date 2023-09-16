@@ -9,7 +9,6 @@ import useSetBrandStore from "@/hooks/useSetBrand";
 const BrandCard = ({ brand }) => {
   const { userId } = useAuth();
   const { select, brand: selectedBrand } = useSetBrandStore();
-  console.log(selectedBrand);
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
     async () => {
@@ -23,7 +22,6 @@ const BrandCard = ({ brand }) => {
         queryClient.invalidateQueries(["bookmarks"]);
       },
       onError: (error) => {
-        console.log(error);
         if (error) {
           console.log(error);
         }
