@@ -12,7 +12,8 @@ import useSetBrandStore from "@/hooks/useSetBrand";
 
 const BrandCard = ({ brand }) => {
   const { userId } = useAuth();
-  const { select, brand: selectedBrand } = useSetBrandStore();
+
+  const { select, onOpen } = useSetBrandStore();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
     async () => {
@@ -35,10 +36,11 @@ const BrandCard = ({ brand }) => {
   return (
     <div
       key={brand.id}
-      className='bg-gray-800 flex justify-between gap-x-6 py-3 px-4 cursor-pointer'
+      className='bg-gray-800 flex justify-between gap-x-6 py-3 px-4'
     >
       <div className='w-3/5  flex gap-x-4'>
         <div
+          className='cursor-pointer'
           onClick={() => {
             select(brand);
             onOpen();
