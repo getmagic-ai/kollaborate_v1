@@ -5,6 +5,8 @@ const nextConfig = {
 
     return config;
   },
+
+  presets: ["next/babel"],
 };
 
 module.exports = nextConfig;
