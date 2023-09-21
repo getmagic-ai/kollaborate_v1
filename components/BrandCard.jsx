@@ -9,6 +9,7 @@ import {
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useSetBrandStore from "@/hooks/useSetBrand";
+import Link from "next/link";
 
 const BrandCard = ({ brand }) => {
   const { userId } = useAuth();
@@ -39,17 +40,18 @@ const BrandCard = ({ brand }) => {
       className='bg-gray-800 flex justify-between gap-x-6 py-3 px-4'
     >
       <div className='w-3/5  flex gap-x-4'>
-        <div
+        <Link
+          href={`/brands/${brand.id}`}
           className='cursor-pointer'
-          onClick={() => {
-            select(brand);
-            onOpen();
-          }}
+          // onClick={() => {
+          //   select(brand);
+          //   onOpen();
+          // }}
         >
           <p className='text-base font-semibold leading-6 text-white'>
             {brand.name}
           </p>
-        </div>
+        </Link>
       </div>
       <div className='flex gap-x-4'>
         <div>

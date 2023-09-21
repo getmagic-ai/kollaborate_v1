@@ -46,6 +46,8 @@
     "zustand": "^4.3.9"
   },
   "devDependencies": {
-    "prisma": "^5.0.0"
+    "@types/react": "18.2.22",
+    "prisma": "^5.0.0",
+    "typescript": "5.2.2"
   }
 }
