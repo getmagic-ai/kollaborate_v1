@@ -39,7 +39,7 @@ const BrandCard = ({ brand }) => {
       key={brand.id}
       className='bg-gray-800 flex justify-between gap-x-6 py-3 px-4'
     >
-      <div className='w-3/5  flex gap-x-4'>
+      <div className='w-3/5 truncate flex'>
         <Link
           href={`/brands/${brand.id}`}
           className='cursor-pointer'
@@ -48,18 +48,16 @@ const BrandCard = ({ brand }) => {
           //   onOpen();
           // }}
         >
-          <p className='text-base font-semibold leading-6 text-white'>
+          <p className='text-sm lg:text-base font-medium lg:font-semibold leading-6 text-white'>
             {brand.name}
           </p>
         </Link>
       </div>
-      <div className='flex gap-x-4'>
-        <div>
-          <p className='text-base font-semibold leading-6 text-white'>
-            {brand.category_main}
-          </p>
-        </div>
-      </div>
+
+      <p className='w-1/5 text-sm lg:text-base font-medium lg:font-semibold text-left leading-6 text-white'>
+        {brand.category_main.toLowerCase()}
+      </p>
+
       <div className='flex items-center justify-end'>
         <ArrowTrendingUpIcon className='text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />
         <ArrowUpOnSquareIcon className='text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />
