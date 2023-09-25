@@ -7,15 +7,20 @@ import BrandCard from "@/components/BrandCard";
 import Loader from "@/components/Loader";
 import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const page = searchParams.get("page");
-  console.log(page);
+  const page =
+    typeof searchParams.get("page") === "string"
+      ? Number(searchParams.get("page"))
+      : 1;
+  const getData = async () =>
+    await axios.get(`/api/brands?page=${page ? page : 0}`);
   const { data, error, isLoading } = useQuery({
-    queryFn: async () => await axios.get(`/api/brands`),
-    queryKey: ["brands"],
+    queryFn: getData,
+    queryKey: ["brands", page],
   });
   isLoading && <Loader />;
   error && <div>Error...</div>;
@@ -70,21 +75,16 @@ export default function Home() {
         </Tabs>
         <Button
           onClick={() =>
-            router.push(
-              `/?page=${
-                parseInt(page) && parseInt(page) > 0 ? parseInt(page) - 1 : 0
-              }`,
-              {
-                scroll: false,
-              }
-            )
+            router.push(`/?page=${page > 1 ? page - 1 : 1}`, {
+              scroll: false,
+            })
           }
         >
           Previous
         </Button>
         <Button
           onClick={() =>
-            router.push(`/?page=${page ? parseInt(page) + 1 : 0 + 1}`, {
+            router.push(`/?page=${page + 1}`, {
               scroll: false,
             })
           }

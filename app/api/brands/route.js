@@ -3,7 +3,10 @@ import { auth } from "@clerk/nextjs";
 
 import { NextResponse } from "next/server";
 
-export async function GET(req, res) {
+export async function GET(req) {
+  const url = new URL(req.url);
+  const page = url.searchParams.get("page") || 1;
+  // console.log(page);
   try {
     // Process a GET request
     const brands = await prismadb.nc_1o1g___brand_master_dev.findMany({
@@ -11,6 +14,7 @@ export async function GET(req, res) {
         saved: true,
       },
       take: 10,
+      skip: page === 1 ? 0 : (page - 1) * 10,
     });
 
     return NextResponse.json(brands);
