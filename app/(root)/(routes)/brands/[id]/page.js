@@ -7,12 +7,20 @@ import { useQuery } from "@tanstack/react-query";
 const BrandDetails = () => {
   const { id } = useParams();
   console.log(id);
-  // const { data, error, isLoading } = useQuery({
-  //   queryFn: async () => await axios.get("/api/bookmarks"),
-  //   queryKey: ["brand"],
-  // });
-  // console.log(data);
-  return <div>BrandDetails</div>;
+  const { data, error, isLoading } = useQuery({
+    queryFn: async () => await axios.post(`/api/brand`, { id: id }),
+    queryKey: ["brand"],
+  });
+  console.log(data);
+  if (isLoading) return <div>Loading....</div>;
+
+  const brandData = data.data[0];
+  return (
+    <div>
+      {brandData.name}
+      {brandData.category_main}
+    </div>
+  );
 };
 
 export default BrandDetails;

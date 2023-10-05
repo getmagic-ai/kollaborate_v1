@@ -9,6 +9,7 @@ export default authMiddleware({
     "/blogs",
     "/api/brands",
     "/api/webhook",
+    "/api/brand",
   ],
 });
 
