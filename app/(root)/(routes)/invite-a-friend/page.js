@@ -3,6 +3,7 @@ import CTA from "@/components/CTA";
 import sgMail from "@sendgrid/mail";
 import toast from "react-hot-toast";
 import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const InviteAFriend = () => {
@@ -38,11 +39,11 @@ const InviteAFriend = () => {
       <div>
         <label
           htmlFor='email'
-          className='block text-sm font-medium text-gray-200'
+          className='block text-sm mt-2 font-medium text-gray-200'
         >
           Enter email of a friend you want to invite
         </label>
-        <div className='mt-1 max-w-lg'>
+        <div className='mt-2 max-w-lg flex space-x-4'>
           <input
             type='email'
             name='email'
@@ -51,6 +52,7 @@ const InviteAFriend = () => {
             placeholder='you@example.com'
             onChange={(e) => setEmail(e.target.value)}
           />
+          <Button variant='outline'>Invite</Button>
         </div>
       </div>
       <CTA />
