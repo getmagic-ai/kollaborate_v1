@@ -10,6 +10,8 @@ import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useSetBrandStore from "@/hooks/useSetBrand";
 import Link from "next/link";
+import copy from "copy-to-clipboard";
+import toast from "react-hot-toast";
 
 const BrandCard = ({ brand }) => {
   const { userId } = useAuth();
@@ -34,6 +36,8 @@ const BrandCard = ({ brand }) => {
       },
     }
   );
+
+  console.log(brand);
   return (
     <div
       key={brand.id}
@@ -60,7 +64,13 @@ const BrandCard = ({ brand }) => {
 
       <div className='flex items-center justify-end'>
         <ArrowTrendingUpIcon className='text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />
-        <ArrowUpOnSquareIcon className='text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />
+        <ArrowUpOnSquareIcon
+          onClick={() => {
+            copy(brand.url);
+            toast.success(`${brand.name} Copied to clipboard`);
+          }}
+          className='text-gray-100 cursor-pointer group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
+        />
         {brand.saved.find(
           (item) => item.userId === userId && item.brandId === brand.id
         ) ? (

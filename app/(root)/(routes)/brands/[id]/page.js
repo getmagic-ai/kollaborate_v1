@@ -14,11 +14,21 @@ const BrandDetails = () => {
   console.log(data);
   if (isLoading) return <div>Loading....</div>;
 
-  const brandData = data.data[0];
+  const brandData = data?.data[0];
+  console.log(brandData);
   return (
-    <div>
-      {brandData.name}
-      {brandData.category_main}
+    <div className='mx-auto max-w-7xl py-24 px-6 lg:px-8'>
+      <h1 className='text-5xl font-bold tracking-tight text-gray-200'>
+        {brandData.name}
+      </h1>
+      <p className='mt-2 text-lg text-gray-400'>
+        Category: {brandData.category_main}
+      </p>
+      <p className='mt-5 text-xl text-gray-300'>
+        {brandData.brand_description
+          ? brandData.brand_description
+          : "contact us for brand details"}
+      </p>
     </div>
   );
 };
