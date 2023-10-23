@@ -59,7 +59,7 @@ const BrandCard = ({ brand }) => {
       </div>
 
       <p className='w-1/5 text-sm lg:text-base font-medium lg:font-semibold text-left leading-6 text-white'>
-        {brand.category_main.toLowerCase()}
+        {brand.category_main && brand.category_main.toLowerCase()}
       </p>
 
       <div className='flex items-center justify-end'>

@@ -10,6 +10,7 @@ export default authMiddleware({
     "/api/brands",
     "/api/webhook",
     "/api/brand",
+    "/api/search",
   ],
 });
 

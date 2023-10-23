@@ -1,7 +1,25 @@
+"use client";
+import BrandCard from "@/components/BrandCard";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
-const page = () => {
+const SearchPage = () => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const encodedQuery = encodeURIComponent(query); // Encode the query
+      const response = await axios.get(`/api/search?query=${encodedQuery}`);
+      setResults(response.data);
+    } catch (error) {
+      console.error("Error fetching results:", error);
+    }
+  };
+  console.log(results);
+
   return (
     <div className='py-6'>
       <div className='mx-auto max-w-7xl px-6 lg:px-8'>
@@ -16,16 +34,26 @@ const page = () => {
             id='brandsearch'
             className='py-2.5 px-2 block bg-gray-700 w-full rounded-md border-gray-300 shadow-sm sm:text-sm'
             placeholder='Amazon'
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
-          <Button variant='outline' className='text-black'>
+          <Button
+            onClick={handleSubmit}
+            variant='outline'
+            className='text-black'
+          >
             Search
           </Button>
         </div>
 
-        <div className='flex flex-col space-y-4 mt-10 border-t border-gray-200 py-6'></div>
+        <div className='flex flex-col space-y-4 mt-4 border-t border-gray-200 py-6'>
+          {results.map((brand) => (
+            <BrandCard key={brand.id} brand={brand} />
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default SearchPage;
