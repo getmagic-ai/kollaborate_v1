@@ -3,7 +3,7 @@ import BrandCard from "@/components/BrandCard";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SearchPage = () => {
   const [query, setQuery] = useState("");
@@ -20,7 +20,22 @@ const SearchPage = () => {
       console.error("Error fetching results:", error);
     }
   };
-  console.log(results);
+  useEffect(() => {
+    if (router.query && router.query.query) {
+      const urlQuery = router.query.query;
+      const decodedQuery = decodeURIComponent(urlQuery);
+      setQuery(decodedQuery);
+      // Call the API with the query parameter from the URL
+      axios
+        .get(`/api/search?query=${urlQuery}`)
+        .then((response) => {
+          setResults(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching results:", error);
+        });
+    }
+  }, [router.query]);
 
   return (
     <div className='py-6'>
