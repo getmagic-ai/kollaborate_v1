@@ -2,16 +2,18 @@
 import BrandCard from "@/components/BrandCard";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SearchPage = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const encodedQuery = encodeURIComponent(query); // Encode the query
+      const encodedQuery = encodeURIComponent(query);
+      router.push(`?query=${encodedQuery}`);
       const response = await axios.get(`/api/search?query=${encodedQuery}`);
       setResults(response.data);
     } catch (error) {
