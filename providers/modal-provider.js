@@ -16,7 +16,7 @@ export const ModalProvider = ({ isDiscordConnected }) => {
 
   useEffect(() => {
     setIsMounted(true);
-    if (isDiscordConnected?.length === 0) {
+    if (!isDiscordConnected) {
       onOpen();
     }
   }, []);

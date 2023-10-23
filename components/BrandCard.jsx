@@ -37,7 +37,7 @@ const BrandCard = ({ brand }) => {
     }
   );
 
-  console.log(brand);
+  // console.log(brand);
   return (
     <div
       key={brand.id}
