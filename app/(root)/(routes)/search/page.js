@@ -49,7 +49,7 @@ const SearchPage = () => {
             type='text'
             name='brandsearch'
             id='brandsearch'
-            className='py-2.5 px-2 block bg-gray-700 w-full rounded-md border-gray-300 shadow-sm sm:text-sm'
+            className='py-2.5 px-2 block text-white bg-gray-700 w-full rounded-md border-gray-300 shadow-sm sm:text-sm'
             placeholder='Amazon'
             value={query}
             onChange={(e) => setQuery(e.target.value)}
