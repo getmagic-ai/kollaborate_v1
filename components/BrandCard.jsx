@@ -2,6 +2,12 @@
 import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   ArrowTrendingUpIcon,
   ArrowUpOnSquareIcon,
   BookmarkIcon,
@@ -12,6 +18,7 @@ import useSetBrandStore from "@/hooks/useSetBrand";
 import Link from "next/link";
 import copy from "copy-to-clipboard";
 import toast from "react-hot-toast";
+import { buttonVariants } from "./ui/button";
 
 const BrandCard = ({ brand }) => {
   const { userId } = useAuth();
@@ -39,53 +46,59 @@ const BrandCard = ({ brand }) => {
 
   // console.log(brand);
   return (
-    <div
-      key={brand.id}
-      className='bg-gray-800 flex justify-between gap-x-6 py-3 px-4'
-    >
-      <div className='w-3/5 truncate flex'>
-        <Link
-          href={`/brands/${brand.id}`}
-          className='cursor-pointer'
-          // onClick={() => {
-          //   select(brand);
-          //   onOpen();
-          // }}
-        >
-          <p className='text-sm lg:text-base font-medium lg:font-semibold leading-6 text-white'>
-            {brand.name}
+    <Accordion type='single' collapsible>
+      <AccordionItem value={brand.id}>
+        <div className='bg-gray-800 flex justify-between items-center gap-x-6 px-4'>
+          <div className='w-3/5 truncate flex'>
+            <AccordionTrigger className='hover:no-underline text-sm lg:text-base font-medium lg:font-semibold leading-6 text-white'>
+              {brand.name}
+            </AccordionTrigger>
+          </div>
+
+          <p className='w-1/5 text-sm lg:text-base font-medium lg:font-semibold text-left leading-6 text-white'>
+            {brand.category_main && brand.category_main.toLowerCase()}
           </p>
-        </Link>
-      </div>
 
-      <p className='w-1/5 text-sm lg:text-base font-medium lg:font-semibold text-left leading-6 text-white'>
-        {brand.category_main && brand.category_main.toLowerCase()}
-      </p>
+          <div className='flex items-center justify-end'>
+            <ArrowTrendingUpIcon className='text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />
+            <ArrowUpOnSquareIcon
+              onClick={() => {
+                copy(brand.url);
+                toast.success(`${brand.name} Copied to clipboard`);
+              }}
+              className='text-gray-100 cursor-pointer group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
+            />
+            {brand.saved.find(
+              (item) => item.userId === userId && item.brandId === brand.id
+            ) ? (
+              <BookmarkIconSolid
+                onClick={mutate}
+                className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
+              />
+            ) : (
+              <BookmarkIcon
+                onClick={mutate}
+                className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
+              />
+            )}
+          </div>
+        </div>
 
-      <div className='flex items-center justify-end'>
-        <ArrowTrendingUpIcon className='text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />
-        <ArrowUpOnSquareIcon
-          onClick={() => {
-            copy(brand.url);
-            toast.success(`${brand.name} Copied to clipboard`);
-          }}
-          className='text-gray-100 cursor-pointer group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
-        />
-        {brand.saved.find(
-          (item) => item.userId === userId && item.brandId === brand.id
-        ) ? (
-          <BookmarkIconSolid
-            onClick={mutate}
-            className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
-          />
-        ) : (
-          <BookmarkIcon
-            onClick={mutate}
-            className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
-          />
-        )}
-      </div>
-    </div>
+        <AccordionContent className='py-1 px-4 h-full bg-gray-800 text-gray-300 text-xs'>
+          <p className='text-sm mb-2 font-medium text-left leading-6 text-white'>
+            Description
+          </p>
+          {brand.brand_description ? brand.brand_description : ""}
+
+          <Link
+            href={`/brands/${brand.id}`}
+            className='block bg-gray-700 px-6 py-2 max-w-fit mt-4'
+          >
+            View in detail
+          </Link>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 };
 

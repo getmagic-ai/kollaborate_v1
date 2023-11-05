@@ -13,6 +13,20 @@ const SearchPage = () => {
     e.preventDefault();
     try {
       const encodedQuery = encodeURIComponent(query);
+
+      // Retrieve the existing search history from localStorage
+      const existingSearchHistory = localStorage.getItem("searchHistory");
+      let searchHistory = [];
+
+      if (existingSearchHistory) {
+        searchHistory = JSON.parse(existingSearchHistory);
+      }
+
+      // Add the new search text to the search history array
+      if (query && !searchHistory.includes(query)) {
+        searchHistory.push(query);
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+      }
       router.push(`?query=${encodedQuery}`);
       const response = await axios.get(`/api/search?query=${encodedQuery}`);
       setResults(response.data);
