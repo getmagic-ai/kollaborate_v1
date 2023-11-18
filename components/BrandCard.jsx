@@ -18,12 +18,13 @@ import useSetBrandStore from "@/hooks/useSetBrand";
 import Link from "next/link";
 import copy from "copy-to-clipboard";
 import toast from "react-hot-toast";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
+import { useState } from "react";
 
 const BrandCard = ({ brand }) => {
   const { userId } = useAuth();
+  const [checked, setChecked] = useState(false);
 
-  const { select, onOpen } = useSetBrandStore();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
     async () => {
@@ -89,13 +90,42 @@ const BrandCard = ({ brand }) => {
             Description
           </p>
           {brand.brand_description ? brand.brand_description : ""}
-
           <Link
             href={`/brands/${brand.id}`}
             className='block bg-gray-700 px-6 py-2 max-w-fit mt-4'
           >
             View in detail
           </Link>
+
+          <div className='my-8 p-3 bg-gray-700'>
+            <div class='py-3 flex items-center'>
+              <input
+                checked={checked}
+                id='checked-checkbox'
+                type='checkbox'
+                onChange={() => {
+                  setChecked(!checked);
+                }}
+                className='w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
+              />
+              <label
+                for='checked-checkbox'
+                className='ms-2 text-sm font-medium text-left leading-6 text-white'
+              >
+                Send me updates when the kollaborate AI shows this brand getting
+                active again.
+              </label>
+            </div>
+            <p className='text-sm font-medium text-left leading-6 text-white'>
+              No Risks, No hassles, We handle it all.
+            </p>
+            <p className='text-sm font-medium text-left leading-6 text-white'>
+              You only pay once the contract is officially signed.
+            </p>
+            <Button className='block bg-indigo-600 px-6 py-2 max-w-fit mt-4'>
+              Represent Me
+            </Button>
+          </div>
         </AccordionContent>
       </AccordionItem>
     </Accordion>
