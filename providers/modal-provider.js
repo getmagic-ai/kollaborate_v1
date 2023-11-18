@@ -27,7 +27,7 @@ export const ModalProvider = ({ isDiscordConnected }) => {
 
   return (
     <>
-      <DiscordConnectModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+      {/* <DiscordConnectModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} /> */}
       <BrandDetailsModal
         isOpen={brandModalIsOpen}
         onClose={brandModalOnClose}
