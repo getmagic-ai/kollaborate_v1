@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/accordion";
 import {
   ArrowTrendingUpIcon,
+  //insert a Arrow Down Icon here
+  ArrowTrendingDownIcon,
   ArrowUpOnSquareIcon,
   BookmarkIcon,
 } from "@heroicons/react/24/outline";
@@ -61,7 +63,8 @@ const BrandCard = ({ brand }) => {
           </p>
 
           <div className='flex items-center justify-end'>
-            <ArrowTrendingUpIcon className='text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />
+            {brand.name.length > 15  ? (  <ArrowTrendingUpIcon className='text-green-800 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />): ( <ArrowTrendingDownIcon className='text-red-800 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />)   }
+          
             <ArrowUpOnSquareIcon
               onClick={() => {
                 copy(brand.url);
