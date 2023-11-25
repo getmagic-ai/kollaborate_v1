@@ -1,21 +1,26 @@
-import sgMail from "@sendgrid/mail";
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+import { render as EmailRender } from "@react-email/render";
+import InviteUserEmail from "@/components/email-templates/invitation";
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-const msg = {
-  to: "test@example.com",
-  from: "test@example.com", // Use the email address or domain you verified above
-  subject: "Sending with Twilio SendGrid is Fun",
-  text: `You are invited to ${process.env.NEXT_PUBLIC_APP_URL}`,
-};
-
-export async function POST(req) {
+export async function POST() {
+  const html = EmailRender(<InviteUserEmail />);
   try {
-    await sgMail.send(msg);
-    return NextResponse.json({ message: "Invite sent successfully." });
+    const { data, error } = await resend.emails.send({
+      from: "Acme <onboarding@resends.dev>",
+      to: ["delivered@resend.dev"],
+      subject: "Hello world",
+      react: html,
+    });
+
+    if (error) {
+      return NextResponse.json({ error });
+    }
+
+    return NextResponse.json({ data });
   } catch (error) {
-    console.log(error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return NextResponse.json({ error });
   }
 }
