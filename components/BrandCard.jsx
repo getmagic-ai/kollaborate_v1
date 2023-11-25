@@ -115,15 +115,14 @@ const BrandCard = ({ brand }) => {
                 for='checked-checkbox'
                 className='ms-2 text-sm font-medium text-left leading-6 text-white'
               >
-                Send me updates when the kollaborate AI shows this brand getting
-                active again.
+                 Email me when this brand shows above average activity.
               </label>
             </div>
             <p className='text-sm font-medium text-left leading-6 text-white'>
               No Risks, No hassles, We handle it all.
             </p>
             <p className='text-sm font-medium text-left leading-6 text-white'>
-              You only pay once the contract is officially signed.
+              Only pay once the contract is officially signed.
             </p>
             <Button className='block bg-indigo-600 px-6 py-2 max-w-fit mt-4'>
               Represent Me

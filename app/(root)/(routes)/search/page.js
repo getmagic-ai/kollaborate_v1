@@ -63,8 +63,8 @@ const SearchPage = () => {
             type='text'
             name='brandsearch'
             id='brandsearch'
-            className='py-2.5 px-2 block text-white bg-gray-700 w-full rounded-md border-gray-300 shadow-sm sm:text-sm'
-            placeholder='Amazon'
+            className='italic py-2.5 px-2 block text-white bg-gray-700 w-full rounded-md border-gray-300 shadow-sm sm:text-sm'        
+            placeholder='Tell our AI what brand suits you best...'
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
