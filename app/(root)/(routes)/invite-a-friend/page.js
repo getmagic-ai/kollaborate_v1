@@ -1,34 +1,29 @@
 "use client";
-import CTA from "@/components/CTA";
-import sgMail from "@sendgrid/mail";
+import axios from "axios";
 import toast from "react-hot-toast";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import CTA from "@/components/CTA";
 
 const InviteAFriend = () => {
   const [email, setEmail] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
 
-  const inviteFriend = () => {
-    const msg = {
-      to: email,
-      from: "test@example.com", // Use the email address or domain you verified above
-      subject: "Sending with Twilio SendGrid is Fun",
-      text: "and easy to do anywhere, even with Node.js",
-      html: "<strong>and easy to do anywhere, even with Node.js</strong>",
-    };
-    sgMail.send(msg).then(
-      () => {
-        toast.success("Invite sent successfully");
-      },
-      (error) => {
-        console.error(error);
-
-        if (error.response) {
-          console.error(error.response.body);
-        }
+  const inviteFriend = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setIsValidEmail(true);
+      return toast.error("Invalid email address");
+    }
+    try {
+      const { data } = await axios.post("/api/email");
+      if (data) {
+        toast.success("Invitation email sent successfully.");
+        setEmail("");
       }
-    );
+    } catch (error) {
+      return toast.error("Internal error. Please try again later.");
+    }
   };
 
   return (
@@ -48,11 +43,18 @@ const InviteAFriend = () => {
             type='email'
             name='email'
             id='email'
-            className='py-2.5 px-2 block bg-gray-700 w-full rounded-md border-gray-300 shadow-sm sm:text-sm'
+            className='py-2.5 px-2 block bg-gray-700 text-white w-full rounded-md border-gray-300 shadow-sm sm:text-sm'
             placeholder='you@example.com'
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Button variant='outline'>Invite</Button>
+          <Button
+            disabled={email.length < 0 && isValidEmail}
+            onClick={inviteFriend}
+            variant='outline'
+          >
+            Invite
+          </Button>
         </div>
       </div>
       <CTA />

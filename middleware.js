@@ -11,6 +11,7 @@ export default authMiddleware({
     "/api/webhook",
     "/api/brand",
     "/api/search",
+    "/api/email",
   ],
 });
 
