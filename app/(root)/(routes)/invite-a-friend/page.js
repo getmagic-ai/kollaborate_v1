@@ -19,10 +19,11 @@ const InviteAFriend = () => {
       const { data } = await axios.post("/api/email");
       if (data) {
         toast.success("Invitation email sent successfully.");
-        setEmail("");
       }
     } catch (error) {
       return toast.error("Internal error. Please try again later.");
+    } finally {
+      setEmail("");
     }
   };
 
