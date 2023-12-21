@@ -16,7 +16,9 @@ const InviteAFriend = () => {
       return toast.error("Invalid email address");
     }
     try {
-      const { data } = await axios.post("/api/email");
+      const { data } = await axios.post("/api/email", {
+        email: email,
+      });
       if (data) {
         toast.success("Invitation email sent successfully.");
       }

@@ -51,11 +51,13 @@ const InvitationEmail = () => {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST() {
+export async function POST(req, res) {
+  const { email } = await req.json();
+
   try {
     const { data, error } = await resend.emails.send({
       from: "anup@kollaborate.co",
-      to: ["prathmeshsadake@gmail.com"],
+      to: email,
       subject: "Join Our App Invitation",
       react: <InvitationEmail />,
     });
