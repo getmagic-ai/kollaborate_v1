@@ -63,8 +63,12 @@ const BrandCard = ({ brand }) => {
           </p>
 
           <div className='flex items-center justify-end'>
-            {brand.name.length > 15  ? (  <ArrowTrendingUpIcon className='text-green-800 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />): ( <ArrowTrendingDownIcon className='text-red-800 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />)   }
-          
+            {brand?.name?.length > 15 ? (
+              <ArrowTrendingUpIcon className='text-green-800 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />
+            ) : (
+              <ArrowTrendingDownIcon className='text-red-800 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"' />
+            )}
+
             <ArrowUpOnSquareIcon
               onClick={() => {
                 copy(brand.url);
@@ -115,7 +119,7 @@ const BrandCard = ({ brand }) => {
                 for='checked-checkbox'
                 className='ms-2 text-sm font-medium text-left leading-6 text-white'
               >
-                 Email me when this brand shows above average activity.
+                Email me when this brand shows above average activity.
               </label>
             </div>
             <p className='text-sm font-medium text-left leading-6 text-white'>

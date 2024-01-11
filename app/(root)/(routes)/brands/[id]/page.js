@@ -3,19 +3,21 @@ import React from "react";
 import axios from "axios";
 import { useParams, usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import Loader from "@/components/Loader";
+import ChatScreen from "../../chat/page";
 
 const BrandDetails = () => {
   const { id } = useParams();
-  console.log(id);
+
   const { data, error, isLoading } = useQuery({
     queryFn: async () => await axios.post(`/api/brand`, { id: id }),
     queryKey: ["brand"],
   });
-  console.log(data);
-  if (isLoading) return <div>Loading....</div>;
+
+  if (isLoading) return <Loader />;
 
   const brandData = data?.data[0];
-  console.log(brandData);
+
   return (
     <div className='mx-auto max-w-7xl py-24 px-6 lg:px-8'>
       <h1 className='text-5xl font-bold tracking-tight text-gray-200'>
@@ -29,6 +31,8 @@ const BrandDetails = () => {
           ? brandData.brand_description
           : "contact us for brand details"}
       </p>
+
+      <ChatScreen />
     </div>
   );
 };

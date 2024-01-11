@@ -14,8 +14,8 @@ const ChatScreen = () => {
   };
 
   return (
-    <div className='flex flex-col'>
-      <div className='flex-1 overflow-y-auto p-4'>
+    <div className='flex flex-col h-60 max-h-60 overflow-y-auto bg-gray-800 my-4'>
+      <div className='flex-1  p-4'>
         {/* Chat messages */}
         {chat.map((msg, index) => (
           <div

@@ -45,9 +45,10 @@ export default function Home() {
             </h2>
             <div className='flex flex-col space-y-4 mt-4 border-t border-gray-200 py-6'>
               {data &&
-                data.data.map((brand) => (
-                  <BrandCard key={brand.id} brand={brand} />
-                ))}
+                data.data.map(
+                  (brand) =>
+                    brand.name && <BrandCard key={brand.id} brand={brand} />
+                )}
             </div>
           </TabsContent>
           <TabsContent value='ugc' className='mt-5'>
@@ -56,9 +57,10 @@ export default function Home() {
             </h2>
             <div className='flex flex-col space-y-4 mt-4 border-t border-gray-200 py-6'>
               {data &&
-                data.data.map((brand) => (
-                  <BrandCard key={brand.id} brand={brand} />
-                ))}
+                data.data.map(
+                  (brand) =>
+                    brand.name && <BrandCard key={brand.id} brand={brand} />
+                )}
             </div>
           </TabsContent>
           <TabsContent value='all' className='mt-5'>
@@ -67,9 +69,10 @@ export default function Home() {
             </h2>
             <div className='flex flex-col space-y-4 mt-4 border-t border-gray-200 py-6'>
               {data &&
-                data.data.map((brand) => (
-                  <BrandCard key={brand.id} brand={brand} />
-                ))}
+                data.data.map(
+                  (brand) =>
+                    brand.name && <BrandCard key={brand.id} brand={brand} />
+                )}
             </div>
           </TabsContent>
         </Tabs>
