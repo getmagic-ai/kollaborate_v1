@@ -28,7 +28,9 @@ const SearchPage = () => {
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
       }
       router.push(`?query=${encodedQuery}`);
-      const response = await axios.get(`/api/search?query=${encodedQuery}`);
+      const response = await axios.get(
+        `http://api.kollaborate.co/open-search?message=${encodedQuery}&page=1`
+      );
       setResults(response.data);
     } catch (error) {
       console.error("Error fetching results:", error);
@@ -63,7 +65,7 @@ const SearchPage = () => {
             type='text'
             name='brandsearch'
             id='brandsearch'
-            className='italic py-2.5 px-2 block text-white bg-gray-700 w-full rounded-md border-gray-300 shadow-sm sm:text-sm'        
+            className='italic py-2.5 px-2 block text-white bg-gray-700 w-full rounded-md border-gray-300 shadow-sm sm:text-sm'
             placeholder='Tell our AI what brand suits you best...'
             value={query}
             onChange={(e) => setQuery(e.target.value)}
