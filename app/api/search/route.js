@@ -1,7 +1,7 @@
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
-export async function GET(req) {
+export async function POST(req) {
   const url = new URL(req.url);
   const searchQuery = url.searchParams.get("query") || "";
   const decodedQuery = decodeURIComponent(searchQuery);

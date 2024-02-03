@@ -13,6 +13,20 @@ const ChatScreen = () => {
     }
   };
 
+  if (chat.length === 1) {
+    setTimeout(
+      () =>
+        setChat((messages) => [
+          ...messages,
+          {
+            text: "Our AI is taking a break! We will email you to follow up.Thanks for your patience!",
+            sender: "app",
+          },
+        ]),
+      1000
+    );
+  }
+
   return (
     <div className='flex flex-col h-60 max-h-60 overflow-y-auto bg-gray-800 my-4'>
       <div className='flex-1  p-4'>
@@ -26,7 +40,7 @@ const ChatScreen = () => {
           >
             <span
               className={`inline-block p-2 bg-${
-                msg.sender === "user" ? "blue" : "green"
+                msg.sender === "user" ? "blue" : "blue"
               }-500 text-white rounded`}
             >
               {msg.text}
