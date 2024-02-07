@@ -40,9 +40,7 @@ const SearchPage = () => {
       }
       router.push(`?query=${encodedQuery}`);
       // const response = await axios.get(`/api/search?${encodedQuery}`);
-      const response = await axios.get(
-        `http://api.kollaborate.co/open-search?message=${encodedQuery}&page=1`
-      );
+      const response = await axios.get(`/api/search?query=${encodedQuery}`);
       console.log(response);
       setResults(response.data);
     } catch (error) {
@@ -54,7 +52,6 @@ const SearchPage = () => {
       const urlQuery = router.query.query;
       const decodedQuery = decodeURIComponent(urlQuery);
       setQuery(decodedQuery);
-      // Call the API with the query parameter from the URL
       axios
         .get(`/api/search?query=${urlQuery}`)
         .then((response) => {
