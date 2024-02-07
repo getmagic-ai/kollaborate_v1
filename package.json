@@ -11,6 +11,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@clerk/nextjs": "^4.21.15",
     "@clerk/themes": "^1.7.5",
