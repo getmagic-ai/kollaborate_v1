@@ -1,7 +1,9 @@
 "use client";
+import Link from "next/link";
 import toast from "react-hot-toast";
 import {
   Accordion,
+  AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
@@ -17,6 +19,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const SearchPage = () => {
+  const [checked, setChecked] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const router = useRouter();
@@ -120,6 +123,47 @@ const SearchPage = () => {
                     />
                   </div>
                 </div>
+                <AccordionContent className='py-1 px-4 h-full bg-gray-800 text-gray-300 text-xs'>
+                  <p className='text-sm mb-2 font-medium text-left leading-6 text-white'>
+                    Description
+                  </p>
+                  {brand.brand_description ? brand.brand_description : ""}
+                  <Link
+                    href={`/brands/${brand.id}`}
+                    className='block bg-gray-700 px-6 py-2 max-w-fit mt-4'
+                  >
+                    View in detail
+                  </Link>
+
+                  <div className='my-8 p-3 bg-gray-700'>
+                    <div class='py-3 flex items-center'>
+                      <input
+                        checked={checked}
+                        id='checked-checkbox'
+                        type='checkbox'
+                        onChange={() => {
+                          setChecked(!checked);
+                        }}
+                        className='w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
+                      />
+                      <label
+                        for='checked-checkbox'
+                        className='ms-2 text-sm font-medium text-left leading-6 text-white'
+                      >
+                        Email me when this brand shows above average activity.
+                      </label>
+                    </div>
+                    <p className='text-sm font-medium text-left leading-6 text-white'>
+                      No Risks, No hassles, We handle it all.
+                    </p>
+                    <p className='text-sm font-medium text-left leading-6 text-white'>
+                      Only pay once the contract is officially signed.
+                    </p>
+                    <Button className='block bg-indigo-600 px-6 py-2 max-w-fit mt-4'>
+                      Represent Me
+                    </Button>
+                  </div>
+                </AccordionContent>
               </AccordionItem>
             </Accordion>
           ))}
