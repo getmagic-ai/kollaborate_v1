@@ -2,10 +2,12 @@
 import React from "react";
 import { Share } from "lucide-react";
 import { Button } from "./ui/button";
-import toast from "react-hot-toast";
 import copy from "copy-to-clipboard";
+import { getURL } from "@/lib/utils";
+import { useToast } from "./ui/use-toast";
 
 const CTA = () => {
+  const { toast } = useToast();
   return (
     <div className='py-12'>
       <div className='relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0'>
@@ -38,8 +40,13 @@ const CTA = () => {
               variant='outline'
               className='flex items-center text-sm font-semibold leading-6 text-black'
               onClick={() => {
-                copy(process.env.NEXT_PUBLIC_APP_URL!);
-                toast.success("Copied to clipboard");
+                const url = getURL();
+                copy(url);
+
+                toast({
+                  title: "Link copied",
+                  description: "Link copied to clipboard",
+                });
               }}
             >
               Share{" "}

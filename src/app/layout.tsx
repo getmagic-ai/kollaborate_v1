@@ -5,7 +5,7 @@ import "./globals.css";
 import { dark } from "@clerk/themes";
 import { ClerkProvider } from "@clerk/nextjs";
 import Providers from "@/providers/tanstack-query-provider";
-import Navbar from "@/components/navbar/navbar";
+import { ToastProvider } from "@/providers/toast-provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,7 +30,10 @@ export default function RootLayout({
     >
       <html lang='en'>
         <Providers>
-          <body className={poppins.className}>{children}</body>
+          <body className={poppins.className}>
+            <ToastProvider />
+            {children}
+          </body>
         </Providers>
       </html>
     </ClerkProvider>

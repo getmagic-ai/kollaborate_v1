@@ -60,7 +60,7 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
     }
   );
 
-  // console.log(brand);
+  console.log(brand);
   return (
     <Accordion type='single' collapsible>
       <AccordionItem value={brand.id}>
@@ -89,19 +89,21 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
               }}
               className='text-gray-100 cursor-pointer group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
             />
-            {brand.saved.find(
-              (item) => item.userId === userId && item.brandId === brand.id
-            ) ? (
-              <BookmarkIconSolid
-                onClick={mutate}
-                className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
-              />
-            ) : (
-              <BookmarkIcon
-                onClick={mutate}
-                className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
-              />
-            )}
+            {brand.Saved ? (
+              brand.Saved.find(
+                (item) => item.userId === userId && item.brandId === brand.id
+              ) ? (
+                <BookmarkIconSolid
+                  onClick={mutate}
+                  className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
+                />
+              ) : (
+                <BookmarkIcon
+                  onClick={mutate}
+                  className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
+                />
+              )
+            ) : null}
           </div>
         </div>
 

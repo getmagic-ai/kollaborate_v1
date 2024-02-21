@@ -1,38 +1,101 @@
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextIndex", "fullTextSearch"]
 }
 
 datasource db {
   provider          = "postgresql"
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-  
 }
 
 model Saved {
-  id      String                     @id @default(uuid())
-  brandId Int
-  userId  String
-  saved   nc_1o1g___brand_master_dev @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  id                         String                     @id
+  brandId                    Int
+  userId                     String
+  nc_1o1g___brand_master_dev nc_1o1g___brand_master_dev @relation(fields: [brandId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id               String   @id @default(uuid())
+  id               String   @id
   userId           String
   stripeCustomerId String?
   isActive         Boolean  @default(false)
   createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  updatedAt        DateTime
 }
 
 model UserSubscription {
-  id                     String    @id @default(cuid())
-  userId                 String    @unique
-  stripeCustomerId       String?   @unique @map("stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map("stripe_subscription_id")
-  stripePriceId          String?   @map("stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map("stripe_current_period_end")
+  id                        String    @id
+  userId                    String    @unique
+  stripe_customer_id        String?   @unique
+  stripe_subscription_id    String?   @unique
+  stripe_price_id           String?
+  stripe_current_period_end DateTime?
+}
+
+model app_store_dev {
+  id                      BigInt    @id
+  app_id                  String?   @db.VarChar
+  title                   String?   @db.VarChar
+  url                     String?   @db.VarChar
+  description             String?   @db.VarChar
+  icon                    String?   @db.VarChar
+  genres                  String?
+  genre_ids               String?
+  primary_genre           String?   @db.VarChar
+  primary_genre_id        BigInt?
+  content_rating          String?   @db.VarChar
+  languages               String?
+  size                    BigInt?
+  required_os_version     String?   @db.VarChar
+  released                String?   @db.VarChar
+  updated                 String?   @db.VarChar
+  release_notes           String?   @db.VarChar
+  version                 String?   @db.VarChar
+  price                   Decimal?  @db.Decimal
+  currency                String?   @db.VarChar
+  free                    Boolean?  @default(false)
+  developer_id            BigInt?
+  developer               String?   @db.VarChar
+  developer_url           String?   @db.VarChar
+  developer_website       String?
+  score                   Decimal?  @db.Decimal
+  reviews                 Decimal?  @db.Decimal
+  current_version_score   Decimal?  @db.Decimal
+  current_version_reviews BigInt?
+  screenshots             String?
+  ipad_screenshots        String?
+  appletv_screenshots     String?
+  supported_devices       String?
+  created_at              DateTime? @default(now()) @db.Timestamp(6)
+  updated_at              DateTime? @default(now()) @db.Timestamp(6)
+  category                String?   @db.VarChar
+}
+
+model company_embedding_tracker {
+  id         Int      @id @default(autoincrement())
+  brand_id   String   @db.VarChar(255)
+  url        String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model langchain_pg_collection {
+  name                   String?                  @db.VarChar
+  cmetadata              Json?                    @db.Json
+  uuid                   String                   @id @db.Uuid
+  langchain_pg_embedding langchain_pg_embedding[]
+}
+
+model langchain_pg_embedding {
+  collection_id           String?                  @db.Uuid
+  embedding               Unsupported("vector")?
+  document                String?                  @db.VarChar
+  cmetadata               Json?                    @db.Json
+  custom_id               String?                  @db.VarChar
+  uuid                    String                   @id @db.Uuid
+  langchain_pg_collection langchain_pg_collection? @relation(fields: [collection_id], references: [uuid], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model nc_1o1g___brand_master_dev {
@@ -50,7 +113,7 @@ model nc_1o1g___brand_master_dev {
   data_source_url   String?   @db.VarChar
   metadata          Json?
   source_id         String?   @db.VarChar
-  saved             Saved[]
+  Saved             Saved[]
 }
 
 model nc_roles {
@@ -261,6 +324,25 @@ model nc_views_v2 {
   meta               String?
 }
 
+model wellfound_companies {
+  id                Int            @id @default(autoincrement())
+  brand_id          String?        @unique @db.VarChar(255)
+  name              String?
+  summary           String?
+  image_url         String?
+  status            String?        @db.VarChar(255)
+  company_url       String?        @unique @db.VarChar(255)
+  employee_count    String?        @db.VarChar(255)
+  description       String?
+  industries        String[]       @db.VarChar
+  jobs              String[]       @db.VarChar
+  locations         String[]       @db.VarChar
+  work_life_balance Float?
+  strong_leadership Float?
+  rating            Float?
+  category          category_enum?
+}
+
 model xc_knex_migrations {
   id             Int       @id @default(autoincrement())
   name           String?   @db.VarChar(255)
@@ -283,4 +365,27 @@ model xc_knex_migrationsv2 {
 model xc_knex_migrationsv2_lock {
   index     Int  @id @default(autoincrement())
   is_locked Int?
+}
+
+enum category_enum {
+  Internet
+  Telecommunications
+  Aerospace
+  Software
+  Real_Estate            @map("Real Estate")
+  Information_Technology @map("Information Technology")
+  E_Commerce             @map("E-Commerce")
+  Logistics
+  Financial_Services     @map("Financial Services")
+  Biotechnology
+  Healthcare
+  Insurance
+  Manufacturing
+  Education
+  Retail
+  Entertainment
+  Agriculture
+  Transportation
+  Energy
+  Consulting
 }

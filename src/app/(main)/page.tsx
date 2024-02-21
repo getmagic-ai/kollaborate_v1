@@ -21,6 +21,7 @@ export default function Home() {
     queryFn: getData,
     queryKey: ["brands", page],
   });
+  
   isLoading && <Loader className='animate-spin w-5 h-5 mx-auto' />;
   error && <div>Error...</div>;
 
