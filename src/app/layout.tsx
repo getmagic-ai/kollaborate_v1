@@ -30,10 +30,7 @@ export default function RootLayout({
     >
       <html lang='en'>
         <Providers>
-          <body className={poppins.className}>
-            <Navbar />
-            {children}
-          </body>
+          <body className={poppins.className}>{children}</body>
         </Providers>
       </html>
     </ClerkProvider>
