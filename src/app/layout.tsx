@@ -4,6 +4,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { dark } from "@clerk/themes";
 import { ClerkProvider } from "@clerk/nextjs";
+import Providers from "@/providers/tanstack-query-provider";
+import Navbar from "@/components/navbar/navbar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,7 +29,12 @@ export default function RootLayout({
       }}
     >
       <html lang='en'>
-        <body className={poppins.className}>{children}</body>
+        <Providers>
+          <body className={poppins.className}>
+            <Navbar />
+            {children}
+          </body>
+        </Providers>
       </html>
     </ClerkProvider>
   );
