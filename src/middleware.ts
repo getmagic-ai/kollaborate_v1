@@ -8,6 +8,7 @@ export default authMiddleware({
     "/sign-up",
     "/blogs",
     "/api/brands",
+    "/api/bookmarks",
     "/api/webhook",
     "/api/brand",
     "/api/search",
