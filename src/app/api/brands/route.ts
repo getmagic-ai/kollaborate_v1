@@ -24,39 +24,76 @@ export async function GET(req: Request) {
   }
 }
 
-// export async function POST(req: Request) {
-//   try {
-//     const { userId } = auth();
-//     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+export async function POST(req: Request) {
+  const body = await req.json();
+  const { userId } = body;
+  if (userId) {
+    try {
+      const { brandId } = body;
 
-//     const body = await req.json();
-//     const { brandId } = body;
+      const saved = await prismadb.saved.findFirst({
+        where: {
+          brandId: brandId,
+          userId: userId,
+        },
+      });
 
-//     const saved = await prismadb.saved.findFirst({
-//       where: {
-//         brandId: brandId,
-//         userId: userId,
-//       },
-//     });
+      if (!saved) {
+        const result = await prismadb.saved.create({
+          data: {
+            brandId,
+            userId,
+            id: `${userId}-${brandId}`,
+          },
+        });
+        return NextResponse.json(result);
+      } else {
+        const result = await prismadb.saved.delete({
+          where: {
+            id: saved.id,
+          },
+        });
+        return NextResponse.json(result);
+      }
+    } catch (error) {
+      console.log(error);
+      return new NextResponse("Internal Server Error", { status: 500 });
+    }
+  } else {
+    try {
+      const { userId } = auth();
+      if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-//     if (!saved) {
-//       const result = await prismadb.saved.create({
-//         data: {
-//           brandId,
-//           userId,
-//         },
-//       });
-//       return NextResponse.json(result);
-//     } else {
-//       const result = await prismadb.saved.delete({
-//         where: {
-//           id: saved.id,
-//         },
-//       });
-//       return NextResponse.json(result);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     return new NextResponse("Internal Server Error", { status: 500 });
-//   }
-// }
+      const body = await req.json();
+      const { brandId } = body;
+
+      const saved = await prismadb.saved.findFirst({
+        where: {
+          brandId: brandId,
+          userId: userId,
+        },
+      });
+
+      if (!saved) {
+        const result = await prismadb.saved.create({
+          data: {
+            brandId,
+            userId,
+            id: `${userId}-${brandId}`,
+          },
+        });
+        return NextResponse.json(result);
+      } else {
+        const result = await prismadb.saved.delete({
+          where: {
+            id: saved.id,
+          },
+        });
+        return NextResponse.json(result);
+      }
+    } catch (error) {
+      console.log(error);
+      return new NextResponse("Internal Server Error", { status: 500 });
+    }
+  }
+}
