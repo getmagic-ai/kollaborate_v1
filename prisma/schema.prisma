@@ -19,7 +19,7 @@ model Saved {
 model User {
   id               String   @id
   userId           String
-  stripeCustomerId String?
+  stripeCustomerId String?  @map("stripe_customer_id")
   isActive         Boolean  @default(false)
   createdAt        DateTime @default(now())
   updatedAt        DateTime
@@ -28,7 +28,7 @@ model User {
 model UserSubscription {
   id                        String    @id
   userId                    String    @unique
-  stripe_customer_id        String?   @unique
+  stripe_customer_id        String?   @unique @map("stripeCustomerId")
   stripe_subscription_id    String?   @unique
   stripe_price_id           String?
   stripe_current_period_end DateTime?

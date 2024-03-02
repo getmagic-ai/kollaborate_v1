@@ -29,7 +29,7 @@ interface BrandCardProps {
     category_main: string;
     brand_description: string;
     url: string;
-    saved: {
+    Saved: {
       userId: string;
       brandId: string;
     }[];
