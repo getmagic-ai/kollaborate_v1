@@ -10,7 +10,7 @@ export const checkSubscription = async () => {
     return false;
   }
 
-  const userSubscription = await prismadb.UserSubscription.findUnique({
+  const userSubscription = await prismadb.userSubscription.findUnique({
     where: {
       userId: userId,
     },
