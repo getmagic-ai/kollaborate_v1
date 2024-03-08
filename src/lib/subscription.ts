@@ -15,20 +15,20 @@ export const checkSubscription = async () => {
       userId: userId,
     },
     select: {
-      stripe_subscription_id: true,
-      stripe_current_period_end: true,
-      stripe_customer_id: true,
-      stripe_price_id: true,
+      stripeSubscriptionId: true,
+      stripeCurrentPeriodEnd: true,
+      stripeCustomerId: true,
+      stripePriceId: true,
     },
   });
 
-  if (!userSubscription || userSubscription.stripe_current_period_end) {
+  if (!userSubscription) {
     return false;
   }
 
   const isValid =
-    userSubscription.stripe_price_id &&
-    userSubscription.stripe_current_period_end.getTime() + DAY_IN_MS >
+    userSubscription.stripePriceId &&
+    userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS >
       Date.now();
 
   return !!isValid;
