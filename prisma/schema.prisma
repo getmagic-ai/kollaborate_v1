@@ -26,12 +26,12 @@ model User {
 }
 
 model UserSubscription {
-  id                        String    @id
-  userId                    String    @unique
-  stripe_customer_id        String?   @unique @map("stripeCustomerId")
-  stripe_subscription_id    String?   @unique
-  stripe_price_id           String?
-  stripe_current_period_end DateTime?
+  id        String      @id @default(cuid())
+  userId    String   @unique
+  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?   @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 }
 
 model app_store_dev {
