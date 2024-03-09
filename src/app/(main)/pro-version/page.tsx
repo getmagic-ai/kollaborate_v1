@@ -11,17 +11,19 @@ const getPrice = async () => {
   const priceData = data.filter(
     (prices: any) => prices.id === process.env.STRIPE_PRICE_ID!
   );
+
+  console.log(priceData);
   return priceData[0];
 };
 
 export default async function ProVersion() {
-  // const price = await getPrice();
-  const price = { currency: "100", unit_amount: 1 };
+  const price = await getPrice();
+
   const isPro = await checkSubscription();
 
-  // if (!price) {
-  //   return null;
-  // }
+  if (!price) {
+    return null;
+  }
 
   const tiers = [
     {
@@ -34,7 +36,7 @@ export default async function ProVersion() {
     {
       name: "Professional",
       priceMonthly: `${price.currency.toUpperCase()} ${
-        price?.unit_amount || 0 / 100
+        (price?.unit_amount || 0) / 100
       }`,
       description:
         "Unleash the power of Automation. Advance tools to take your work to next level",
