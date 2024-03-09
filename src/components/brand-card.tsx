@@ -88,8 +88,8 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
               }}
               className='text-gray-100 cursor-pointer group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
             />
-            {brand.Saved ? (
-              brand.Saved.find(
+            {brand.Saved &&
+              (brand.Saved.find(
                 (item) => item.userId === userId && item.brandId === brand.id
               ) ? (
                 <BookmarkIconSolid
@@ -100,12 +100,12 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
                 />
               ) : (
                 <BookmarkIcon
+                  className='text-gray-100 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
                   onClick={(
                     event: React.MouseEvent<SVGSVGElement, MouseEvent>
                   ) => mutate()}
                 />
-              )
-            ) : null}
+              ))}
           </div>
         </div>
 
