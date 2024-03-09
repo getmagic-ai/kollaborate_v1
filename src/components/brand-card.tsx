@@ -60,7 +60,6 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
     }
   );
 
-  console.log(brand);
   return (
     <Accordion type='single' collapsible>
       <AccordionItem value={brand.id}>
@@ -94,13 +93,16 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
                 (item) => item.userId === userId && item.brandId === brand.id
               ) ? (
                 <BookmarkIconSolid
-                  onClick={mutate}
+                  onClick={(
+                    event: React.MouseEvent<SVGSVGElement, MouseEvent>
+                  ) => mutate()}
                   className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
                 />
               ) : (
                 <BookmarkIcon
-                  onClick={mutate}
-                  className='cursor-pointer text-gray-100 group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
+                  onClick={(
+                    event: React.MouseEvent<SVGSVGElement, MouseEvent>
+                  ) => mutate()}
                 />
               )
             ) : null}

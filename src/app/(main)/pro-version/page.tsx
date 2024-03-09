@@ -15,12 +15,13 @@ const getPrice = async () => {
 };
 
 export default async function ProVersion() {
-  const price = await getPrice();
+  // const price = await getPrice();
+  const price = { currency: "100", unit_amount: 1 };
   const isPro = await checkSubscription();
 
-  if (!price) {
-    return null;
-  }
+  // if (!price) {
+  //   return null;
+  // }
 
   const tiers = [
     {
