@@ -15,7 +15,7 @@ import {
 } from "@heroicons/react/24/outline";
 import axios from "axios";
 import copy from "copy-to-clipboard";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const SearchPage = () => {
@@ -23,6 +23,7 @@ const SearchPage = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const router = useRouter();
+  const params = useSearchParams();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -53,9 +54,10 @@ const SearchPage = () => {
   };
 
   useEffect(() => {
-    if (router?.query && router?.query.query) {
-      const urlQuery = router.query.query;
-      const decodedQuery = decodeURIComponent(urlQuery);
+    if (params.get("query")) {
+      const urlQuery = params.get("query");
+      if (urlQuery === query) return;
+      const decodedQuery = decodeURIComponent(urlQuery as string);
       setQuery(decodedQuery);
       axios
         .get(`/api/search?query=${urlQuery}`)
@@ -66,7 +68,7 @@ const SearchPage = () => {
           console.error("Error fetching results:", error);
         });
     }
-  }, [router.query]);
+  }, [params]);
 
   return (
     <div className='py-6'>
