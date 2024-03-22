@@ -19,19 +19,19 @@ model Saved {
 model User {
   id               String   @id
   userId           String
-  stripeCustomerId String?  @map("stripe_customer_id")
   isActive         Boolean  @default(false)
   createdAt        DateTime @default(now())
   updatedAt        DateTime
+  stripeCustomerId String?  @map("stripe_customer_id")
 }
 
 model UserSubscription {
-  id        String      @id @default(cuid())
-  userId    String   @unique
-  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?   @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  id                     String    @id @default(cuid())
+  userId                 String    @unique
+  stripeCustomerId       String?   @unique(map: "UserSubscription_stripe_customer_id_key")
+  stripeSubscriptionId   String?   @unique(map: "UserSubscription_stripe_subscription_id_key")
+  stripePriceId          String?
+  stripeCurrentPeriodEnd DateTime?
 }
 
 model app_store_dev {
@@ -325,22 +325,23 @@ model nc_views_v2 {
 }
 
 model wellfound_companies {
-  id                Int            @id @default(autoincrement())
-  brand_id          String?        @unique @db.VarChar(255)
+  id                Int              @id @default(autoincrement())
+  brand_id          String?          @unique @db.VarChar(255)
   name              String?
   summary           String?
   image_url         String?
-  status            String?        @db.VarChar(255)
-  company_url       String?        @unique @db.VarChar(255)
-  employee_count    String?        @db.VarChar(255)
+  status            String?          @db.VarChar(255)
+  company_url       String?          @unique @db.VarChar(255)
+  employee_count    String?          @db.VarChar(255)
   description       String?
-  industries        String[]       @db.VarChar
-  jobs              String[]       @db.VarChar
-  locations         String[]       @db.VarChar
+  industries        String[]         @db.VarChar
+  jobs              String[]         @db.VarChar
+  locations         String[]         @db.VarChar
   work_life_balance Float?
   strong_leadership Float?
   rating            Float?
   category          category_enum?
+  company_master    company_master[]
 }
 
 model xc_knex_migrations {
@@ -365,6 +366,62 @@ model xc_knex_migrationsv2 {
 model xc_knex_migrationsv2_lock {
   index     Int  @id @default(autoincrement())
   is_locked Int?
+}
+
+model app_store_dev_cleaned {
+  id                      BigInt           @id
+  app_id                  String?
+  title                   String?
+  url                     String?
+  description             String?
+  icon                    String?
+  genres                  String?
+  genre_ids               String?
+  primary_genre           String?
+  primary_genre_id        BigInt?
+  content_rating          String?
+  languages               String?
+  size                    BigInt?
+  required_os_version     String?
+  released                String?
+  updated                 String?
+  release_notes           String?
+  version                 String?
+  price                   Float?
+  currency                String?
+  free                    Boolean?
+  developer_id            BigInt?
+  developer               String?
+  developer_url           String?
+  score                   Float?
+  reviews                 BigInt?
+  current_version_score   Float?
+  current_version_reviews BigInt?
+  screenshots             String?
+  ipad_screenshots        String?
+  appletv_screenshots     String?
+  supported_devices       String?
+  created_at              String?
+  updated_at              String?
+  category                String?
+  developer_website       String?
+  brand_id                String?          @unique(map: "brand_id_unique") @db.VarChar
+  general_category        category_enum?
+  location                String?
+  company_master          company_master[]
+}
+
+model company_master {
+  id                    Int                    @id @default(autoincrement())
+  name                  String                 @db.VarChar(256)
+  description           String?
+  location              String?
+  url                   String                 @unique @db.VarChar(256)
+  category              category_enum?
+  wellfound_id          String?                @db.VarChar
+  app_store_id          String?                @db.VarChar
+  app_store_dev_cleaned app_store_dev_cleaned? @relation(fields: [app_store_id], references: [brand_id], onDelete: NoAction, onUpdate: NoAction)
+  wellfound_companies   wellfound_companies?   @relation(fields: [wellfound_id], references: [brand_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum category_enum {
