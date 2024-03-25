@@ -7,7 +7,7 @@ import { getURL } from "@/lib/utils";
 export const dynamic = "force-dynamic";
 const absoluteUrl = getURL();
 
-const settingsUrl = `${absoluteUrl}/settings`;
+const settingsUrl = `${absoluteUrl}/pro-version`;
 
 export async function GET() {
   try {
