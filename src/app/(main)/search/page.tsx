@@ -18,7 +18,9 @@ import copy from "copy-to-clipboard";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const SearchPage = () => {
+type SearchPageProps = {title?: string};
+
+const SearchPage: React.FC<SearchPageProps> = ({title,...otherProps}) => {
   const [checked, setChecked] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -74,7 +76,7 @@ const SearchPage = () => {
     <div className='py-6'>
       <div className='mx-auto max-w-7xl px-6 lg:px-8'>
         <h3 className='text-3xl font-bold tracking-tight text-white sm:text-4xl'>
-          Search for Brands
+          {title?title:"Search for Brands"}
         </h3>
 
         <div className='mt-4 max-w-lg flex space-x-2'>

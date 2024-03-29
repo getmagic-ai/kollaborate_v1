@@ -29,14 +29,14 @@ const InvitationEmail = () => {
         Hello! You have been invited to Kollaborate.co
       </div>
       <h1>Click the button below to get started.</h1>
-      <a href={"https://kollaborate.vercel.app"} style={buttonStyle}>
+      <a href={process.env.NEXT_PUBLIC_APP_URL} style={buttonStyle}>
         Join Now
       </a>
       <p>
         If the button above doesn't work, you can also copy and paste the
         following link into your browser:
         <br />
-        <a href={"https://kollaborate.vercel.app"}>
+        <a href={process.env.NEXT_PUBLIC_APP_UR}>
           https://kollaborate.vercel.app
         </a>
       </p>
