@@ -15,21 +15,25 @@ import {
 } from "@heroicons/react/24/outline";
 import axios from "axios";
 import copy from "copy-to-clipboard";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-type SearchPageProps = {params: {title:string};
-searchParams: string};
+type SearchPageProps = { params: { title: string }; searchParams: string };
 
-const SearchPage: React.FC<SearchPageProps> = ({params: pageParams, searchParams}: SearchPageProps) => {
+const SearchPage: React.FC<SearchPageProps> = ({
+  params: pageParams,
+  searchParams,
+}: SearchPageProps) => {
   const [checked, setChecked] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const router = useRouter();
+  const pathname = usePathname();
   const params = useSearchParams();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
     try {
       const encodedQuery = encodeURIComponent(query);
 
@@ -46,7 +50,10 @@ const SearchPage: React.FC<SearchPageProps> = ({params: pageParams, searchParams
         searchHistory.push(query);
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
       }
-      router.push(`?query=${encodedQuery}`);
+
+      pathname === "/"
+        ? router.push(`/search?query=${encodedQuery}`)
+        : router.push(`?query=${encodedQuery}`);
       // const response = await axios.get(`/api/search?${encodedQuery}`);
       const response = await axios.get(`/api/search?query=${encodedQuery}`);
       console.log(response);
@@ -75,9 +82,9 @@ const SearchPage: React.FC<SearchPageProps> = ({params: pageParams, searchParams
 
   return (
     <div className='py-6'>
-      <div className='mx-auto max-w-7xl px-6 lg:px-8'>
+      <div className=''>
         <h3 className='text-3xl font-bold tracking-tight text-white sm:text-4xl'>
-          {pageParams.title?pageParams.title:"Search for Brands"}
+          {pageParams.title ? pageParams.title : "Search for Brands"}
         </h3>
 
         <div className='mt-4 max-w-lg flex space-x-2'>
