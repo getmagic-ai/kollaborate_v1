@@ -40,7 +40,7 @@ export default function Home() {
           }
         </div>
         {/* to do: add the search bar here on top - first pass done on 28 march 2024*/}
-       {/*  <SearchPage title=" "/>*/}
+        <SearchPage params={{ title: " " }} searchParams="" />
         <Tabs defaultValue="sponsorships" className="my-4">
           {/* to do: maybe remove tabs */}
           <TabsList className="bg-gray-700">
