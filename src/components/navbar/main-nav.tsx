@@ -18,9 +18,9 @@ const MainNav: React.FC<MainNavProps> = ({
   const pathname = usePathname();
   const routes = [
     {
-      href: `/`,
+      href: `/brands`,
       label: "Brands",
-      active: pathname === `/`,
+      active: pathname === `/brands`,
     },
     {
       href: `/bookmarks`,
