@@ -10,6 +10,9 @@ const Navbar = async () => {
   return (
     <div className=''>
       <div className='flex space-x-4 h-16 items-center px-4'>
+        <Link href='/' className='font-semibold text-xl text-white'>
+          kollaborate
+        </Link>
         <div className='flex flex-1 justify-end'>
           <MainNav isPro={isPro} />
         </div>
