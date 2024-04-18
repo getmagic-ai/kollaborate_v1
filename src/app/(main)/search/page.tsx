@@ -36,7 +36,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
 
     try {
       const encodedQuery = encodeURIComponent(query);
-
+      router.push(`/search?query=${encodedQuery}`);
       // Retrieve the existing search history from localStorage
       const existingSearchHistory = localStorage.getItem("searchHistory");
       let searchHistory = [];
@@ -51,13 +51,10 @@ const SearchPage: React.FC<SearchPageProps> = ({
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
       }
 
-      pathname === "/"
-        ? router.push(`/search?query=${encodedQuery}`)
-        : router.push(`?query=${encodedQuery}`);
       // const response = await axios.get(`/api/search?${encodedQuery}`);
       const response = await axios.get(`/api/search?query=${encodedQuery}`);
       console.log(response);
-      setResults(response.data);
+      setResults(response.data.companies);
     } catch (error) {
       console.error("Error fetching results:", error);
     }
