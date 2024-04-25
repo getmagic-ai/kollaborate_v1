@@ -85,7 +85,7 @@ export default function Home() {
         </Tabs>
         <Button
           onClick={() =>
-            router.push(`/?page=${page > 1 ? page - 1 : 1}`, {
+            router.push(`/brands?page=${page > 1 ? page - 1 : 1}`, {
               scroll: false,
             })
           }
@@ -94,7 +94,7 @@ export default function Home() {
         </Button>
         <Button
           onClick={() =>
-            router.push(`/?page=${page + 1}`, {
+            router.push(`/brands?page=${page + 1}`, {
               scroll: false,
             })
           }
