@@ -54,7 +54,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
       // const response = await axios.get(`/api/search?${encodedQuery}`);
       const response = await axios.get(`/api/search?query=${encodedQuery}`);
       console.log(response);
-      setResults(response.data.companies);
+      setResults(response.data);
     } catch (error) {
       console.error("Error fetching results:", error);
     }
@@ -104,7 +104,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
         </div>
 
         <div className='flex flex-col space-y-4 mt-4 border-t border-gray-200 py-6'>
-          {results.length > 0
+          {results && results.length > 0
             ? results.map((brand: any) => (
                 <Accordion type='single' collapsible>
                   <AccordionItem value={brand.id}>

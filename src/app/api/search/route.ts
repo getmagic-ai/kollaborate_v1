@@ -12,7 +12,8 @@ export async function GET(req: Request) {
       // `http://api.kollaborate.co/open-search?message=${decodedQuery}&page=1`
       process.env.NEXT_PUBLIC_SEARCH_API_URL + `?message=${decodedQuery}&page=1`
     );
-    return NextResponse.json(data);
+    console.log(data.companies[0]);
+    return NextResponse.json(data.companies);
   } catch (error) {
     console.log(error);
     return new NextResponse("Internal Error", { status: 500 });
