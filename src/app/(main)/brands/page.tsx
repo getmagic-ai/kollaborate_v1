@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import BrandCard from "@/components/brand-card";
 import { Loader } from "lucide-react";
 import SearchPage from "../search/page";
+import CustomLoader from "@/components/custom-loader";
 
 export default function Home() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function Home() {
     queryKey: ["brands", page],
   });
 
-  isLoading && <Loader className='animate-spin w-5 h-5 mx-auto' />;
+  isLoading && <CustomLoader />;
   error && <div>Error...</div>;
 
   return (
@@ -38,7 +39,7 @@ export default function Home() {
           */}
         </div>
         {/* to do: add the search bar here on top - first pass done on 28 march 2024*/}
-        <SearchPage params={{ title: " " }} searchParams='' />
+        <SearchPage />
         <Tabs defaultValue='sponsorships' className='my-4'>
           {/* to do: maybe remove tabs */}
           <TabsList className='bg-gray-700'>

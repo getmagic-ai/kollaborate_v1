@@ -11,7 +11,8 @@ const InviteAFriend = () => {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const inviteFriend = async () => {
+  const inviteFriend = async (e: any) => {
+    e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setIsValidEmail(true);

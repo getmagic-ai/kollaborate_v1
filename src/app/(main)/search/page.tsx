@@ -20,12 +20,7 @@ import React, { useEffect, useState } from "react";
 import { Loader } from "lucide-react";
 import CustomLoader from "@/components/custom-loader";
 
-type SearchPageProps = { params: { title: string }; searchParams: string };
-
-const SearchPage: React.FC<SearchPageProps> = ({
-  params: pageParams,
-  searchParams,
-}: SearchPageProps) => {
+const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(false);
   const [query, setQuery] = useState("");
@@ -68,6 +63,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
 
   useEffect(() => {
     if (params.get("query")) {
+      setIsLoading(true);
       const urlQuery = params.get("query");
       if (urlQuery === query) return;
       const decodedQuery = decodeURIComponent(urlQuery as string);
@@ -76,6 +72,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
         .get(`/api/search?query=${urlQuery}`)
         .then((response) => {
           setResults(response.data);
+          setIsLoading(false);
         })
         .catch((error) => {
           console.error("Error fetching results:", error);
@@ -87,7 +84,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
     <div className='py-6'>
       <div className=''>
         <h3 className='text-3xl font-bold tracking-tight text-white sm:text-4xl'>
-          {pageParams.title ? pageParams.title : "Search for Brands"}
+          Search for Brands
         </h3>
 
         <form onSubmit={handleSubmit} className='mt-4 max-w-lg flex space-x-2'>
