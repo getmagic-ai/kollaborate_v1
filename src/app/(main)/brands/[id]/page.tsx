@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams, usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
+import CustomLoader from "@/components/custom-loader";
 
 const BrandDetails = () => {
   const [message, setMessage] = useState("");
@@ -15,7 +16,7 @@ const BrandDetails = () => {
     queryKey: ["brand"],
   });
 
-  if (isLoading) return <Loader className='w-5 h-5 animate-spin' />;
+  if (isLoading) return <CustomLoader />;
 
   const brandData = data?.data[0];
 
