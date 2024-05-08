@@ -84,7 +84,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
           {pageParams.title ? pageParams.title : "Search for Brands"}
         </h3>
 
-        <div className='mt-4 max-w-lg flex space-x-2'>
+        <form onSubmit={handleSubmit} className='mt-4 max-w-lg flex space-x-2'>
           <input
             type='text'
             name='brandsearch'
@@ -98,10 +98,11 @@ const SearchPage: React.FC<SearchPageProps> = ({
             onClick={handleSubmit}
             variant='outline'
             className='text-black'
+            type='submit'
           >
             Search
           </Button>
-        </div>
+        </form>
 
         <div className='flex flex-col space-y-4 mt-4 border-t border-gray-200 py-6'>
           {results && results.length > 0
