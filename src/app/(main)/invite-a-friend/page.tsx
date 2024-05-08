@@ -4,10 +4,12 @@ import toast from "react-hot-toast";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import CTA from "@/components/cta";
+import { Loader } from "lucide-react";
 
 const InviteAFriend = () => {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const inviteFriend = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -15,6 +17,7 @@ const InviteAFriend = () => {
       setIsValidEmail(true);
       return toast.error("Invalid email address");
     }
+    setIsLoading(true);
     try {
       const { data } = await axios.post("/api/email", {
         email: email,
@@ -26,6 +29,7 @@ const InviteAFriend = () => {
       return toast.error("Internal error. Please try again later.");
     } finally {
       setEmail("");
+      setIsLoading(false);
     }
   };
 
@@ -41,7 +45,7 @@ const InviteAFriend = () => {
         >
           Enter email of a friend you want to invite
         </label>
-        <div className='mt-2 max-w-lg flex space-x-4'>
+        <form onSubmit={inviteFriend} className='mt-2 max-w-lg flex space-x-4'>
           <input
             type='email'
             name='email'
@@ -55,10 +59,11 @@ const InviteAFriend = () => {
             disabled={email.length < 0 && isValidEmail}
             onClick={inviteFriend}
             variant='outline'
+            type='submit'
           >
-            Invite
+            {isLoading ? <Loader className='h-6 w-6 animate-spin' /> : "Invite"}
           </Button>
-        </div>
+        </form>
       </div>
       <CTA />
     </div>
