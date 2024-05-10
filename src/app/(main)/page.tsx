@@ -7,6 +7,17 @@ import { CheckIcon, Loader } from "lucide-react";
 export default function Component() {
   return (
     <div className='flex flex-col min-h-[100dvh] text-gray-100'>
+       <head>
+         {/* Google tag (gtag.js) */}
+         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-984235993"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gt          `}
+        </script>
+      </head>
       <section className='w-full py-12 md:py-24 lg:py-32'>
         <div className='container px-4 md:px-6'>
           <div className='grid gap-6 md:grid-cols-1 lg:gap-12 lg:grid-cols-3'>
