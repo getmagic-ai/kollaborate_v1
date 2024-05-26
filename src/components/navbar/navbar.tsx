@@ -1,12 +1,20 @@
+"use client";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 import { dark } from "@clerk/themes";
 import { MoveRight, Search } from "lucide-react";
 import Link from "next/link";
 import MainNav from "./main-nav";
+import { useEffect, useState } from "react";
 
-const Navbar = async () => {
+const Navbar = () => {
   const isPro = false;
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
   return (
     <div className=''>
       <div className='flex space-x-4 h-16 items-center px-4'>
