@@ -15,10 +15,10 @@ import {
 } from "@heroicons/react/24/outline";
 import axios from "axios";
 import copy from "copy-to-clipboard";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Loader } from "lucide-react";
-import CustomLoader from "@/components/custom-loader";
+import TagManager from "react-gtm-module";
 
 const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +26,6 @@ const SearchPage = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const router = useRouter();
-  const pathname = usePathname();
   const params = useSearchParams();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -34,6 +33,14 @@ const SearchPage = () => {
     setIsLoading(true);
 
     try {
+      TagManager.dataLayer({
+        dataLayer: {
+          event: "conversion",
+          send_to: "AW-984235993/bdurCP_C5wUQ2f-o1QM",
+          value: 1.0,
+          currency: "USD",
+        },
+      });
       const encodedQuery = encodeURIComponent(query);
       router.push(`/search?query=${encodedQuery}`);
       // Retrieve the existing search history from localStorage
