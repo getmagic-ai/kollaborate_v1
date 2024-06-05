@@ -113,6 +113,7 @@ model nc_1o1g___brand_master_dev {
   data_source_url   String?   @db.VarChar
   metadata          Json?
   source_id         String?   @db.VarChar
+  saved             Int[]
   Saved             Saved[]
 }
 
@@ -416,12 +417,179 @@ model company_master {
   name                  String                 @db.VarChar(256)
   description           String?
   location              String?
-  url                   String                 @unique @db.VarChar(256)
+  url                   String                 @db.VarChar(256)
   category              category_enum?
   wellfound_id          String?                @db.VarChar
   app_store_id          String?                @db.VarChar
+  rank                  Int?
   app_store_dev_cleaned app_store_dev_cleaned? @relation(fields: [app_store_id], references: [brand_id], onDelete: NoAction, onUpdate: NoAction)
   wellfound_companies   wellfound_companies?   @relation(fields: [wellfound_id], references: [brand_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model app_details {
+  title                      String?
+  description                String?
+  summary                    String?
+  installs                   BigInt?
+  min_installs               BigInt?
+  max_installs               BigInt?
+  score                      Float?
+  score_text                 String?
+  ratings                    BigInt?
+  reviews                    BigInt?
+  price                      Float?
+  free                       Boolean?
+  currency                   String?
+  price_text                 String?
+  available                  Boolean?
+  offers_iap                 Boolean?
+  iap_range                  String?
+  android_version            String?
+  android_version_text       String?
+  android_max_version        String?
+  developer                  String?
+  developer_id               String?
+  developer_email            String?
+  developer_website          String?
+  developer_address          String?
+  privacy_policy             String?
+  developer_internal_id      String?
+  genre                      String?
+  genre_id                   String?
+  content_rating             String?
+  ad_supported               Boolean?
+  released                   String?
+  updated                    BigInt?
+  version                    String?
+  recent_changes             String?
+  comments                   String[]
+  preregister                Boolean?
+  early_access_enabled       Boolean?
+  is_available_in_play_pass  Boolean?
+  app_id                     String?
+  url                        String?
+  category                   String?
+  video                      String?
+  video_image                String?
+  content_rating_description String?
+
+  @@ignore
+}
+
+model google_play_store_dev {
+  id                    Int       @id
+  appid                 String?   @unique
+  title                 String?
+  url                   String?
+  description           String?
+  icon                  String?
+  genres                String[]
+  genreids              Int[]
+  primarygenre          String?
+  primarygenreid        Int?
+  contentrating         String?
+  languages             String[]
+  size                  BigInt?
+  requiredosversion     String?
+  released              DateTime? @db.Timestamp(6)
+  updated               DateTime? @db.Timestamp(6)
+  releasenotes          String?
+  version               String?
+  price                 Decimal?  @db.Decimal
+  currency              String?
+  free                  Boolean?
+  developerid           Int?
+  developer             String?
+  developerurl          String?
+  developerwebsite      String?
+  score                 Decimal?  @db.Decimal
+  reviews               BigInt?
+  currentversionscore   Decimal?  @db.Decimal
+  currentversionreviews BigInt?
+  screenshots           String[]
+  ipadscreenshots       String[]
+  appletvscreenshots    String[]
+  supporteddevices      String[]
+  ratings               Int?
+  histogram             Json?
+}
+
+model play_store_dev {
+  id                         BigInt   @id @default(autoincrement())
+  title                      String?  @db.VarChar(255)
+  description                String?
+  summary                    String?  @db.VarChar(255)
+  installs                   String?  @db.VarChar(255)
+  min_installs               BigInt?
+  max_installs               BigInt?
+  score                      Float?   @db.Real
+  score_text                 String?  @db.VarChar(255)
+  ratings                    Int?
+  reviews                    Int?
+  price                      Int?
+  free                       Boolean?
+  currency                   String?  @db.VarChar(255)
+  price_text                 String?  @db.VarChar(255)
+  available                  Boolean?
+  offers_iap                 Boolean?
+  iap_range                  String?  @db.VarChar(255)
+  android_version            String?  @db.VarChar(255)
+  android_version_text       String?  @db.VarChar(255)
+  android_max_version        String?  @db.VarChar(255)
+  developer                  String?  @db.VarChar(255)
+  developer_id               String?  @db.VarChar(255)
+  developer_email            String?  @db.VarChar(255)
+  developer_website          String?  @db.VarChar(255)
+  developer_address          String?
+  privacy_policy             String?  @db.VarChar(255)
+  developer_internal_id      String?  @db.VarChar(255)
+  genre                      String?  @db.VarChar(255)
+  genre_id                   String?  @db.VarChar(255)
+  content_rating             String?  @db.VarChar(255)
+  ad_supported               Boolean?
+  released                   String?  @db.VarChar(255)
+  updated                    BigInt?
+  version                    String?  @db.VarChar(255)
+  recent_changes             String?
+  comments                   Json?
+  preregister                Boolean?
+  early_access_enabled       Boolean?
+  is_available_in_play_pass  Boolean?
+  app_id                     String?  @unique(map: "app_id_unique") @db.VarChar(255)
+  url                        String?  @db.VarChar(255)
+  category                   String?  @db.VarChar(255)
+  video                      String?  @db.VarChar(255)
+  video_image                String?  @db.VarChar(255)
+  content_rating_description String?  @db.VarChar(255)
+  preview_video              String?  @db.VarChar(255)
+}
+
+model tiktok_ads {
+  ad_title      String?
+  brand_name    String?
+  cost          Decimal? @db.Decimal
+  ctr           Decimal? @db.Decimal
+  favorite      Boolean?
+  id            BigInt   @id
+  industry_key  String?
+  is_search     Boolean?
+  like_count    BigInt?
+  objective_key String?
+  video_info    String?
+  industry      String?
+  country_code  String?
+  keyword_list  String?
+  landing_page  String?  @unique
+  source        String?
+  source_key    Int?
+  brand_id      String?  @db.VarChar(255)
+  category      String?
+}
+
+model user_operations {
+  user_id   String @id @db.VarChar(255)
+  bookmarks Int[]  @default([])
 }
 
 enum category_enum {
