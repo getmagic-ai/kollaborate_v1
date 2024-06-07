@@ -12,7 +12,6 @@ const getPrice = async () => {
     (prices: any) => prices.id === process.env.STRIPE_PRICE_ID!
   );
 
-  console.log(priceData);
   return priceData[0];
 };
 

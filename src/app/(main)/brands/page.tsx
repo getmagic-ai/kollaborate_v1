@@ -24,6 +24,8 @@ export default function Home() {
     queryKey: ["brands", page],
   });
 
+  console.log(data);
+
   isLoading && <CustomLoader />;
   error && <div>Error...</div>;
 

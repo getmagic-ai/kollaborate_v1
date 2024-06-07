@@ -60,6 +60,26 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
     }
   );
 
+  const { mutate: toggleBookmark } = useMutation(
+    async () => {
+      return await axios.post("/api/bookmarks", {
+        brand_id: brand.id,
+        user_id: userId,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["brands"]);
+        queryClient.invalidateQueries(["bookmarks"]);
+      },
+      onError: (error) => {
+        if (error) {
+          console.log(error);
+        }
+      },
+    }
+  );
+
   return (
     <Accordion type='single' collapsible>
       <AccordionItem value={brand.id}>
@@ -82,7 +102,7 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
             )}
 
             <ArrowUpOnSquareIcon
-              onClick={() => {
+              onClick={(event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
                 copy(brand.url);
                 toast.success(`${brand.name} Copied to clipboard`);
               }}
@@ -95,7 +115,7 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
                 <BookmarkIconSolid
                   onClick={(
                     event: React.MouseEvent<SVGSVGElement, MouseEvent>
-                  ) => mutate()}
+                  ) => toggleBookmark()}
                   className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
                 />
               ) : (
@@ -103,7 +123,7 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
                   className='text-gray-100 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
                   onClick={(
                     event: React.MouseEvent<SVGSVGElement, MouseEvent>
-                  ) => mutate()}
+                  ) => toggleBookmark()}
                 />
               ))}
           </div>

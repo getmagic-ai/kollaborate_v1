@@ -10,7 +10,7 @@ export default function Bookmarks() {
     queryFn: async () => await axios.get("/api/bookmarks"),
     queryKey: ["bookmarks"],
   });
-  console.log(data);
+
   return (
     <div className='py-6'>
       <div className='mx-auto max-w-7xl px-6 lg:px-8'>

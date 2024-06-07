@@ -31,12 +31,12 @@ export default function RootLayout({
     >
       <html lang='en'>
         <Providers>
-          <Loading>
-            <body className={poppins.className}>
-              <ToastProvider />
-              {children}
-            </body>
-          </Loading>
+          {/* <Loading> */}
+          <body className={poppins.className}>
+            <ToastProvider />
+            {children}
+          </body>
+          {/* </Loading> */}
         </Providers>
       </html>
     </ClerkProvider>

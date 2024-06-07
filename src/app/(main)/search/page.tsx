@@ -59,7 +59,7 @@ const SearchPage = () => {
 
       // const response = await axios.get(`/api/search?${encodedQuery}`);
       const response = await axios.get(`/api/search?query=${encodedQuery}`);
-      console.log(response);
+
       setResults(response.data);
     } catch (error) {
       console.error("Error fetching results:", error);
