@@ -9,14 +9,12 @@ export async function GET(req: Request) {
   // console.log(page);
   try {
     // Process a GET request
-    const brands = await prismadb.nc_1o1g___brand_master_dev.findMany({
-      include: {
-        Saved: true,
-      },
+    const brands = await prismadb.company_master.findMany({
+     
       take: 10,
       skip: page === 1 ? 0 : (+page - 1) * 10,
     });
-    console.log(brands[0].Saved);
+   
     return NextResponse.json(brands);
   } catch (error) {
     console.log(error);
