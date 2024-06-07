@@ -7,12 +7,9 @@ export async function POST(req: Request, res: Response) {
 
   try {
     // Process a GET request
-    const brand = await prismadb.nc_1o1g___brand_master_dev.findMany({
+    const brand = await prismadb.company_master.findMany({
       where: {
         id: parseInt(id),
-      },
-      include: {
-        Saved: true,
       },
     });
 
