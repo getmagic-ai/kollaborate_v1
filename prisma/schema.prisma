@@ -588,8 +588,9 @@ model tiktok_ads {
 }
 
 model user_operations {
-  user_id   String @id @db.VarChar(255)
-  bookmarks Int[]  @default([])
+  user_id   String  @id @db.VarChar(255)
+  bookmarks Int[]   @default([])
+  id        String? @db.VarChar(20)
 }
 
 enum category_enum {
