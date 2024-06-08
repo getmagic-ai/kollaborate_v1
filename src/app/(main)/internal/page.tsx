@@ -28,7 +28,7 @@ const KollaborateEmailComponent = () => {
     try {
       const response = await axios.post('https://discord-bot-lambda-t5kwbdtkkq-uc.a.run.app/prompt', {
         company,
-        optional_user_pitch: `Hi ${recipientName},
+        optional_user_pitch: ` ${recipientName},
 I'm reaching out from Kollaborate, a platform that helps companies like ${company} gain affordable and measurable exposure to their target audience. We achieve this by integrating you with top Creators across YouTube, podcasts, and other social channels.
 Imagine getting your brand in front of the exact audience you want, quickly and efficiently, through a YouTube collaboration? With Kollaborate, it's possible, and at a fraction of the cost of traditional marketing methods.
 Are you interested in learning more about how Kollaborate can help ${company} achieve its marketing goals?
@@ -37,7 +37,7 @@ Best regards,
 The Kollaborate Team
 P.S. By the way, to focus on the most relevant creators for your target audience, would you be interested in exploring options across YouTube, podcasts, and social media?`,
       })
-      setEmailBody(response.data.body)
+      setEmailBody(response.data.response)
     } catch (error) {
       console.error(error)
     } finally {
@@ -132,7 +132,7 @@ P.S. By the way, to focus on the most relevant creators for your target audience
       </button>
 
       {isLoading ? (
-        <p>Loading...</p>
+        <p className='text-white'>Loading...</p>
       ) : (
         <div className="mb-4">
           <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="emailBody">
