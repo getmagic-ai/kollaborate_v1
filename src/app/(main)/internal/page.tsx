@@ -28,14 +28,8 @@ const KollaborateEmailComponent = () => {
     try {
       const response = await axios.post('https://discord-bot-lambda-t5kwbdtkkq-uc.a.run.app/prompt', {
         company,
-        optional_user_pitch: ` ${recipientName},
-I'm reaching out from Kollaborate, a platform that helps companies like ${company} gain affordable and measurable exposure to their target audience. We achieve this by integrating you with top Creators across YouTube, podcasts, and other social channels.
-Imagine getting your brand in front of the exact audience you want, quickly and efficiently, through a YouTube collaboration? With Kollaborate, it's possible, and at a fraction of the cost of traditional marketing methods.
-Are you interested in learning more about how Kollaborate can help ${company} achieve its marketing goals?
-${callToAction === 'demo' ? 'Click here to schedule a demo:' : ''} [Link to demo]
-Best regards,
-The Kollaborate Team
-P.S. By the way, to focus on the most relevant creators for your target audience, would you be interested in exploring options across YouTube, podcasts, and social media?`,
+        optional_user_pitch: "Write an initial outreach email to the above brand introducing Kollaborate which helps companies get affordable and measurable exposure to their target audience by quickly integrating them in top creator's content across their YouTube, podcast (audio) and other social channels. Then describe how we could get the company brand exposure quickly and exactly on target, in a low cost with a YouTube collaboration. Avoid using the word influencer and use 'Creators' instead. Make the email sound more natural and less formal."
+     
       })
       setEmailBody(response.data.response)
     } catch (error) {
@@ -87,8 +81,8 @@ P.S. By the way, to focus on the most relevant creators for your target audience
           value={callToAction}
           onChange={(e) => setCallToAction(e.target.value as EmailBodyProps['callToAction'])}
         >
-          <option value="demo">Schedule a Demo</option>
           <option value="learnMore">Learn More</option>
+          <option value="demo">Schedule a Demo</option>
         </select>
       </div>
 
@@ -103,10 +97,10 @@ P.S. By the way, to focus on the most relevant creators for your target audience
           onChange={(e) => setTemplate(e.target.value)}
         >
           <option value="YouTube Only Creator to specific brand outreach">
-            YouTube Only Creator to specific brand outreach
+            YouTube Only Creator
           </option>
           <option value="YouTube + Podcast + IG Creator to specific brand outreach">
-            YouTube + Podcast + IG Creator to specific brand outreach
+            YouTube + Podcast + IG Creator
           </option>
         </select>
       </div>
@@ -162,3 +156,12 @@ P.S. By the way, to focus on the most relevant creators for your target audience
 }
 
 export default KollaborateEmailComponent
+
+// ` ${recipientName},
+// I'm reaching out from Kollaborate, a platform that helps companies like ${company} gain affordable and measurable exposure to their target audience. We achieve this by integrating you with top Creators across YouTube, podcasts, and other social channels.
+// Imagine getting your brand in front of the exact audience you want, quickly and efficiently, through a YouTube collaboration? With Kollaborate, it's possible, and at a fraction of the cost of traditional marketing methods.
+// Are you interested in learning more about how Kollaborate can help ${company} achieve its marketing goals?
+// ${callToAction === 'demo' ? 'Click here to schedule a demo:' : ''} [Link to demo]
+// Best regards,
+// The Kollaborate Team
+// P.S. By the way, to focus on the most relevant creators for your target audience, would you be interested in exploring options across YouTube, podcasts, and social media?`,
