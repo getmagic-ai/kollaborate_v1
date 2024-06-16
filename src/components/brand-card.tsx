@@ -63,8 +63,8 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
   const { mutate: toggleBookmark } = useMutation(
     async () => {
       return await axios.post("/api/bookmarks", {
-        brand_id: brand.id,
-        user_id: userId,
+        brandId: brand.id,
+        userId: userId,
       });
     },
     {

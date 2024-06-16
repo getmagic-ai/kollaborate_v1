@@ -1,5 +1,5 @@
 import prismadb from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs";
 import { NextResponse, NextRequest } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -60,23 +60,26 @@ export const dynamic = "force-dynamic";
 // }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { userId, bookmarkId } = await req.json();
+  const { bookmarkId } = await req.json();
+
+  const user = await currentUser();
+  if (!user) return;
 
   try {
-    const user = await prismadb.user_operations.findUnique({
-      where: { user_id: userId },
+    const userOperations = await prismadb.user_operations.findUnique({
+      where: { user_id: user?.id },
     });
 
     if (!user) {
       return NextResponse.json({ message: "User not found" });
     }
 
-    const isBookmarked = user.bookmarks.includes(bookmarkId);
+    const isBookmarked = userOperations?.bookmarks.includes(bookmarkId);
 
     if (isBookmarked) {
       // Remove the bookmark
       await prismadb.user_operations.update({
-        where: { user_id: userId },
+        where: { user_id: user?.id },
         data: {
           bookmarks: { set: [bookmarkId] },
         },
@@ -85,7 +88,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     } else {
       // Add the bookmark
       await prismadb.user_operations.update({
-        where: { user_id: userId },
+        where: { user_id: user?.id },
         data: { bookmarks: { push: bookmarkId } },
       });
       return NextResponse.json({ message: "Bookmark added successfully" });
@@ -98,15 +101,23 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const user = await prismadb.user_operations.findMany({
-      where: { user_id: auth().userId! },
+    const user = await currentUser();
+    if (!user) return;
+
+    const userOperations: any = await prismadb.user_operations.findUnique({
+      where: { user_id: user.id },
     });
 
-    if (!user) {
-      return NextResponse.json({ message: "User not found" });
-    }
+    // Prepare the response data
+    const bookmarksWithCompanyDetails =
+      userOperations?.bookmarks.map((bookmarkId: any) => {
+        const companyDetails = userOperations.company_master.find(
+          (company: any) => company.id === bookmarkId
+        );
+        return companyDetails;
+      }) || [];
 
-    return NextResponse.json({ message: "Bookmark added successfully" });
+    return NextResponse.json({ data: bookmarksWithCompanyDetails });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: "Something went wrong" });
