@@ -27,7 +27,7 @@ interface BrandCardProps {
     id: string;
     name: string;
     category_main: string;
-    brand_description: string;
+    description: string;
     url: string;
     Saved: {
       userId: string;
@@ -133,7 +133,7 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
           <p className='text-sm mb-2 font-medium text-left leading-6 text-white'>
             Description
           </p>
-          {brand.brand_description ? brand.brand_description : ""}
+          {brand.description ? brand.description : ""}
           <Link
             href={`/brands/${brand.id}`}
             className='block bg-gray-700 px-6 py-2 max-w-fit mt-4'
