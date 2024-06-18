@@ -34,11 +34,11 @@ const BrandDetails = () => {
         {brandData.name}
       </h1>
       <p className='mt-2 text-lg text-gray-400'>
-        Category: {brandData.category_main}
+        Category: {brandData.category}
       </p>
       <p className='mt-5 text-xl text-gray-300'>
-        {brandData.brand_description
-          ? brandData.brand_description
+        {brandData.description
+          ? brandData.description
           : "contact us for brand details"}
       </p>
 

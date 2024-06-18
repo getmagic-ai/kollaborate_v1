@@ -26,7 +26,7 @@ interface BrandCardProps {
   brand: {
     id: string;
     name: string;
-    category_main: string;
+    category: string;
     description: string;
     url: string;
     Saved: {
@@ -91,7 +91,7 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
           </div>
 
           <p className='w-1/5 text-sm lg:text-base font-medium lg:font-semibold text-left leading-6 text-white'>
-            {brand.category_main && brand.category_main.toLowerCase()}
+            {brand.category && brand.category.toLowerCase()}
           </p>
 
           <div className='flex items-center justify-end'>
