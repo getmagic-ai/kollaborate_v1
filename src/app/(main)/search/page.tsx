@@ -128,8 +128,7 @@ const SearchPage = () => {
                         </AccordionTrigger>
                       </div>
                       <p className='w-1/5 text-sm lg:text-base font-medium lg:font-semibold text-left leading-6 text-white'>
-                        {brand.category_main &&
-                          brand.category_main.toLowerCase()}
+                        {brand.category && brand.category.toLowerCase()}
                       </p>
 
                       <div className='flex items-center justify-end'>
@@ -152,7 +151,7 @@ const SearchPage = () => {
                       <p className='text-sm mb-2 font-medium text-left leading-6 text-white'>
                         Description
                       </p>
-                      {brand.brand_description ? brand.brand_description : ""}
+                      {brand.description ? brand.description : ""}
                       <Link
                         href={`/brands/${brand.id}`}
                         className='block bg-gray-700 px-6 py-2 max-w-fit mt-4'
