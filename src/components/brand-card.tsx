@@ -15,7 +15,7 @@ import {
   BookmarkIcon,
 } from "@heroicons/react/24/outline";
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import copy from "copy-to-clipboard";
 import toast from "react-hot-toast";
@@ -41,24 +41,16 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
   const [checked, setChecked] = useState(false);
 
   const queryClient = useQueryClient();
-  const { mutate } = useMutation(
-    async () => {
-      return await axios.post("/api/brands", {
-        brandId: brand.id,
-      });
+
+  const { data, isError, isFetching } = useQuery({
+    queryKey: ["bookmarks"],
+    queryFn: async () => {
+      const data = await axios.get("/api/bookmarks");
+      return data;
     },
-    {
-      onSuccess: (data) => {
-        queryClient.invalidateQueries(["brands"]);
-        queryClient.invalidateQueries(["bookmarks"]);
-      },
-      onError: (error) => {
-        if (error) {
-          console.log(error);
-        }
-      },
-    }
-  );
+  });
+
+  console.log("data", data);
 
   const { mutate: toggleBookmark } = useMutation(
     async () => {
@@ -108,24 +100,20 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
               }}
               className='text-gray-100 cursor-pointer group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
             />
-            {brand.Saved &&
-              (brand.Saved.find(
-                (item) => item.userId === userId && item.brandId === brand.id
-              ) ? (
-                <BookmarkIconSolid
-                  onClick={(
-                    event: React.MouseEvent<SVGSVGElement, MouseEvent>
-                  ) => toggleBookmark()}
-                  className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
-                />
-              ) : (
-                <BookmarkIcon
-                  className='text-gray-100 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
-                  onClick={(
-                    event: React.MouseEvent<SVGSVGElement, MouseEvent>
-                  ) => toggleBookmark()}
-                />
-              ))}
+
+            {/* <BookmarkIconSolid
+              onClick={(
+                event: React.MouseEvent<SVGSVGElement, MouseEvent>
+              ) => toggleBookmark()}
+              className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
+            /> */}
+
+            <BookmarkIcon
+              className='text-gray-100 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
+              onClick={(event: React.MouseEvent<SVGSVGElement, MouseEvent>) =>
+                toggleBookmark()
+              }
+            />
           </div>
         </div>
 
