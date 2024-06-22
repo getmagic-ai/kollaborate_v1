@@ -50,7 +50,7 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
     },
   });
 
-  console.log("data", data);
+  console.log(data?.data.find((item: any) => item.id === brand.id));
 
   const { mutate: toggleBookmark } = useMutation(
     async () => {
@@ -101,19 +101,21 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
               className='text-gray-100 cursor-pointer group-hover:text-gray-300 mx-2 flex-shrink-0 h-6 w-6"'
             />
 
-            {/* <BookmarkIconSolid
-              onClick={(
-                event: React.MouseEvent<SVGSVGElement, MouseEvent>
-              ) => toggleBookmark()}
-              className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
-            /> */}
-
-            <BookmarkIcon
-              className='text-gray-100 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
-              onClick={(event: React.MouseEvent<SVGSVGElement, MouseEvent>) =>
-                toggleBookmark()
-              }
-            />
+            {data?.data.find((item: any) => item.id === brand.id) ? (
+              <BookmarkIconSolid
+                onClick={(event: React.MouseEvent<SVGSVGElement, MouseEvent>) =>
+                  toggleBookmark()
+                }
+                className='text-red-500 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
+              />
+            ) : (
+              <BookmarkIcon
+                className='text-gray-100 cursor-pointer mx-2 flex-shrink-0 h-6 w-6"'
+                onClick={(event: React.MouseEvent<SVGSVGElement, MouseEvent>) =>
+                  toggleBookmark()
+                }
+              />
+            )}
           </div>
         </div>
 

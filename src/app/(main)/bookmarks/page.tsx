@@ -25,10 +25,10 @@ export default function Bookmarks() {
         <div className='flex flex-col space-y-4 mt-10 border-t border-gray-200 py-6'>
           {isLoading && <CustomLoader />}
           {/* {error && <div>Error...</div>} */}
-          {/* {data &&
+          {data &&
             data.data.map((brand: any) => (
               <BrandCard key={brand.id} brand={brand} />
-            ))} */}
+            ))}
         </div>
       </div>
     </div>

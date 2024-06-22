@@ -5,18 +5,23 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { brandId } = await req.json();
-
-  const user = await currentUser();
-  if (!user) return;
-
   try {
+    const { brandId } = await req.json();
+
+    const user = await currentUser();
+    if (!user) return NextResponse.json({ message: "User not found" });
+
     const userOperations = await prismadb.user_operations.findUnique({
       where: { user_id: user?.id },
     });
 
-    if (!user) {
-      return NextResponse.json({ message: "User not found" });
+    if (!userOperations) {
+      await prismadb.user_operations.create({
+        data: {
+          user_id: user?.id,
+          bookmarks: { set: [brandId] },
+        },
+      });
     }
 
     const isBookmarked = userOperations?.bookmarks.includes(brandId);
@@ -55,14 +60,15 @@ export async function GET() {
       where: { user_id: user.id },
     });
 
+    console.log(userOperations);
+
     // Prepare the response data
     const bookmarks =
-      userOperations?.bookmarks.map((bookmarkId: any) => {
-        const companyDetails = userOperations.company_master.find(
-          (company: any) => company.id === bookmarkId
-        );
-        return companyDetails;
-      }) || [];
+      (await prismadb.company_master.findMany({
+        where: {
+          id: { in: userOperations?.bookmarks || [] },
+        },
+      })) || [];
 
     return NextResponse.json(bookmarks);
   } catch (error) {
