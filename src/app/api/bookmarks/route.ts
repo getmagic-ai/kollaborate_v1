@@ -22,6 +22,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
           bookmarks: { set: [brandId] },
         },
       });
+
+      return NextResponse.json({ message: "Bookmark added successfully" });
     }
 
     const isBookmarked = userOperations?.bookmarks.includes(brandId);
@@ -31,7 +33,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
       await prismadb.user_operations.update({
         where: { user_id: user?.id },
         data: {
-          bookmarks: { set: [brandId] },
+          bookmarks: {
+            set: userOperations?.bookmarks.filter((id) => id !== brandId),
+          },
         },
       });
       console.log("Bookmark removed successfully");
@@ -40,7 +44,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
       // Add the bookmark
       await prismadb.user_operations.update({
         where: { user_id: user?.id },
-        data: { bookmarks: { push: brandId } },
+        data: {
+          bookmarks: {
+            push: brandId,
+          },
+        },
       });
       console.log("Bookmark added successfully");
       return NextResponse.json({ message: "Bookmark added successfully" });
