@@ -18,6 +18,9 @@ const SOURCE_TABLE_MAP: { [key: string]: string } = {
 };
 
 const BATCH_SIZE = 100; // Adjust this value as needed
+interface ParsedData {
+  [key: string]: string | number | boolean | null;
+}
 
 export async function POST(request: Request) {
   const { data, sourceName } = await request.json();
@@ -65,7 +68,7 @@ console.log(data)
       // Process data in batches
       for (let i = 0; i < filteredData.length; i += BATCH_SIZE) {
         const batch = filteredData.slice(i, i + BATCH_SIZE);
-        const values = batch.map(row => columns.map(col => row[col]));
+        const values = batch.map((row: ParsedData) => columns.map(col => row[col]));
         
         try {
           const query = format(baseQuery, values);
