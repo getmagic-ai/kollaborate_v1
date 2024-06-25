@@ -21,6 +21,7 @@ import copy from "copy-to-clipboard";
 import toast from "react-hot-toast";
 import { Button, buttonVariants } from "./ui/button";
 import { useState } from "react";
+import Represent from "@/app/(main)/represent/represent.tsx"
 
 interface BrandCardProps {
   brand: {
@@ -39,7 +40,7 @@ interface BrandCardProps {
 const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
   const { userId } = useAuth();
   const [checked, setChecked] = useState(false);
-
+  const [showRepresentationRequest, setShowRepresentationRequest] = useState(false);
   const queryClient = useQueryClient();
 
   const { data, isError, isFetching } = useQuery({
@@ -155,9 +156,19 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
             <p className='text-sm font-medium text-left leading-6 text-white'>
               Only pay once the contract is officially signed.
             </p>
-            <Button className='block bg-indigo-600 px-6 py-2 max-w-fit mt-4'>
-              Represent Me
-            </Button>
+            <Button
+  className='block bg-indigo-600 px-6 py-2 max-w-fit mt-4'
+  onClick={() => setShowRepresentationRequest(true)}
+>
+  Represent Me
+</Button>
+
+{showRepresentationRequest && (
+  <Represent
+    brandId={brand.id}
+    onClose={() => setShowRepresentationRequest(false)}
+  />
+)} 
           </div>
         </AccordionContent>
       </AccordionItem>
