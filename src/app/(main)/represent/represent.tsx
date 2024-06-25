@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-
+import { REPRESENTATION_TERMS } from '@/constants/terms';
 interface ContactInfo {
   fullName: string;
   email: string;
@@ -114,7 +114,10 @@ const Represent: React.FC<{ brandId: string, onClose: () => void }> = ({ brandId
           <div className="space-y-4">
             <h2 className="text-xl font-bold text-white">Terms</h2>
             <div className="h-40 overflow-y-auto border border-gray-600 p-2 text-sm text-gray-300">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            <div className="h-40 overflow-y-auto border p-2 text-sm">
+  <p>{REPRESENTATION_TERMS}</p>
+</div>
+
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox

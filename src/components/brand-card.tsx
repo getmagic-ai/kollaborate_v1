@@ -21,7 +21,7 @@ import copy from "copy-to-clipboard";
 import toast from "react-hot-toast";
 import { Button, buttonVariants } from "./ui/button";
 import { useState } from "react";
-import Represent from "@/app/(main)/represent/represent.tsx"
+import Represent from "@/app/(main)/represent/represent";
 
 interface BrandCardProps {
   brand: {
