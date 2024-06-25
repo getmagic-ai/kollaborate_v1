@@ -117,214 +117,6 @@ model nc_1o1g___brand_master_dev {
   Saved             Saved[]
 }
 
-model nc_roles {
-  id          Int       @id @default(autoincrement())
-  project_id  String?   @db.VarChar(255)
-  db_alias    String?   @default("db") @db.VarChar(255)
-  title       String?   @db.VarChar(255)
-  type        String?   @default("CUSTOM") @db.VarChar(255)
-  description String?   @db.VarChar(255)
-  created_at  DateTime? @db.Timestamptz(6)
-  updated_at  DateTime? @db.Timestamptz(6)
-}
-
-model nc_routes {
-  id            Int       @id @default(autoincrement())
-  project_id    String?   @db.VarChar(255)
-  db_alias      String?   @default("db") @db.VarChar(255)
-  title         String?   @db.VarChar(255)
-  tn            String?   @db.VarChar(255)
-  tnp           String?   @db.VarChar(255)
-  tnc           String?   @db.VarChar(255)
-  relation_type String?   @db.VarChar(255)
-  path          String?
-  type          String?   @db.VarChar(255)
-  handler       String?
-  acl           String?
-  order         Int?
-  functions     String?
-  handler_type  Int?      @default(1)
-  is_custom     Boolean?
-  created_at    DateTime? @db.Timestamptz(6)
-  updated_at    DateTime? @db.Timestamptz(6)
-
-  @@index([db_alias, title, tn], map: "nc_routes_db_alias_title_tn_index")
-}
-
-model nc_rpc {
-  id            Int       @id @default(autoincrement())
-  project_id    String?   @db.VarChar(255)
-  db_alias      String?   @default("db") @db.VarChar(255)
-  title         String?   @db.VarChar(255)
-  tn            String?   @db.VarChar(255)
-  service       String?
-  tnp           String?   @db.VarChar(255)
-  tnc           String?   @db.VarChar(255)
-  relation_type String?   @db.VarChar(255)
-  order         Int?
-  type          String?   @db.VarChar(255)
-  acl           String?
-  functions     String?
-  handler_type  Int?      @default(1)
-  created_at    DateTime? @db.Timestamptz(6)
-  updated_at    DateTime? @db.Timestamptz(6)
-}
-
-model nc_shared_bases {
-  id             Int      @id @default(autoincrement())
-  project_id     String?  @db.VarChar(255)
-  db_alias       String?  @db.VarChar(255)
-  roles          String?  @default("viewer") @db.VarChar(255)
-  shared_base_id String?  @db.VarChar(255)
-  enabled        Boolean? @default(true)
-  password       String?  @db.VarChar(255)
-  created_at     DateTime @default(now()) @db.Timestamptz(6)
-  updated_at     DateTime @default(now()) @db.Timestamptz(6)
-}
-
-model nc_shared_views {
-  id              Int       @id @default(autoincrement())
-  project_id      String?   @db.VarChar(255)
-  db_alias        String?   @db.VarChar(255)
-  model_name      String?   @db.VarChar(255)
-  meta            String?
-  query_params    String?
-  view_id         String?   @db.VarChar(255)
-  show_all_fields Boolean?
-  allow_copy      Boolean?
-  password        String?   @db.VarChar(255)
-  created_at      DateTime? @db.Timestamptz(6)
-  updated_at      DateTime? @db.Timestamptz(6)
-  view_type       String?   @db.VarChar(255)
-  view_name       String?   @db.VarChar(255)
-}
-
-model nc_shared_views_v2 {
-  id              String   @id @db.VarChar(20)
-  fk_view_id      String?  @db.VarChar(20)
-  meta            String?
-  query_params    String?
-  view_id         String?  @db.VarChar(255)
-  show_all_fields Boolean?
-  allow_copy      Boolean?
-  password        String?  @db.VarChar(255)
-  deleted         Boolean?
-  order           Float?   @db.Real
-  created_at      DateTime @default(now()) @db.Timestamptz(6)
-  updated_at      DateTime @default(now()) @db.Timestamptz(6)
-}
-
-model nc_sort_v2 {
-  id           String   @id @db.VarChar(20)
-  base_id      String?  @db.VarChar(20)
-  project_id   String?  @db.VarChar(128)
-  fk_view_id   String?  @db.VarChar(20)
-  fk_column_id String?  @db.VarChar(20)
-  direction    String?  @default("false") @db.VarChar(255)
-  order        Float?   @db.Real
-  created_at   DateTime @default(now()) @db.Timestamptz(6)
-  updated_at   DateTime @default(now()) @db.Timestamptz(6)
-}
-
-model nc_store {
-  id         Int       @id @default(autoincrement())
-  project_id String?   @db.VarChar(255)
-  db_alias   String?   @default("db") @db.VarChar(255)
-  key        String?   @db.VarChar(255)
-  value      String?
-  type       String?   @db.VarChar(255)
-  env        String?   @db.VarChar(255)
-  tag        String?   @db.VarChar(255)
-  created_at DateTime? @db.Timestamptz(6)
-  updated_at DateTime? @db.Timestamptz(6)
-
-  @@index([key], map: "nc_store_key_index")
-}
-
-model nc_sync_logs_v2 {
-  id                String   @id @db.VarChar(20)
-  project_id        String?  @db.VarChar(128)
-  fk_sync_source_id String?  @db.VarChar(20)
-  time_taken        Int?
-  status            String?  @db.VarChar(255)
-  status_details    String?
-  created_at        DateTime @default(now()) @db.Timestamptz(6)
-  updated_at        DateTime @default(now()) @db.Timestamptz(6)
-}
-
-model nc_sync_source_v2 {
-  id         String   @id @db.VarChar(20)
-  title      String?  @db.VarChar(255)
-  type       String?  @db.VarChar(255)
-  details    String?
-  deleted    Boolean?
-  enabled    Boolean? @default(true)
-  order      Float?   @db.Real
-  project_id String?  @db.VarChar(128)
-  fk_user_id String?  @db.VarChar(20)
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  updated_at DateTime @default(now()) @db.Timestamptz(6)
-  base_id    String?  @db.VarChar(20)
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model nc_team_users_v2 {
-  org_id     String?  @db.VarChar(20)
-  user_id    String?  @db.VarChar(20)
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  updated_at DateTime @default(now()) @db.Timestamptz(6)
-
-  @@ignore
-}
-
-model nc_teams_v2 {
-  id         String   @id @db.VarChar(20)
-  title      String?  @db.VarChar(255)
-  org_id     String?  @db.VarChar(20)
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  updated_at DateTime @default(now()) @db.Timestamptz(6)
-}
-
-model nc_users_v2 {
-  id                       String    @id @db.VarChar(20)
-  email                    String?   @db.VarChar(255)
-  password                 String?   @db.VarChar(255)
-  salt                     String?   @db.VarChar(255)
-  firstname                String?   @db.VarChar(255)
-  lastname                 String?   @db.VarChar(255)
-  username                 String?   @db.VarChar(255)
-  refresh_token            String?   @db.VarChar(255)
-  invite_token             String?   @db.VarChar(255)
-  invite_token_expires     String?   @db.VarChar(255)
-  reset_password_expires   DateTime? @db.Timestamptz(6)
-  reset_password_token     String?   @db.VarChar(255)
-  email_verification_token String?   @db.VarChar(255)
-  email_verified           Boolean?
-  roles                    String?   @default("editor") @db.VarChar(255)
-  created_at               DateTime  @default(now()) @db.Timestamptz(6)
-  updated_at               DateTime  @default(now()) @db.Timestamptz(6)
-  token_version            String?   @db.VarChar(255)
-}
-
-model nc_views_v2 {
-  id                 String   @id @db.VarChar(20)
-  base_id            String?  @db.VarChar(20)
-  project_id         String?  @db.VarChar(128)
-  fk_model_id        String?  @db.VarChar(20)
-  title              String?  @db.VarChar(255)
-  type               Int?
-  is_default         Boolean?
-  show_system_fields Boolean?
-  lock_type          String?  @default("collaborative") @db.VarChar(255)
-  uuid               String?  @db.VarChar(255)
-  password           String?  @db.VarChar(255)
-  show               Boolean?
-  order              Float?   @db.Real
-  created_at         DateTime @default(now()) @db.Timestamptz(6)
-  updated_at         DateTime @default(now()) @db.Timestamptz(6)
-  meta               String?
-}
-
 model wellfound_companies {
   id                Int              @id @default(autoincrement())
   brand_id          String?          @unique @db.VarChar(255)
@@ -343,30 +135,6 @@ model wellfound_companies {
   rating            Float?
   category          category_enum?
   company_master    company_master[]
-}
-
-model xc_knex_migrations {
-  id             Int       @id @default(autoincrement())
-  name           String?   @db.VarChar(255)
-  batch          Int?
-  migration_time DateTime? @db.Timestamptz(6)
-}
-
-model xc_knex_migrations_lock {
-  index     Int  @id @default(autoincrement())
-  is_locked Int?
-}
-
-model xc_knex_migrationsv2 {
-  id             Int       @id @default(autoincrement())
-  name           String?   @db.VarChar(255)
-  batch          Int?
-  migration_time DateTime? @db.Timestamptz(6)
-}
-
-model xc_knex_migrationsv2_lock {
-  index     Int  @id @default(autoincrement())
-  is_locked Int?
 }
 
 model app_store_dev_cleaned {
@@ -477,44 +245,6 @@ model app_details {
   @@ignore
 }
 
-model google_play_store_dev {
-  id                    Int       @id
-  appid                 String?   @unique
-  title                 String?
-  url                   String?
-  description           String?
-  icon                  String?
-  genres                String[]
-  genreids              Int[]
-  primarygenre          String?
-  primarygenreid        Int?
-  contentrating         String?
-  languages             String[]
-  size                  BigInt?
-  requiredosversion     String?
-  released              DateTime? @db.Timestamp(6)
-  updated               DateTime? @db.Timestamp(6)
-  releasenotes          String?
-  version               String?
-  price                 Decimal?  @db.Decimal
-  currency              String?
-  free                  Boolean?
-  developerid           Int?
-  developer             String?
-  developerurl          String?
-  developerwebsite      String?
-  score                 Decimal?  @db.Decimal
-  reviews               BigInt?
-  currentversionscore   Decimal?  @db.Decimal
-  currentversionreviews BigInt?
-  screenshots           String[]
-  ipadscreenshots       String[]
-  appletvscreenshots    String[]
-  supporteddevices      String[]
-  ratings               Int?
-  histogram             Json?
-}
-
 model play_store_dev {
   id                         BigInt   @id @default(autoincrement())
   title                      String?  @db.VarChar(255)
@@ -527,7 +257,7 @@ model play_store_dev {
   score_text                 String?  @db.VarChar(255)
   ratings                    Int?
   reviews                    Int?
-  price                      Int?
+  price                      Float?   @db.Real
   free                       Boolean?
   currency                   String?  @db.VarChar(255)
   price_text                 String?  @db.VarChar(255)
@@ -556,13 +286,17 @@ model play_store_dev {
   preregister                Boolean?
   early_access_enabled       Boolean?
   is_available_in_play_pass  Boolean?
-  app_id                     String?  @unique(map: "app_id_unique") @db.VarChar(255)
+  app_id                     String?  @db.VarChar(255)
   url                        String?  @db.VarChar(255)
   category                   String?  @db.VarChar(255)
   video                      String?  @db.VarChar(255)
   video_image                String?  @db.VarChar(255)
   content_rating_description String?  @db.VarChar(255)
   preview_video              String?  @db.VarChar(255)
+  icon                       String?  @db.VarChar(255)
+  screenshots                Json?
+  description_html           String?
+  search_term                String?  @db.VarChar(255)
 }
 
 model tiktok_ads {
@@ -588,9 +322,79 @@ model tiktok_ads {
 }
 
 model user_operations {
-  user_id   String  @id @db.VarChar(255)
-  bookmarks Int[]   @default([])
-  id        String? @db.VarChar(20)
+  user_id   String   @id @db.VarChar(255)
+  bookmarks Int[]    @default([])
+  id        String?  @db.VarChar(20)
+  uuid      String[] @db.Uuid
+}
+
+model play_store_dev_062024 {
+  id                         BigInt   @id @default(autoincrement())
+  title                      String?
+  description                String?
+  summary                    String?
+  installs                   String?
+  min_installs               BigInt?
+  max_installs               BigInt?
+  score                      Float?   @db.Real
+  score_text                 String?
+  ratings                    Int?
+  reviews                    Int?
+  price                      Float?   @db.Real
+  free                       Boolean?
+  currency                   String?
+  price_text                 String?
+  available                  Boolean?
+  offers_iap                 Boolean?
+  iap_range                  String?
+  android_version            String?
+  android_version_text       String?
+  android_max_version        String?
+  developer                  String?
+  developer_id               String?
+  developer_email            String?
+  developer_website          String?
+  developer_address          String?
+  privacy_policy             String?
+  developer_internal_id      String?
+  genre                      String?
+  genre_id                   String?
+  content_rating             String?
+  ad_supported               Boolean?
+  released                   String?
+  updated                    BigInt?
+  version                    String?
+  recent_changes             String?
+  comments                   Json?
+  preregister                Boolean?
+  early_access_enabled       Boolean?
+  is_available_in_play_pass  Boolean?
+  app_id                     String?  @unique(map: "app_id_unique")
+  url                        String?
+  category                   String?
+  video                      String?
+  video_image                String?
+  content_rating_description String?
+  preview_video              String?
+  icon                       String?
+  screenshots                Json?
+  description_html           String?
+  search_term                String?
+  uuid                       String?  @db.Uuid
+}
+
+model representation_requests {
+  id         Int       @id @default(autoincrement())
+  user_id    String
+  brand_id   String
+  full_name  String    @db.VarChar(255)
+  email      String    @db.VarChar(255)
+  phone      String?   @db.VarChar(50)
+  status     String?   @default("pending") @db.VarChar(50)
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+
+  @@index([brand_id], map: "idx_representation_requests_brand_id")
+  @@index([user_id], map: "idx_representation_requests_user_id")
 }
 
 enum category_enum {
