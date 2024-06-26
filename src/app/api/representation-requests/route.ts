@@ -17,6 +17,7 @@ export async function POST(request: Request) {
         full_name: contactInfo.fullName,
         email: contactInfo.email,
         phone: contactInfo.phone || null,
+        status: String("In progress")
       },
     });
 
