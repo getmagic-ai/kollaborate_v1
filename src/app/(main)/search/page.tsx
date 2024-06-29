@@ -58,14 +58,34 @@ const SearchPage = () => {
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
       }
 
-      // const response = await axios.get(`/api/search?${encodedQuery}`);
-      const response = await axios.get(`/api/search?query=${encodedQuery}`);
-
-      setResults(response.data);
+      await fetchResults(encodedQuery, true);
     } catch (error) {
       console.error("Error fetching results:", error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const fetchResults = async (encodedQuery: any, isNewSearch = false) => {
+    // If it's a new search, clear the cache for this query
+    if (isNewSearch) {
+      localStorage.removeItem(`searchResults_${encodedQuery}`);
+    }
+
+    // Check if we have cached results for this query
+    const cachedResults = localStorage.getItem(`searchResults_${encodedQuery}`);
+
+    if (cachedResults && !isNewSearch) {
+      setResults(JSON.parse(cachedResults));
+    } else {
+      const response = await axios.get(`/api/search?query=${encodedQuery}`);
+      setResults(response.data);
+
+      // Cache the results
+      localStorage.setItem(
+        `searchResults_${encodedQuery}`,
+        JSON.stringify(response.data)
+      );
     }
   };
 
@@ -76,14 +96,11 @@ const SearchPage = () => {
       if (urlQuery === query) return;
       const decodedQuery = decodeURIComponent(urlQuery as string);
       setQuery(decodedQuery);
-      axios
-        .get(`/api/search?query=${urlQuery}`)
-        .then((response) => {
-          setResults(response.data);
-          setIsLoading(false);
-        })
+      fetchResults(urlQuery)
+        .then(() => setIsLoading(false))
         .catch((error) => {
           console.error("Error fetching results:", error);
+          setIsLoading(false);
         });
     }
   }, [params]);
