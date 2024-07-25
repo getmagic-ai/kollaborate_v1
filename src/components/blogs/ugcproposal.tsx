@@ -102,12 +102,28 @@ const UGCProposalBlogPost = () => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className='mb-6'>
         <CardHeader>
           <CardTitle>Let's Kollaborate!</CardTitle>
         </CardHeader>
         <CardContent>
           <p>We're excited to see your unique perspective and creativity on display. Join us in showcasing the power of Kollaborate.co!</p>
+        </CardContent>
+      
+      </Card>
+      <Card className='mb-6 gap-y-4'>
+        <CardHeader>
+          <CardTitle>Script</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>Please use the product and you'll get the idea but basically, aim to cover the following:
+            1. Purpose of Kollaborate -- This should be aimed towards sellers such as a SaaS sales executives, or YouTubers looking for brand sponsoships
+            2. Account creation and using Brand Search - Remember our AI Search is the key feature for us!
+            3. Bookmarking
+            4. Represent me feature
+            5. Email drafting using the /internal route
+            6. Anything else you think stands out
+          </p>
         </CardContent>
       </Card>
     </div>
