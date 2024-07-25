@@ -115,16 +115,17 @@ const UGCProposalBlogPost = () => {
         <CardHeader>
           <CardTitle>Script</CardTitle>
         </CardHeader>
-        <CardContent>
-          <p>Please use the product and you'll get the idea but basically, aim to cover the following:
-            1. Purpose of Kollaborate -- This should be aimed towards sellers such as a SaaS sales executives, or YouTubers looking for brand sponsoships
-            2. Account creation and using Brand Search - Remember our AI Search is the key feature for us!
-            3. Bookmarking
-            4. Represent me feature
-            5. Email drafting using the /internal route
-            6. Anything else you think stands out
-          </p>
-        </CardContent>
+        <CardContent className="prose max-w-none">
+        <p>Please use the product and you'll get the idea but basically, aim to cover the following:</p>
+        <ol>
+          <li>Purpose of Kollaborate -- This should be aimed towards sellers such as a SaaS sales executives, or YouTubers looking for brand sponsorships</li>
+          <li>Account creation and using Brand Search - Remember our AI Search is the key feature for us!</li>
+          <li>Bookmarking</li>
+          <li>Represent me feature</li>
+          <li>Email drafting using the /internal route</li>
+          <li>Anything else you think stands out</li>
+        </ol>
+      </CardContent> 
       </Card>
     </div>
   );
