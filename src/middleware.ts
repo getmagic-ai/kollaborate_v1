@@ -14,7 +14,8 @@ export default authMiddleware({
     "/api/brand",
     "/api/search",
     "/api/email",
-    "/ugc"
+    "/ugc",
+    "/privacy"
   ],
 });
 

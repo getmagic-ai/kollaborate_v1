@@ -124,7 +124,7 @@ export default function Component() {
           </div>
           <p className='max-w-md text-sm'>Kollaborate.co is a leading SaaS</p>
           <nav className='flex items-center gap-4'>
-            <Link className='text-sm hover:text-gray-300' href='#'>
+            <Link className='text-sm hover:text-gray-300' href='/privacy'>
               Privacy
             </Link>
             <Link className='text-sm hover:text-gray-300' href='#'>
