@@ -56,7 +56,7 @@ const Navbar = () => {
           </SignedIn>
           <SignedOut>
             {/* Signed out users get sign in button */}
-            <SignInButton afterSignInUrl='/' mode='modal'>
+            <SignInButton mode='modal'>
               <button className='group flex items-center rounded-full bg-gray-700 px-4 py-2 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 backdrop-blur bg-zinc-800/90 text-zinc-200 ring-white/10 hover:ring-white/20'>
                 {/* <span className='hidden md:flex'>Sign In</span> */}
                 <MoveRight className='h-4 w-4 stroke-zinc-200 group-hover:stroke-zinc-400' />
