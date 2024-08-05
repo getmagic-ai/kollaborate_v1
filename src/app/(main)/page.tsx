@@ -127,7 +127,7 @@ export default function Component() {
             <Link className='text-sm hover:text-gray-300' href='/privacy'>
               Privacy
             </Link>
-            <Link className='text-sm hover:text-gray-300' href='#'>
+            <Link className='text-sm hover:text-gray-300' href='/termsofservice'>
               Terms
             </Link>
             <Link className='text-sm hover:text-gray-300' href='#'>
