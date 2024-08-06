@@ -1,4 +1,4 @@
-import { auth, currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
@@ -11,15 +11,14 @@ const settingsUrl = `${absoluteUrl}/pro-version`;
 
 export async function GET() {
   try {
-    const { userId } = auth();
     const user = await currentUser();
-    if (!user || !userId) {
+    if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
     const userSubscription = await prismadb.userSubscription.findUnique({
       where: {
-        userId,
+        userId: user.id,
       },
     });
     if (userSubscription && userSubscription.stripeCustomerId) {
@@ -44,7 +43,7 @@ export async function GET() {
         },
       ],
       metadata: {
-        userId,
+        userId: user.id,
       },
     });
     return new NextResponse(JSON.stringify({ url: stripeSession.url }));

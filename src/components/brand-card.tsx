@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import {
   Accordion,
   AccordionContent,
@@ -22,6 +22,7 @@ import toast from "react-hot-toast";
 import { Button, buttonVariants } from "./ui/button";
 import { useState } from "react";
 import Represent from "@/app/(main)/represent/represent";
+import { redirect } from "next/navigation";
 
 interface BrandCardProps {
   brand: {
@@ -38,10 +39,15 @@ interface BrandCardProps {
 }
 
 const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
-  const { userId } = useAuth();
-  const [checked, setChecked] = useState(false);
-  const [showRepresentationRequest, setShowRepresentationRequest] = useState(false);
   const queryClient = useQueryClient();
+  const { user, isLoaded, isSignedIn } = useUser();
+  const [checked, setChecked] = useState(false);
+  const [showRepresentationRequest, setShowRepresentationRequest] =
+    useState(false);
+
+  if (isLoaded && (!isSignedIn || !user)) {
+    redirect("/sign-in");
+  }
 
   const { data, isError, isFetching } = useQuery({
     queryKey: ["bookmarks"],
@@ -57,7 +63,7 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
     async () => {
       return await axios.post("/api/bookmarks", {
         brandId: brand.id,
-        userId: userId,
+        userId: user?.id,
       });
     },
     {
@@ -157,18 +163,18 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
               Only pay once the contract is officially signed.
             </p>
             <Button
-  className='block bg-indigo-600 px-6 py-2 max-w-fit mt-4'
-  onClick={() => setShowRepresentationRequest(true)}
->
-  Represent Me
-</Button>
+              className='block bg-indigo-600 px-6 py-2 max-w-fit mt-4'
+              onClick={() => setShowRepresentationRequest(true)}
+            >
+              Represent Me
+            </Button>
 
-{showRepresentationRequest && (
-  <Represent
-    brandId={brand.id}
-    onClose={() => setShowRepresentationRequest(false)}
-  />
-)} 
+            {showRepresentationRequest && (
+              <Represent
+                brandId={brand.id}
+                onClose={() => setShowRepresentationRequest(false)}
+              />
+            )}
           </div>
         </AccordionContent>
       </AccordionItem>

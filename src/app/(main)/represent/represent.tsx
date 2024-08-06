@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { REPRESENTATION_TERMS } from "@/constants/terms";
+import { redirect } from "next/navigation";
 
 interface ContactInfo {
   fullName: string;
@@ -18,8 +19,7 @@ const Represent: React.FC<{ brandId: string; onClose: () => void }> = ({
   brandId,
   onClose,
 }) => {
-  const { userId } = useAuth();
-  const { user } = useUser();
+  const { isLoaded, user, isSignedIn } = useUser();
   const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [contactInfo, setContactInfo] = useState<ContactInfo>({
@@ -29,6 +29,10 @@ const Represent: React.FC<{ brandId: string; onClose: () => void }> = ({
   });
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  if (isLoaded && (!isSignedIn || !user)) {
+    redirect("/sign-in");
+  }
 
   useEffect(() => {
     if (user) {
@@ -59,7 +63,7 @@ const Represent: React.FC<{ brandId: string; onClose: () => void }> = ({
   const handleSubmit = async () => {
     try {
       const response = await axios.post("/api/representation-requests", {
-        userId,
+        userId: user?.id,
         brandId,
         contactInfo,
       });
@@ -85,106 +89,106 @@ const Represent: React.FC<{ brandId: string; onClose: () => void }> = ({
     switch (step) {
       case 1:
         return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold text-white">Benefits</h2>
-            <ul className="list-disc pl-5 space-y-2 text-sm text-gray-300">
+          <div className='space-y-4'>
+            <h2 className='text-xl font-bold text-white'>Benefits</h2>
+            <ul className='list-disc pl-5 space-y-2 text-sm text-gray-300'>
               <li>Full brand research and outreach</li>
               <li>Professional representation</li>
               <li>Expert negotiation on your behalf</li>
             </ul>
-            <p className="text-sm font-semibold text-white">
+            <p className='text-sm font-semibold text-white'>
               Our commission: 8%
             </p>
             <Button
-              className="w-full bg-indigo-600 hover:bg-indigo-700"
+              className='w-full bg-indigo-600 hover:bg-indigo-700'
               onClick={() => setStep(2)}
             >
-              Next <ArrowRight className="ml-2 h-4 w-4" />
+              Next <ArrowRight className='ml-2 h-4 w-4' />
             </Button>
           </div>
         );
       case 2:
         return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold text-white">Contact Info</h2>
+          <div className='space-y-4'>
+            <h2 className='text-xl font-bold text-white'>Contact Info</h2>
             <Input
-              placeholder="Full Name"
+              placeholder='Full Name'
               value={contactInfo.fullName}
               onChange={(e) =>
                 setContactInfo({ ...contactInfo, fullName: e.target.value })
               }
-              className="w-full bg-gray-700 text-white border-gray-600"
+              className='w-full bg-gray-700 text-white border-gray-600'
             />
             <Input
-              placeholder="Email"
-              type="email"
+              placeholder='Email'
+              type='email'
               value={contactInfo.email}
               onChange={(e) =>
                 setContactInfo({ ...contactInfo, email: e.target.value })
               }
-              className="w-full bg-gray-700 text-white border-gray-600"
+              className='w-full bg-gray-700 text-white border-gray-600'
             />
             <Input
-              placeholder="Phone (optional)"
-              type="tel"
+              placeholder='Phone (optional)'
+              type='tel'
               value={contactInfo.phone}
               onChange={(e) =>
                 setContactInfo({ ...contactInfo, phone: e.target.value })
               }
-              className="w-full bg-gray-700 text-white border-gray-600"
+              className='w-full bg-gray-700 text-white border-gray-600'
             />
-            <p className="text-xs text-gray-400">
+            <p className='text-xs text-gray-400'>
               Phone number is only used for gathering client requested data
               quickly.
             </p>
-            <div className="flex justify-between">
+            <div className='flex justify-between'>
               <Button
-                variant="outline"
+                variant='outline'
                 onClick={() => setStep(1)}
-                className="text-gray-200 border-gray-600 hover:bg-gray-700 hover:text-white"
+                className='text-gray-200 border-gray-600 hover:bg-gray-700 hover:text-white'
               >
-                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                <ArrowLeft className='mr-2 h-4 w-4' /> Back
               </Button>
               <Button
                 onClick={() => setStep(3)}
-                className="bg-indigo-600 hover:bg-indigo-700"
+                className='bg-indigo-600 hover:bg-indigo-700'
               >
-                Next <ArrowRight className="ml-2 h-4 w-4" />
+                Next <ArrowRight className='ml-2 h-4 w-4' />
               </Button>
             </div>
           </div>
         );
       case 3:
         return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold text-white">Terms</h2>
-            <div className="h-40 overflow-y-auto border border-gray-600 p-2 text-sm text-gray-300">
+          <div className='space-y-4'>
+            <h2 className='text-xl font-bold text-white'>Terms</h2>
+            <div className='h-40 overflow-y-auto border border-gray-600 p-2 text-sm text-gray-300'>
               <p>{REPRESENTATION_TERMS}</p>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className='flex items-center space-x-2'>
               <Checkbox
-                id="terms"
+                id='terms'
                 checked={agreedToTerms}
                 onCheckedChange={(checked) =>
                   setAgreedToTerms(checked as boolean)
                 }
               />
-              <label htmlFor="terms" className="text-sm text-white">
+              <label htmlFor='terms' className='text-sm text-white'>
                 I agree to the terms and conditions
               </label>
             </div>
-            <div className="flex justify-between">
+            <div className='flex justify-between'>
               <Button
-                variant="outline"
+                variant='outline'
                 onClick={() => setStep(2)}
-                className="text-gray-200 border-gray-600 hover:bg-gray-700 hover:text-white"
+                className='text-gray-200 border-gray-600 hover:bg-gray-700 hover:text-white'
               >
-                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                <ArrowLeft className='mr-2 h-4 w-4' /> Back
               </Button>
               <Button
                 onClick={handleSubmit}
                 disabled={!agreedToTerms}
-                className="bg-indigo-600 hover:bg-indigo-700"
+                className='bg-indigo-600 hover:bg-indigo-700'
               >
                 Submit
               </Button>
@@ -193,13 +197,13 @@ const Represent: React.FC<{ brandId: string; onClose: () => void }> = ({
         );
       case 4:
         return (
-          <div className="space-y-4 text-center">
-            <h2 className="text-xl font-bold text-white">Request Submitted</h2>
-            <p className="text-sm text-gray-300">
+          <div className='space-y-4 text-center'>
+            <h2 className='text-xl font-bold text-white'>Request Submitted</h2>
+            <p className='text-sm text-gray-300'>
               We're reviewing your request and will follow up soon.
             </p>
             <Button
-              className="w-full bg-indigo-600 hover:bg-indigo-700"
+              className='w-full bg-indigo-600 hover:bg-indigo-700'
               onClick={onClose}
             >
               Close
@@ -210,10 +214,10 @@ const Represent: React.FC<{ brandId: string; onClose: () => void }> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50'>
       <div
         ref={modalRef}
-        className="bg-gray-800 p-6 rounded-lg w-full max-w-sm"
+        className='bg-gray-800 p-6 rounded-lg w-full max-w-sm'
       >
         {renderStep()}
       </div>

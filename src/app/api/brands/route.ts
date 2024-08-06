@@ -1,5 +1,5 @@
 import prismadb from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,11 +10,10 @@ export async function GET(req: Request) {
   try {
     // Process a GET request
     const brands = await prismadb.company_master.findMany({
-     
       take: 10,
       skip: page === 1 ? 0 : (+page - 1) * 10,
     });
-   
+
     return NextResponse.json(brands);
   } catch (error) {
     console.log(error);
@@ -59,13 +58,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
   } else {
     try {
-      const { userId } = auth();
-      if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+      const user = await currentUser();
+      if (!user) return new NextResponse("Unauthorized", { status: 401 });
 
       const saved = await prismadb.saved.findFirst({
         where: {
           brandId: brandId,
-          userId: userId,
+          userId: user.id,
         },
       });
 
