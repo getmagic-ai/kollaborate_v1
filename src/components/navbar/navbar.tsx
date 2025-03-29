@@ -40,15 +40,14 @@ const Navbar = () => {
                   : "/profile"
               }
               appearance={{
-                baseTheme: "dark",
+                variables: { colorPrimary: '#0F172A' },
                 elements: {
-                  scrollBox: {
-                    width: "1px",
-                  },
-                  pageScrollBox: {
-                    width: 0,
-                  },
-                },
+                  userButtonPopoverCard: "bg-white shadow-xl",
+                  userButtonPopoverText: "text-gray-900",
+                  userButtonPopoverActionButton: "text-gray-900 hover:bg-gray-100",
+                  userButtonPopoverActionButtonText: "text-gray-900",
+                  userButtonPopoverFooter: "border-t border-gray-200"
+                }
               }}
               afterSignOutUrl='/'
             />
