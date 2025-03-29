@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { dark } from "@clerk/themes";
 
 import "./globals.css";
-import { dark, light } from "@clerk/themes";
 import { ClerkProvider } from "@clerk/nextjs";
 import Providers from "@/providers/tanstack-query-provider";
 import { ToastProvider } from "@/providers/toast-provider";
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <ClerkProvider
       appearance={{
-        baseTheme: light,
+        variables: { colorPrimary: '#0F172A' },
         elements: {
           card: "bg-white shadow-xl rounded-lg",
           headerTitle: "text-gray-900 text-xl font-semibold",

@@ -1,7 +1,6 @@
 "use client";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
-import { dark } from "@clerk/themes";
 import { MoveRight, Search } from "lucide-react";
 import Link from "next/link";
 import MainNav from "./main-nav";
@@ -41,7 +40,7 @@ const Navbar = () => {
                   : "/profile"
               }
               appearance={{
-                baseTheme: dark,
+                baseTheme: "dark",
                 elements: {
                   scrollBox: {
                     width: "1px",
