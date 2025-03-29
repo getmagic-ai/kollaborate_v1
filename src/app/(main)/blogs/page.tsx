@@ -43,7 +43,7 @@ export default function Blogs() {
       <div className='mx-auto max-w-7xl px-6 lg:px-8'>
         <div className='mx-auto max-w-2xl lg:mx-0'>
           <h2 className='text-3xl font-bold tracking-tight text-gray-50 sm:text-4xl'>
-            Latest from us
+            Our Top Reads
           </h2>
           <p className='mt-2 text-lg leading-8 text-gray-200'>
             Learn how to grow your business with our expert advice.

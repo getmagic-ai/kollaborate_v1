@@ -82,3 +82,24 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Clerk Modal Override */
+.cl-modalBackdrop {
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(4px);
+}
+
+.cl-modal {
+  animation: modalFade 0.2s ease-out;
+}
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
